@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 config({ path: ".env.local" }); // load env BEFORE importing mailer
 
-import { sendEmail } from "../src/app/lib/mailer.ts";
+import { sendEmail } from "../src/app/lib/mailer";
 
 (async () => {
   const to = process.argv[2] || process.env.TEST_EMAIL || "anjalirao768@gmail.com";
