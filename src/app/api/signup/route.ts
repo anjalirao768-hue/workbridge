@@ -11,13 +11,23 @@ export async function POST(req: Request) {
     }
 
     // Insert into Supabase
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("users") // make sure your table is called "users"
       .insert([{ email }]);
 
     if (error) {
-      console.error("Supabase insert error:", error.message);
-      return NextResponse.json({ error: "Failed to save user" }, { status: 500 });
+      // 23505 = Postgres unique violation (duplicate key)
+      if ((error as any).code === "23505") {
+        return NextResponse.json(
+          { error: "Email already registered" },
+          { status: 400 }
+        );
+      }
+
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
     }
 
     // Send welcome email
