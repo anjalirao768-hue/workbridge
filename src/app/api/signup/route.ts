@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/app/lib/mailer";
 import { supabase } from "@/app/lib/supabase";
+import type { PostgrestError } from "@supabase/supabase-js";
 
 export async function POST(req: Request) {
   try {
@@ -12,12 +13,15 @@ export async function POST(req: Request) {
 
     // Insert into Supabase
     const { error } = await supabase
-      .from("users") // make sure your table is called "users"
+      .from("users")
       .insert([{ email }]);
 
     if (error) {
+      // Make sure TS knows it's a PostgrestError
+      const pgError: PostgrestError = error;
+
       // 23505 = Postgres unique violation (duplicate key)
-      if ((error as any).code === "23505") {
+      if (pgError.code === "23505") {
         return NextResponse.json(
           { error: "Email already registered" },
           { status: 400 }
@@ -25,7 +29,7 @@ export async function POST(req: Request) {
       }
 
       return NextResponse.json(
-        { error: error.message },
+        { error: pgError.message },
         { status: 500 }
       );
     }
