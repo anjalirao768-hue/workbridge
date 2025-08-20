@@ -8,19 +8,34 @@ export default function SignupPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setStatus(""); // clear old messages
 
-    const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
-    if (res.ok) {
+      const data = await res.json();
+
+      if (!res.ok) {
+        // ✅ Use backend error messages directly
+        if (data.error === "Email already registered") {
+          setStatus("⚠️ You’re already signed up with this email!");
+        } else {
+          setStatus("❌ " + (data.error || "Something went wrong."));
+        }
+        return;
+      }
+
+      // ✅ Success case
       setStatus("✅ Signup successful! Check your email.");
-    } else {
-      setStatus("❌ Something went wrong.");
+      setEmail(""); // reset field
+    } catch (err) {
+      setStatus("❌ Something went wrong. Try again.");
     }
   }
 
