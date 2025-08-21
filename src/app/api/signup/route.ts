@@ -1,49 +1,46 @@
 import { NextResponse } from "next/server";
-import { sendEmail } from "@/app/lib/mailer";
+import bcrypt from "bcrypt";
 import { supabase } from "@/app/lib/supabase";
-import type { PostgrestError } from "@supabase/supabase-js";
+import { signJwt } from "@/app/lib/jwt";
 
 export async function POST(req: Request) {
-  try {
-    const { email } = await req.json();
+  const { email, password, cover_letter, experiences, age, skills } = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
-    }
-
-    // Insert into Supabase
-    const { error } = await supabase
-      .from("users")
-      .insert([{ email }]);
-
-    if (error) {
-      // Make sure TS knows it's a PostgrestError
-      const pgError: PostgrestError = error;
-
-      // 23505 = Postgres unique violation (duplicate key)
-      if (pgError.code === "23505") {
-        return NextResponse.json(
-          { error: "Email already registered" },
-          { status: 400 }
-        );
-      }
-
-      return NextResponse.json(
-        { error: pgError.message },
-        { status: 500 }
-      );
-    }
-
-    // Send welcome email
-    await sendEmail({
-      to: email,
-      subject: "Welcome to WorkBridge 🚀",
-      html: "<p>Thanks for signing up!</p>",
-    });
-
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("Signup API error:", error);
-    return NextResponse.json({ error: "Failed to signup" }, { status: 500 });
+  if (!email || !password) {
+    return NextResponse.json({ error: "Email & password required" }, { status: 400 });
   }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const { data, error } = await supabase
+    .from("users")
+    .insert([
+      {
+        email,
+        password_hash: hashedPassword, // ✅ explicit mapping
+        cover_letter,
+        experiences,
+        age,
+        skills,
+      },
+    ])
+    .select("id, email")
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // ✅ Generate token with userId
+  const token = signJwt({ userId: data.id, email: data.email });
+
+  const res = NextResponse.json({ ok: true });
+  res.cookies.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+  });
+
+  return res;
 }
