@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link"; // 👈 import Link here
 
 export default function SignupPage() {
   const [form, setForm] = useState({
@@ -35,7 +36,7 @@ export default function SignupPage() {
     const data = await res.json();
     if (res.ok) {
       setStatus("✅ Signup successful!");
-      router.push("/home"); // 👈 redirect user immediately
+      router.push("/home");
     } else {
       setStatus(`❌ ${data.error || "Something went wrong."}`);
     }
@@ -44,7 +45,10 @@ export default function SignupPage() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Signup</h1>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "400px" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "400px" }}
+      >
         <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
         <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
         <textarea name="cover_letter" placeholder="Cover Letter" value={form.cover_letter} onChange={handleChange} />
@@ -54,6 +58,14 @@ export default function SignupPage() {
         <button type="submit">Sign Up</button>
       </form>
       {status && <p>{status}</p>}
+
+      {/* 👇 Add login link below form */}
+      <p style={{ marginTop: "1rem" }}>
+        Already have an account?{" "}
+        <Link href="/login" style={{ color: "lightblue" }}>
+          Login here
+        </Link>
+      </p>
     </div>
   );
 }
