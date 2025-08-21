@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { supabase } from "@/app/lib/supabase";
-import { signJwt } from "@/app/lib/jwt";
+import { signJwt } from "@/lib/jwt";
+
 
 export async function POST(req: Request) {
   const { email, password, cover_letter, experiences, age, skills } = await req.json();

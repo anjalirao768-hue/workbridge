@@ -6,14 +6,14 @@ export default function HomePage() {
   const router = useRouter();
 
   async function handleLogout() {
-    await fetch("/api/logout", { method: "POST" }); // calls your logout route
+    await fetch("/api/logout", { method: "POST" }); // clears cookie
     router.push("/login"); // redirect to login
   }
 
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Hello WorkBridge 🚀</h1>
-      <p>Next.js + Vercel is live. CI/CD working.</p>
+      <p>You are logged in!</p>
       <button onClick={handleLogout} style={{ marginTop: "1rem" }}>
         Logout
       </button>
