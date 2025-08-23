@@ -1,5 +1,4 @@
-// src/types/db.ts
-export type DBUser = {
+export interface DBUser {
     id: string;
     email: string;
     password_hash: string;
@@ -7,6 +6,6 @@ export type DBUser = {
     experiences?: string;
     age?: number;
     skills?: string[];
-    created_at?: string;
-  };
+    role: string; // 👈 add this
+  }
   

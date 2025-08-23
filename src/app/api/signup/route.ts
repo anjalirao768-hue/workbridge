@@ -14,26 +14,32 @@ export async function POST(req: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const { data, error } = await supabase
-    .from("users")
-    .insert([
-      {
-        email,
-        password_hash: hashedPassword, // ✅ explicit mapping
-        cover_letter,
-        experiences,
-        age,
-        skills,
-      },
-    ])
-    .select("id, email")
-    .single();
+  .from("users")
+  .insert([{
+    email,
+    password_hash : hashedPassword,
+    cover_letter,
+    experiences,
+    age,
+    skills,
+    role: "user", // 👈 new
+  }])
+  .select("id, email, role")
+  .single();
 
   if (error) {
+    if ((error as any).code === "23505") {
+      return NextResponse.json(
+        { error: "Email already registered" },
+        { status: 400 }
+      );
+    }
+  
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   // ✅ Generate token with userId
-  const token = signJwt({ userId: data.id, email: data.email });
+  const token = signJwt({ userId: data.id, email: data.email, role: data.role  });
 
   const res = NextResponse.json({ ok: true });
   res.cookies.set("token", token, {
