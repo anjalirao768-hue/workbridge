@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     // Fetch user
     const { data: users, error } = await supabase
     .from("users")
-    .select("*")
+    .select("id, email, password_hash, role")
     .eq("email", email)
     .limit(1);
   
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     // Generate JWT
-    const token = signJwt({ userId: user.id, email: user.email });
+    const token = signJwt({ userId: user.id, email: user.email, role: user.role });
     // Set HttpOnly cookie
     const res = NextResponse.json({ ok: true });
     res.cookies.set("token", token, {

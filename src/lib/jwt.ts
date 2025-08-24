@@ -9,9 +9,10 @@ if (!JWT_SECRET) {
 }
 
 export interface JwtPayload {
-  userId: string;
-  email: string;
-}
+    userId: string;
+    email: string;
+    role: string;  // 👈 add role
+  }  
 
 export function signJwt(payload: JwtPayload, options?: jwt.SignOptions): string {
   return jwt.sign(payload, JWT_SECRET, {
@@ -23,7 +24,7 @@ export function signJwt(payload: JwtPayload, options?: jwt.SignOptions): string 
 export function verifyJwt(token: string): JwtPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as JwtPayload;
-  } catch (err) {
+} catch {
     return null;
   }
 }
