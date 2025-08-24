@@ -61,7 +61,14 @@ export async function POST(req: Request) {
     });
 
     // Set cookie
-    const res = NextResponse.json({ ok: true });
+    const res = NextResponse.json({ 
+      ok: true,
+      user: {
+        userId: user.id,
+        email: user.email,
+        role: user.role
+      }
+    });
     res.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
