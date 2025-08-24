@@ -18,8 +18,14 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
 
+    // Check admin access for admin routes
+    if (req.nextUrl.pathname.startsWith('/admin') && payload.role !== 'admin') {
+      return NextResponse.redirect(new URL("/home", req.url));
+    }
+
     const res = NextResponse.next();
     res.headers.set("x-user-id", payload.userId);
+    res.headers.set("x-user-role", payload.role);
     return res;
   } catch {
     return NextResponse.redirect(new URL("/login", req.url));
