@@ -27,5 +27,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/home"], // protect home route
+  matcher: ["/home", "/admin/:path*"], // protect home and admin routes
 };
