@@ -100,7 +100,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           resolved_at: new Date().toISOString(),
           admin_notes: admin_notes || `Dispute resolved: ${resolution}`
         })
-        .eq('id', params.id)
+        .eq('id', resolvedParams.id)
         .select(`
           *,
           milestone:milestones(
