@@ -19,7 +19,7 @@ export async function getCurrentUser(): Promise<JwtPayload | null> {
     
     if (!token) return null
     
-    return verifyJwt(token)
+    return await verifyJwt(token)
   } catch {
     return null
   }
