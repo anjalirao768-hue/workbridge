@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import { verifyJwt, JwtPayload } from './jwt'
+import { supabase } from '@/app/lib/supabase'
 
 export async function getCurrentUser(): Promise<JwtPayload | null> {
   try {
@@ -9,6 +10,37 @@ export async function getCurrentUser(): Promise<JwtPayload | null> {
     if (!token) return null
     
     return verifyJwt(token)
+  } catch {
+    return null
+  }
+}
+
+export async function getCurrentUserWithFreshData(): Promise<any | null> {
+  try {
+    const user = await getCurrentUser()
+    if (!user) return null
+
+    // Fetch fresh data from database
+    const { data: userData, error } = await supabase
+      .from('users')
+      .select('id, email, role, skills, cover_letter, experiences, age')
+      .eq('id', user.userId)
+      .single()
+
+    if (error || !userData) {
+      console.error('Failed to fetch fresh user data:', error)
+      return null
+    }
+
+    return {
+      userId: userData.id,
+      email: userData.email,
+      role: userData.role,
+      skills: userData.skills || [],
+      cover_letter: userData.cover_letter,
+      experiences: userData.experiences,
+      age: userData.age
+    }
   } catch {
     return null
   }
