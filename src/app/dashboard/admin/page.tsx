@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 
 interface UserInfo {
@@ -18,11 +17,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
-  async function fetchUserInfo() {
+  const fetchUserInfo = useCallback(async () => {
     try {
       const res = await fetch('/api/user/me');
       if (res.ok) {
@@ -41,7 +36,11 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [router]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [fetchUserInfo]);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
@@ -315,7 +314,7 @@ export default function AdminDashboard() {
                       <h4 className="font-semibold text-red-900">API Integration Dispute</h4>
                       <Badge variant="destructive">High Priority</Badge>
                     </div>
-                    <p className="text-sm text-red-700 mb-2">Client claims work doesn't meet requirements</p>
+                    <p className="text-sm text-red-700 mb-2">Client claims work doesn&apos;t meet requirements</p>
                     <div className="flex justify-between items-center">
                       <span className="text-xs text-red-600">Raised: Dec 6, 2023</span>
                       <div className="flex space-x-2">
