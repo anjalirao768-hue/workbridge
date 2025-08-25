@@ -23,6 +23,27 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/home", req.url));
     }
 
+    // Check role-based dashboard access
+    if (req.nextUrl.pathname.startsWith('/dashboard/admin') && payload.role !== 'admin') {
+      return NextResponse.redirect(new URL("/dashboard/" + payload.role, req.url));
+    }
+    
+    if (req.nextUrl.pathname.startsWith('/dashboard/client') && payload.role !== 'client') {
+      if (payload.role === 'admin') {
+        // Allow admin to access client dashboard
+      } else {
+        return NextResponse.redirect(new URL("/dashboard/" + payload.role, req.url));
+      }
+    }
+    
+    if (req.nextUrl.pathname.startsWith('/dashboard/freelancer') && payload.role !== 'freelancer') {
+      if (payload.role === 'admin') {
+        // Allow admin to access freelancer dashboard
+      } else {
+        return NextResponse.redirect(new URL("/dashboard/" + payload.role, req.url));
+      }
+    }
+
     const res = NextResponse.next();
     res.headers.set("x-user-id", payload.userId);
     res.headers.set("x-user-role", payload.role);
