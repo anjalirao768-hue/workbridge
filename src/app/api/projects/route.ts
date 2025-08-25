@@ -74,8 +74,6 @@ export async function POST(req: NextRequest) {
         title,
         description,
         budget,
-        skills_required: skills_required || [],
-        deadline,
         status: 'open'
       })
       .select(`
