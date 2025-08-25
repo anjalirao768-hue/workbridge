@@ -3,8 +3,9 @@ import { getCurrentUser } from "@/lib/auth";
 import { supabase } from "@/app/lib/supabase";
 
 // GET /api/projects/[id] - Get project details
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           escrows(*)
         )
       `)
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (error) {
@@ -48,8 +49,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 // PUT /api/projects/[id] - Update project
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -70,7 +72,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const { data: project } = await supabase
       .from('projects')
       .select('client_id, freelancer_id')
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (!project) {
@@ -102,7 +104,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         ...filteredUpdates,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .select(`
         *,
         client:users!projects_client_id_fkey(id, email, skills),
@@ -122,7 +124,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         .insert({
           event_type: filteredUpdates.freelancer_id ? 'project_assigned' : 'project_status_updated',
           user_id: user.userId,
-          project_id: params.id,
+          project_id: resolvedParams.id,
           data: filteredUpdates
         });
     }

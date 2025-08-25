@@ -4,8 +4,9 @@ import { supabase } from "@/app/lib/supabase";
 import { escrowService } from "@/lib/mock-escrow";
 
 // POST /api/milestones/[id]/release - Release milestone payment (clients and admins)
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         ),
         escrows(*)
       `)
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (fetchError || !milestone) {
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         approved_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id);
+      .eq('id', resolvedParams.id);
 
     // Log audit event
     await supabase
@@ -89,7 +90,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         event_type: 'escrow_released',
         user_id: user.userId,
         project_id: milestone.project_id,
-        milestone_id: params.id,
+        milestone_id: resolvedParams.id,
         escrow_id: escrow.id,
         data: { 
           amount: releaseAmount,

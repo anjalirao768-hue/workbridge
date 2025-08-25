@@ -4,8 +4,9 @@ import { supabase } from "@/app/lib/supabase";
 import { escrowService } from "@/lib/mock-escrow";
 
 // GET /api/projects/[id]/milestones - List project milestones
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     const { data: project } = await supabase
       .from('projects')
       .select('client_id, freelancer_id')
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (!project) {
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         *,
         escrows(*)
       `)
-      .eq('project_id', params.id)
+      .eq('project_id', resolvedParams.id)
       .order('created_at', { ascending: true });
 
     if (error) {
@@ -54,8 +55,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 // POST /api/projects/[id]/milestones - Create milestone (clients only)
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -71,7 +73,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     const { data: project } = await supabase
       .from('projects')
       .select('client_id')
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (!project) {
@@ -86,7 +88,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     const { data: milestone, error: milestoneError } = await supabase
       .from('milestones')
       .insert({
-        project_id: params.id,
+        project_id: resolvedParams.id,
         title,
         description,
         amount,
@@ -103,7 +105,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     // Create corresponding escrow
     try {
-      const { escrowId } = await escrowService.createEscrow(amount, milestone.id, params.id);
+      const { escrowId } = await escrowService.createEscrow(amount, milestone.id, resolvedParams.id);
       
       const { error: escrowError } = await supabase
         .from('escrows')
@@ -127,7 +129,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
       .insert({
         event_type: 'milestone_created',
         user_id: user.userId,
-        project_id: params.id,
+        project_id: resolvedParams.id,
         milestone_id: milestone.id,
         data: { title, amount }
       });
