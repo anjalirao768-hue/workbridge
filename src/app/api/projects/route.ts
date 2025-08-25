@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
 // POST /api/projects - Create new project (clients only)
 export async function POST(req: NextRequest) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUserWithFreshData();
     if (!user || user.role !== 'client') {
       return NextResponse.json({ error: "Only clients can create projects" }, { status: 403 });
     }
