@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
   
   console.log("Middleware debug - URL:", req.nextUrl.pathname);
   console.log("Middleware debug - Token exists:", !!token);
-  console.log("Middleware debug - Token length:", token?.length);
 
   if (!token) {
     console.log("Middleware debug - No token, redirecting to login");
@@ -18,13 +17,24 @@ export async function middleware(req: NextRequest) {
   }
 
   try {
+    // Check if JWT_SECRET is available
+    const JWT_SECRET = process.env.JWT_SECRET;
+    if (!JWT_SECRET) {
+      console.log("Middleware debug - JWT_SECRET not found");
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
     const payload: JwtPayload | null = verifyJwt(token);
     console.log("Middleware debug - JWT payload:", payload);
+    console.log("Middleware debug - JWT_SECRET exists:", !!JWT_SECRET);
     
     if (!payload) {
       console.log("Middleware debug - Invalid token, redirecting to login");
       return NextResponse.redirect(new URL("/login", req.url));
     }
+
+    console.log("Middleware debug - User role:", payload.role);
+    console.log("Middleware debug - Accessing path:", req.nextUrl.pathname);
 
     // Check admin access for admin routes
     if (req.nextUrl.pathname.startsWith('/admin') && payload.role !== 'admin') {
