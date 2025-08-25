@@ -285,9 +285,9 @@ async function handleRefundSuccess(data: WebhookData) {
     .select(`
       id,
       milestone_id,
-      milestones (
+      milestones!inner (
         project_id,
-        projects (
+        projects!inner (
           client_id
         )
       )
@@ -295,29 +295,34 @@ async function handleRefundSuccess(data: WebhookData) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow && amount && refundId) {
-    // Create refund transaction
-    await supabase
-      .from('transactions')
-      .insert({
-        user_id: escrow.milestones.projects.client_id,
-        project_id: escrow.milestones.project_id,
-        milestone_id: escrow.milestone_id,
-        escrow_id: escrow.id,
-        type: 'escrow_refund',
-        amount,
-        description: `Escrow refunded: Refund requested`,
-        status: 'completed',
-        external_transaction_id: refundId
-      });
+  if (escrow && amount && refundId && escrow.milestones && Array.isArray(escrow.milestones) && escrow.milestones.length > 0) {
+    const milestone = escrow.milestones[0];
+    if (milestone.projects && Array.isArray(milestone.projects) && milestone.projects.length > 0) {
+      const project = milestone.projects[0];
+      
+      // Create refund transaction
+      await supabase
+        .from('transactions')
+        .insert({
+          user_id: project.client_id,
+          project_id: milestone.project_id,
+          milestone_id: escrow.milestone_id,
+          escrow_id: escrow.id,
+          type: 'escrow_refund',
+          amount,
+          description: `Escrow refunded: Refund requested`,
+          status: 'completed',
+          external_transaction_id: refundId
+        });
 
-    // Update milestone status
-    await supabase
-      .from('milestones')
-      .update({
-        status: 'cancelled',
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', escrow.milestone_id);
+      // Update milestone status
+      await supabase
+        .from('milestones')
+        .update({
+          status: 'cancelled',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', escrow.milestone_id);
+    }
   }
 }
