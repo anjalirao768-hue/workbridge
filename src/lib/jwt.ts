@@ -17,7 +17,7 @@ export interface JwtPayload {
     role: string;
     iat?: number;
     exp?: number;
-    [key: string]: any; // Index signature to make it compatible with jose JWTPayload
+    [key: string]: string | number | undefined; // More specific index signature
 }  
 
 export async function signJwt(payload: JwtPayload, expiresIn: string = "7d"): Promise<string> {
