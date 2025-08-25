@@ -133,9 +133,9 @@ async function handlePayinSuccess(data: WebhookData) {
     .select(`
       id,
       milestone_id,
-      milestones (
+      milestones!inner (
         project_id,
-        projects (
+        projects!inner (
           client_id
         )
       )
@@ -143,20 +143,25 @@ async function handlePayinSuccess(data: WebhookData) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow && amount) {
-    await supabase
-      .from('transactions')
-      .insert({
-        user_id: escrow.milestones.projects.client_id,
-        project_id: escrow.milestones.project_id,
-        milestone_id: escrow.milestone_id,
-        escrow_id: escrow.id,
-        type: 'escrow_fund',
-        amount,
-        description: `Escrow funded for milestone`,
-        status: 'completed',
-        external_transaction_id: escrowId
-      });
+  if (escrow && amount && escrow.milestones && Array.isArray(escrow.milestones) && escrow.milestones.length > 0) {
+    const milestone = escrow.milestones[0];
+    if (milestone.projects && Array.isArray(milestone.projects) && milestone.projects.length > 0) {
+      const project = milestone.projects[0];
+      
+      await supabase
+        .from('transactions')
+        .insert({
+          user_id: project.client_id,
+          project_id: milestone.project_id,
+          milestone_id: escrow.milestone_id,
+          escrow_id: escrow.id,
+          type: 'escrow_fund',
+          amount,
+          description: `Escrow funded for milestone`,
+          status: 'completed',
+          external_transaction_id: escrowId
+        });
+    }
   }
 }
 
