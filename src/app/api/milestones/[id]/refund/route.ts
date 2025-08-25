@@ -4,8 +4,9 @@ import { supabase } from "@/app/lib/supabase";
 import { escrowService } from "@/lib/mock-escrow";
 
 // POST /api/milestones/[id]/refund - Refund milestone payment (admins only or specific conditions)
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         escrows(*),
         disputes(*)
       `)
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (fetchError || !milestone) {
@@ -85,7 +86,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         status: 'cancelled',
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id);
+      .eq('id', resolvedParams.id);
 
     // If there was an active dispute, resolve it
     if (milestone.disputes.length > 0) {
@@ -98,7 +99,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
           resolved_at: new Date().toISOString(),
           admin_notes: `Refund processed: ${refundReason}`
         })
-        .eq('milestone_id', params.id)
+        .eq('milestone_id', resolvedParams.id)
         .eq('status', 'open');
     }
 
@@ -109,7 +110,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         event_type: 'escrow_refunded',
         user_id: user.userId,
         project_id: milestone.project_id,
-        milestone_id: params.id,
+        milestone_id: resolvedParams.id,
         escrow_id: escrow.id,
         data: { 
           amount: refundAmount,
