@@ -218,9 +218,9 @@ async function handlePayoutSuccess(data: WebhookData) {
     .select(`
       id,
       milestone_id,
-      milestones (
+      milestones!inner (
         project_id,
-        projects (
+        projects!inner (
           client_id,
           freelancer_id
         )
@@ -229,30 +229,35 @@ async function handlePayoutSuccess(data: WebhookData) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow && freelancerAmount && transactionId) {
-    // Create transaction for freelancer payment
-    await supabase
-      .from('transactions')
-      .insert({
-        user_id: escrow.milestones.projects.freelancer_id,
-        project_id: escrow.milestones.project_id,
-        milestone_id: escrow.milestone_id,
-        escrow_id: escrow.id,
-        type: 'escrow_release',
-        amount: freelancerAmount,
-        description: `Payment released to freelancer (Platform fee: $${platformFee})`,
-        status: 'completed',
-        external_transaction_id: transactionId
-      });
+  if (escrow && freelancerAmount && transactionId && escrow.milestones && Array.isArray(escrow.milestones) && escrow.milestones.length > 0) {
+    const milestone = escrow.milestones[0];
+    if (milestone.projects && Array.isArray(milestone.projects) && milestone.projects.length > 0) {
+      const project = milestone.projects[0];
+      
+      // Create transaction for freelancer payment
+      await supabase
+        .from('transactions')
+        .insert({
+          user_id: project.freelancer_id,
+          project_id: milestone.project_id,
+          milestone_id: escrow.milestone_id,
+          escrow_id: escrow.id,
+          type: 'escrow_release',
+          amount: freelancerAmount,
+          description: `Payment released to freelancer (Platform fee: $${platformFee})`,
+          status: 'completed',
+          external_transaction_id: transactionId
+        });
 
-    // Update milestone status
-    await supabase
-      .from('milestones')
-      .update({
-        status: 'paid',
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', escrow.milestone_id);
+      // Update milestone status
+      await supabase
+        .from('milestones')
+        .update({
+          status: 'paid',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', escrow.milestone_id);
+    }
   }
 }
 
