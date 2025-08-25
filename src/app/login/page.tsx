@@ -31,9 +31,34 @@ export default function LoginPage() {
       
       if (res.ok) {
         setStatus("✅ Login successful! Redirecting...");
-        setTimeout(() => {
-          router.push("/home");
-        }, 1000);
+        
+        // Get user info to redirect based on role
+        const userRes = await fetch('/api/user/me');
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          
+          // Role-based redirect
+          setTimeout(() => {
+            switch (userData.role) {
+              case 'admin':
+                router.push('/dashboard/admin');
+                break;
+              case 'client':
+                router.push('/dashboard/client');
+                break;
+              case 'freelancer':
+                router.push('/dashboard/freelancer');
+                break;
+              default:
+                router.push('/home'); // For users who haven't selected a role
+            }
+          }, 1000);
+        } else {
+          // Fallback to home if can't get user info
+          setTimeout(() => {
+            router.push("/home");
+          }, 1000);
+        }
       } else {
         setStatus(`❌ ${data.error || "Invalid credentials"}`);
       }
@@ -111,7 +136,7 @@ export default function LoginPage() {
               <p className="text-sm text-gray-600">
                 Don't have an account?{" "}
                 <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
-                  Create one here
+                  Sign up here
                 </Link>
               </p>
             </div>
@@ -119,10 +144,20 @@ export default function LoginPage() {
             <div className="mt-4 p-4 bg-blue-50 rounded-lg">
               <h4 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h4>
               <div className="text-xs text-blue-700 space-y-1">
-                <div>Admin: admin@workbridge.com / password123</div>
-                <div>Client: client1@test.com / password123</div>
-                <div>Freelancer: freelancer1@test.com / password123</div>
+                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
+                     onClick={() => { setEmail('admin@workbridge.com'); setPassword('password123'); }}>
+                  <strong>Admin:</strong> admin@workbridge.com / password123
+                </div>
+                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
+                     onClick={() => { setEmail('client1@test.com'); setPassword('password123'); }}>
+                  <strong>Client:</strong> client1@test.com / password123
+                </div>
+                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
+                     onClick={() => { setEmail('freelancer1@test.com'); setPassword('password123'); }}>
+                  <strong>Freelancer:</strong> freelancer1@test.com / password123
+                </div>
               </div>
+              <p className="text-xs text-blue-600 mt-2">Click on any credential to auto-fill</p>
             </div>
           </CardContent>
         </Card>

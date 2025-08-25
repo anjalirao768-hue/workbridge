@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 
 interface UserInfo {
   userId: string;
@@ -27,9 +27,21 @@ export default function HomePage() {
       if (res.ok) {
         const userData = await res.json();
         setUser(userData);
+        
+        // Auto-redirect based on role if they have a specific role
+        if (userData.role === 'admin') {
+          setTimeout(() => router.push('/dashboard/admin'), 1000);
+        } else if (userData.role === 'client') {
+          setTimeout(() => router.push('/dashboard/client'), 1000);
+        } else if (userData.role === 'freelancer') {
+          setTimeout(() => router.push('/dashboard/freelancer'), 1000);
+        }
+      } else {
+        router.push('/login');
       }
     } catch (error) {
       console.error('Failed to fetch user info:', error);
+      router.push('/login');
     } finally {
       setLoading(false);
     }
@@ -69,6 +81,149 @@ export default function HomePage() {
     );
   }
 
+  // Show role selection/dashboard navigation for users with specific roles
+  if (user.role !== 'user') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center py-4">
+              <div className="flex items-center space-x-4">
+                <h1 className="text-2xl font-bold text-gray-900">WorkBridge</h1>
+                <Badge variant="secondary">
+                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                </Badge>
+              </div>
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600">{user.email}</span>
+                <Button onClick={handleLogout} variant="outline" size="sm">
+                  Logout
+                </Button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Welcome back, {user.role}!
+            </h2>
+            <p className="text-lg text-gray-600">
+              Redirecting to your dashboard... or choose where to go:
+            </p>
+          </div>
+
+          {/* Dashboard Navigation Cards */}
+          <div className="space-y-6">
+            {user.role === 'admin' && (
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center space-x-2">
+                    <span>🛠️</span>
+                    <span>Admin Dashboard</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Platform oversight, user management, and system administration
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-1">
+                      <p className="text-sm text-gray-600">• Manage users and projects</p>
+                      <p className="text-sm text-gray-600">• Resolve disputes and issues</p>
+                      <p className="text-sm text-gray-600">• View audit trails and analytics</p>
+                    </div>
+                    <Button onClick={() => router.push('/dashboard/admin')}>
+                      Go to Admin Dashboard
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {user.role === 'client' && (
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center space-x-2">
+                    <span>🏢</span>
+                    <span>Client Dashboard</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Manage your projects, escrows, and collaborate with freelancers
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-1">
+                      <p className="text-sm text-gray-600">• Create and manage projects</p>
+                      <p className="text-sm text-gray-600">• Handle escrow payments and milestones</p>
+                      <p className="text-sm text-gray-600">• Review work and resolve disputes</p>
+                    </div>
+                    <Button onClick={() => router.push('/dashboard/client')}>
+                      Go to Client Dashboard
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {user.role === 'freelancer' && (
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center space-x-2">
+                    <span>💻</span>
+                    <span>Freelancer Dashboard</span>
+                  </CardTitle>
+                  <CardDescription>
+                    Find projects, submit work, and manage your freelancing career
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-1">
+                      <p className="text-sm text-gray-600">• Browse available projects</p>
+                      <p className="text-sm text-gray-600">• Submit work and track earnings</p>
+                      <p className="text-sm text-gray-600">• Complete KYC verification</p>
+                    </div>
+                    <Button onClick={() => router.push('/dashboard/freelancer')}>
+                      Go to Freelancer Dashboard
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          {/* Quick Navigation Links */}
+          <div className="mt-12 text-center">
+            <p className="text-gray-500 mb-4">Quick navigation:</p>
+            <div className="flex justify-center space-x-4">
+              {user.role === 'admin' && (
+                <Button onClick={() => router.push('/dashboard/admin')} variant="outline">
+                  Admin Dashboard
+                </Button>
+              )}
+              {user.role === 'client' && (
+                <Button onClick={() => router.push('/dashboard/client')} variant="outline">
+                  Client Dashboard
+                </Button>
+              )}
+              {user.role === 'freelancer' && (
+                <Button onClick={() => router.push('/dashboard/freelancer')} variant="outline">
+                  Freelancer Dashboard
+                </Button>
+              )}
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // Default dashboard for users who haven't selected a role yet
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -77,9 +232,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-gray-900">WorkBridge</h1>
-              <span className="ml-3 px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-              </span>
+              <Badge variant="secondary" className="ml-3">New User</Badge>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">{user.email}</span>
@@ -92,322 +245,60 @@ export default function HomePage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {user.role === 'admin' && <AdminDashboard user={user} />}
-        {user.role === 'client' && <ClientDashboard user={user} />}
-        {user.role === 'freelancer' && <FreelancerDashboard user={user} />}
-        {user.role === 'user' && <DefaultDashboard user={user} />}
+      <main className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900">Welcome to WorkBridge</h2>
+            <p className="mt-2 text-gray-600">Choose your role to get started with the platform</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/onboarding/client')}>
+              <CardHeader>
+                <CardTitle className="text-xl text-blue-600 flex items-center space-x-2">
+                  <span>🏢</span>
+                  <span>I'm a Client</span>
+                </CardTitle>
+                <CardDescription>I want to hire freelancers for my projects</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li>• Post projects and requirements</li>
+                  <li>• Browse freelancer profiles</li>
+                  <li>• Secure escrow payments</li>
+                  <li>• Track project milestones</li>
+                </ul>
+                <Button className="w-full">Get Started as Client</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/onboarding/freelancer')}>
+              <CardHeader>
+                <CardTitle className="text-xl text-green-600 flex items-center space-x-2">
+                  <span>💻</span>
+                  <span>I'm a Freelancer</span>
+                </CardTitle>
+                <CardDescription>I want to find projects and work with clients</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-gray-600 mb-4">
+                  <li>• Browse available projects</li>
+                  <li>• Submit proposals</li>
+                  <li>• Get paid securely</li>
+                  <li>• Build your reputation</li>
+                </ul>
+                <Button className="w-full">Get Started as Freelancer</Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center pt-8">
+            <p className="text-sm text-gray-500">
+              You can always change your role later in your account settings
+            </p>
+          </div>
+        </div>
       </main>
-    </div>
-  );
-}
-
-function AdminDashboard({ user }: { user: UserInfo }) {
-  const router = useRouter();
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Admin Dashboard</h2>
-        <p className="mt-2 text-gray-600">Platform oversight and management</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/users')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Users</CardTitle>
-            <CardDescription>Manage all platform users</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">--</div>
-            <p className="text-xs text-gray-500">Total registered users</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/projects')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Projects</CardTitle>
-            <CardDescription>Oversee all projects</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">--</div>
-            <p className="text-xs text-gray-500">Active projects</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/escrows')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Escrows</CardTitle>
-            <CardDescription>Monitor escrow accounts</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-orange-600">$--</div>
-            <p className="text-xs text-gray-500">Total escrowed funds</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/admin/disputes')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Disputes</CardTitle>
-            <CardDescription>Handle disputes & issues</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">--</div>
-            <p className="text-xs text-gray-500">Open disputes</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest platform events</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">Loading recent activities...</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Administrative tools</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Button onClick={() => router.push('/admin/audit')} variant="outline" className="w-full justify-start">
-              📊 View Audit Trail
-            </Button>
-            <Button onClick={() => router.push('/admin/transactions')} variant="outline" className="w-full justify-start">
-              💰 Transaction Ledger
-            </Button>
-            <Button onClick={() => router.push('/admin/settings')} variant="outline" className="w-full justify-start">
-              ⚙️ Platform Settings
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-function ClientDashboard({ user }: { user: UserInfo }) {
-  const router = useRouter();
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Client Dashboard</h2>
-        <p className="mt-2 text-gray-600">Manage your projects and find freelancers</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/client/projects')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">My Projects</CardTitle>
-            <CardDescription>View and manage your projects</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">--</div>
-            <p className="text-xs text-gray-500">Active projects</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/client/escrows')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Escrows</CardTitle>
-            <CardDescription>Track your payments</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">$--</div>
-            <p className="text-xs text-gray-500">Funds in escrow</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/client/freelancers')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Find Freelancers</CardTitle>
-            <CardDescription>Browse available talent</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-purple-600">--</div>
-            <p className="text-xs text-gray-500">Available freelancers</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex gap-4">
-        <Button onClick={() => router.push('/client/projects/new')} className="flex-1">
-          + Create New Project
-        </Button>
-        <Button onClick={() => router.push('/client/transactions')} variant="outline">
-          View Transactions
-        </Button>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Projects</CardTitle>
-            <CardDescription>Your latest project activity</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">Loading recent projects...</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Milestones Pending</CardTitle>
-            <CardDescription>Awaiting your review</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">No pending milestones</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-function FreelancerDashboard({ user }: { user: UserInfo }) {
-  const router = useRouter();
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Freelancer Dashboard</h2>
-        <p className="mt-2 text-gray-600">Find projects and manage your work</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/freelancer/projects')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">My Projects</CardTitle>
-            <CardDescription>Active and completed work</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">--</div>
-            <p className="text-xs text-gray-500">Active projects</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/freelancer/earnings')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Earnings</CardTitle>
-            <CardDescription>Track your income</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">$--</div>
-            <p className="text-xs text-gray-500">Total earned</p>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/freelancer/browse')}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Browse Projects</CardTitle>
-            <CardDescription>Find new opportunities</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-purple-600">--</div>
-            <p className="text-xs text-gray-500">Available projects</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex gap-4">
-        <Button onClick={() => router.push('/freelancer/browse')} className="flex-1">
-          Browse Available Projects
-        </Button>
-        <Button onClick={() => router.push('/freelancer/profile')} variant="outline">
-          Update Profile
-        </Button>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Active Milestones</CardTitle>
-            <CardDescription>Work in progress</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">Loading active milestones...</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Payments</CardTitle>
-            <CardDescription>Your payment history</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">No recent payments</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-function DefaultDashboard({ user }: { user: UserInfo }) {
-  const router = useRouter();
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-3xl font-bold text-gray-900">Welcome to WorkBridge</h2>
-        <p className="mt-2 text-gray-600">Choose your role to get started</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/onboarding/client')}>
-          <CardHeader>
-            <CardTitle className="text-xl text-blue-600">I'm a Client</CardTitle>
-            <CardDescription>I want to hire freelancers for my projects</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li>• Post projects and requirements</li>
-              <li>• Browse freelancer profiles</li>
-              <li>• Secure escrow payments</li>
-              <li>• Track project milestones</li>
-            </ul>
-            <Button className="w-full mt-4">Get Started as Client</Button>
-          </CardContent>
-        </Card>
-
-        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => router.push('/onboarding/freelancer')}>
-          <CardHeader>
-            <CardTitle className="text-xl text-green-600">I'm a Freelancer</CardTitle>
-            <CardDescription>I want to find projects and work with clients</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li>• Browse available projects</li>
-              <li>• Submit proposals</li>
-              <li>• Get paid securely</li>
-              <li>• Build your reputation</li>
-            </ul>
-            <Button className="w-full mt-4">Get Started as Freelancer</Button>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }
