@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     console.log("Debug auth endpoint called");
     
