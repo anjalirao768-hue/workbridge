@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
 // POST /api/disputes - Create new dispute
 export async function POST(req: NextRequest) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
