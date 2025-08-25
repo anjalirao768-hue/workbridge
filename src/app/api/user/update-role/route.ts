@@ -4,7 +4,7 @@ import { supabase } from "@/app/lib/supabase";
 
 export async function POST(req: Request) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
