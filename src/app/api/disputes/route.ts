@@ -5,7 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 // GET /api/disputes - List disputes (role-based filtering)
 export async function GET(req: NextRequest) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
