@@ -8,7 +8,7 @@ export interface DBUser {
   skills?: string[];
   role: 'client' | 'freelancer' | 'admin' | 'user';
   kyc_status?: 'pending' | 'verified' | 'rejected';
-  kyc_data?: Record<string, any>;
+  kyc_data?: Record<string, unknown>;
   created_at?: string;
   updated_at?: string;
 }
@@ -65,7 +65,7 @@ export interface Transaction {
   description?: string;
   status: 'pending' | 'completed' | 'failed';
   external_transaction_id?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   created_at?: string;
 }
 
@@ -92,9 +92,8 @@ export interface AuditEvent {
   milestone_id?: string;
   escrow_id?: string;
   dispute_id?: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   ip_address?: string;
   user_agent?: string;
   created_at?: string;
 }
-  

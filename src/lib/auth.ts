@@ -2,6 +2,16 @@ import { cookies } from 'next/headers'
 import { verifyJwt, JwtPayload } from './jwt'
 import { supabase } from '@/app/lib/supabase'
 
+interface UserData {
+  userId: string;
+  email: string;
+  role: string;
+  skills?: string[];
+  cover_letter?: string;
+  experiences?: string;
+  age?: number;
+}
+
 export async function getCurrentUser(): Promise<JwtPayload | null> {
   try {
     const cookieStore = await cookies()
@@ -15,7 +25,7 @@ export async function getCurrentUser(): Promise<JwtPayload | null> {
   }
 }
 
-export async function getCurrentUserWithFreshData(): Promise<any | null> {
+export async function getCurrentUserWithFreshData(): Promise<UserData | null> {
   try {
     const user = await getCurrentUser()
     if (!user) return null

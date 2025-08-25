@@ -9,7 +9,7 @@ export interface EscrowTransaction {
   fundedAt?: Date;
   releasedAt?: Date;
   refundedAt?: Date;
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 class MockEscrowProvider {
@@ -21,7 +21,7 @@ class MockEscrowProvider {
   }
 
   // Create an escrow account
-  async createEscrow(amount: number, metadata: Record<string, any> = {}): Promise<{ escrowId: string; status: string }> {
+  async createEscrow(amount: number, metadata: Record<string, unknown> = {}): Promise<{ escrowId: string; status: string }> {
     const escrowId = `ESC_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     
     const transaction: EscrowTransaction = {
@@ -180,7 +180,7 @@ class MockEscrowProvider {
   }
 
   // Private method to send webhooks
-  private async sendWebhook(eventType: string, data: any) {
+  private async sendWebhook(eventType: string, data: Record<string, unknown>) {
     try {
       const webhookPayload = {
         event: eventType,
@@ -214,7 +214,7 @@ class MockEscrowProvider {
   }
 
   // Generate mock signature for webhook verification
-  private generateSignature(eventType: string, data: any): string {
+  private generateSignature(eventType: string, data: Record<string, unknown>): string {
     const payload = JSON.stringify({ event: eventType, data });
     // In real implementation, this would be HMAC-SHA256 with secret key
     return `sha256=${Buffer.from(payload).toString('base64').slice(0, 32)}`;

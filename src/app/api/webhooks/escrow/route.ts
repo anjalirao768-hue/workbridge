@@ -1,6 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/app/lib/supabase";
 
+interface WebhookData {
+  escrowId: string;
+  amount?: number;
+  metadata?: Record<string, unknown>;
+  fundedAt?: string;
+  reason?: string;
+  transactionId?: string;
+  freelancerAmount?: number;
+  platformFee?: number;
+  releasedAt?: string;
+  refundId?: string;
+  refundedAt?: string;
+}
+
 // Webhook handler for mock escrow provider events
 export async function POST(req: NextRequest) {
   try {
@@ -77,8 +91,8 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleEscrowCreated(data: any) {
-  const { escrowId, amount, metadata } = data;
+async function handleEscrowCreated(data: WebhookData) {
+  const { escrowId } = data;
   
   // Update escrow record
   const { error } = await supabase
@@ -95,7 +109,7 @@ async function handleEscrowCreated(data: any) {
   }
 }
 
-async function handlePayinSuccess(data: any) {
+async function handlePayinSuccess(data: WebhookData) {
   const { escrowId, amount, fundedAt } = data;
   
   // Update escrow status to funded
@@ -129,7 +143,7 @@ async function handlePayinSuccess(data: any) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow) {
+  if (escrow && amount) {
     await supabase
       .from('transactions')
       .insert({
@@ -146,8 +160,8 @@ async function handlePayinSuccess(data: any) {
   }
 }
 
-async function handlePayinFailed(data: any) {
-  const { escrowId, reason } = data;
+async function handlePayinFailed(data: WebhookData) {
+  const { escrowId } = data;
   
   await supabase
     .from('escrows')
@@ -175,7 +189,7 @@ async function handlePayinFailed(data: any) {
   }
 }
 
-async function handlePayoutSuccess(data: any) {
+async function handlePayoutSuccess(data: WebhookData) {
   const { escrowId, transactionId, freelancerAmount, platformFee, releasedAt } = data;
   
   // Update escrow status
@@ -210,7 +224,7 @@ async function handlePayoutSuccess(data: any) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow) {
+  if (escrow && freelancerAmount && transactionId) {
     // Create transaction for freelancer payment
     await supabase
       .from('transactions')
@@ -237,8 +251,8 @@ async function handlePayoutSuccess(data: any) {
   }
 }
 
-async function handleRefundSuccess(data: any) {
-  const { escrowId, refundId, amount, reason, refundedAt } = data;
+async function handleRefundSuccess(data: WebhookData) {
+  const { escrowId, refundId, amount, refundedAt } = data;
   
   // Update escrow status
   const { error: escrowError } = await supabase
@@ -271,7 +285,7 @@ async function handleRefundSuccess(data: any) {
     .eq('external_escrow_id', escrowId)
     .single();
 
-  if (escrow) {
+  if (escrow && amount && refundId) {
     // Create refund transaction
     await supabase
       .from('transactions')
@@ -282,7 +296,7 @@ async function handleRefundSuccess(data: any) {
         escrow_id: escrow.id,
         type: 'escrow_refund',
         amount,
-        description: `Escrow refunded: ${reason || 'Refund requested'}`,
+        description: `Escrow refunded: Refund requested`,
         status: 'completed',
         external_transaction_id: refundId
       });
