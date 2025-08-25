@@ -21,7 +21,7 @@ async function checkProjectSchema() {
     const { data, error } = await supabase
       .from('projects')
       .insert({
-        client_id: '550e8400-e29b-41d4-a716-446655440002',
+        client_id: 'ff307657-0d27-42fe-8a17-846498fa6496', // Use our test user
         title: 'Test Project',
         description: 'Test description'
       })
