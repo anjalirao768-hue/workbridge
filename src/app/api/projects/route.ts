@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, getCurrentUserWithFreshData } from "@/lib/auth";
 import { supabase } from "@/app/lib/supabase";
 
 // GET /api/projects - List projects (role-based filtering)
