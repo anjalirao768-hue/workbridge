@@ -5,7 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 // GET /api/projects/[id] - Get project details
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
@@ -50,16 +50,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 // PUT /api/projects/[id] - Update project
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
     const updates = await req.json();
-    const allowedUpdates = ['title', 'description', 'budget', 'skills_required', 'deadline', 'status', 'freelancer_id'];
+    const allowedUpdates = ['title', 'description', 'budget', 'status', 'freelancer_id'];
     
     // Filter to only allowed updates
-    const filteredUpdates: any = {};
+    const filteredUpdates: Record<string, unknown> = {};
     Object.keys(updates).forEach(key => {
       if (allowedUpdates.includes(key)) {
         filteredUpdates[key] = updates[key];

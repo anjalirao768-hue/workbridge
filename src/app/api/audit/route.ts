@@ -5,7 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 // GET /api/audit - List audit events (admins only, or user's own events)
 export async function GET(req: NextRequest) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Get event type summary for admins
-    let eventSummary = null;
+    let eventSummary: Record<string, number> | null = null;
     if (user.role === 'admin') {
       const { data: summaryData } = await supabase
         .from('audit_events')
@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
         .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()); // Last 30 days
 
       if (summaryData) {
-        eventSummary = summaryData.reduce((acc: any, event) => {
+        eventSummary = summaryData.reduce((acc: Record<string, number>, event) => {
           acc[event.event_type] = (acc[event.event_type] || 0) + 1;
           return acc;
         }, {});

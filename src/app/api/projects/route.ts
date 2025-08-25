@@ -5,7 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 // GET /api/projects - List projects (role-based filtering)
 export async function GET(req: NextRequest) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Only clients can create projects" }, { status: 403 });
     }
 
-    const { title, description, budget, skills_required, deadline } = await req.json();
+    const { title, description, budget } = await req.json();
 
     if (!title || !description) {
       return NextResponse.json({ error: "Title and description are required" }, { status: 400 });

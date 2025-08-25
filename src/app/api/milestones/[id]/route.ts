@@ -5,7 +5,7 @@ import { supabase } from "@/app/lib/supabase";
 // GET /api/milestones/[id] - Get milestone details
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 // PUT /api/milestones/[id] - Update milestone
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const user = getCurrentUser();
+    const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
@@ -83,7 +83,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 
     // Filter updates based on role
-    const filteredUpdates: any = {};
+    const filteredUpdates: Record<string, unknown> = {};
     
     if (user.role === 'client') {
       // Clients can approve/reject milestones and update basic info

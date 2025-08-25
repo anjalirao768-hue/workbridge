@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     }
 
     // Update user role and skills in database
-    const updateData: any = { role };
+    const updateData: Record<string, unknown> = { role };
     
     if (skills && Array.isArray(skills)) {
       updateData.skills = skills;
