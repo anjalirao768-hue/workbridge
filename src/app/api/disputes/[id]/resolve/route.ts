@@ -138,7 +138,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           user_id: user.userId,
           project_id: dispute.milestone.project_id,
           milestone_id: dispute.milestone_id,
-          dispute_id: params.id,
+          dispute_id: resolvedParams.id,
           data: { 
             resolution, 
             admin_notes,
