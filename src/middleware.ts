@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyJwt, JwtPayload } from "@/lib/jwt";
-
-
-
+import { verifyJwtSync, JwtPayload } from "@/lib/jwt";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
@@ -17,16 +14,8 @@ export async function middleware(req: NextRequest) {
   }
 
   try {
-    // Check if JWT_SECRET is available
-    const JWT_SECRET = process.env.JWT_SECRET;
-    if (!JWT_SECRET) {
-      console.log("Middleware debug - JWT_SECRET not found");
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-
-    const payload: JwtPayload | null = verifyJwt(token);
+    const payload: JwtPayload | null = verifyJwtSync(token);
     console.log("Middleware debug - JWT payload:", payload);
-    console.log("Middleware debug - JWT_SECRET exists:", !!JWT_SECRET);
     
     if (!payload) {
       console.log("Middleware debug - Invalid token, redirecting to login");
