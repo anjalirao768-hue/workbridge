@@ -15,6 +15,8 @@ export interface JwtPayload {
     userId: string;
     email: string;
     role: string;
+    iat?: number;
+    exp?: number;
 }  
 
 export async function signJwt(payload: JwtPayload, expiresIn: string = "7d"): Promise<string> {
@@ -34,7 +36,7 @@ export async function verifyJwt(token: string): Promise<JwtPayload | null> {
   }
 }
 
-// Synchronous version for middleware (using the old library for now)
+// Synchronous version for middleware (fallback to jsonwebtoken)
 import jwt from "jsonwebtoken";
 
 export function verifyJwtSync(token: string): JwtPayload | null {
