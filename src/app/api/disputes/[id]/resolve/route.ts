@@ -4,8 +4,9 @@ import { supabase } from "@/app/lib/supabase";
 import { escrowService } from "@/lib/mock-escrow";
 
 // POST /api/disputes/[id]/resolve - Resolve dispute (admins only)
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const resolvedParams = await params;
     const user = getCurrentUser();
     if (!user || user.role !== 'admin') {
       return NextResponse.json({ error: "Only admins can resolve disputes" }, { status: 403 });
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
           escrows(*)
         )
       `)
-      .eq('id', params.id)
+      .eq('id', resolvedParams.id)
       .single();
 
     if (fetchError || !dispute) {
