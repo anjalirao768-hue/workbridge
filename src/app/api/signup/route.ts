@@ -1,64 +1,54 @@
 // src/app/api/signup/route.ts
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
-import { supabase } from "@/app/lib/supabase";
+import bcrypt from "bcryptjs";
 import { signJwt } from "@/lib/jwt";
-import type { DBUser } from "@/types/db";
-import type { PostgrestError } from "@supabase/supabase-js";
+import { supabase } from "@/app/lib/supabase";
 
 export async function POST(req: Request) {
   try {
-    const { email, password, cover_letter, experiences, age, skills } =
-      await req.json();
+    const body = await req.json();
+    const { email, password, cover_letter, experiences, age, skills } = body;
 
     if (!email || !password) {
-      return NextResponse.json(
-        { error: "Email & password required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
     }
 
+    // Check if user already exists
+    const { data: existingUser } = await supabase
+      .from("users")
+      .select("id")
+      .eq("email", email)
+      .single();
+
+    if (existingUser) {
+      return NextResponse.json({ error: "Email already registered" }, { status: 409 });
+    }
+
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const { data, error } = await supabase
+    // Create user
+    const { data: user, error } = await supabase
       .from("users")
-      .insert([
-        {
-          email,
-          password_hash: hashedPassword,
-          cover_letter,
-          experiences,
-          age,
-          skills,
-          role: "user",
-        },
-      ])
+      .insert({
+        email,
+        password_hash: hashedPassword,
+        cover_letter,
+        experiences,
+        age,
+        skills: skills || [],
+        role: "user", // Default role
+      })
       .select("id, email, role")
       .single();
 
     if (error) {
-      const pgError = error as PostgrestError;
-
-      // 23505 = unique_violation in Postgres
-      if (pgError.code === "23505") {
-        return NextResponse.json(
-          { error: "Email already registered" },
-          { status: 400 }
-        );
-      }
-
-      return NextResponse.json({ error: pgError.message }, { status: 500 });
+      console.error("User creation error:", error);
+      return NextResponse.json({ error: "Failed to create user" }, { status: 500 });
     }
 
-    // ✅ Type safety: cast Supabase result
-    const user = data as DBUser;
-
-    // Generate JWT with role
-    const token = signJwt({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-    });
+    // Generate JWT
+    const token = signJwt({ userId: user.id, email: user.email, role: user.role });
 
     // Set cookie
     const res = NextResponse.json({ 
@@ -77,9 +67,8 @@ export async function POST(req: Request) {
     });
 
     return res;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("Signup API error:", err);
-    return NextResponse.json({ error: "Failed to signup" }, { status: 500 });
+  } catch (error) {
+    console.error("Signup error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

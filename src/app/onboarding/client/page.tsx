@@ -30,7 +30,8 @@ export default function ClientOnboardingPage() {
       } else {
         setError(data.error || "Failed to update role");
       }
-    } catch (err) {
+    } catch (error) {
+      console.error('Role update error:', error);
       setError("Something went wrong");
     } finally {
       setLoading(false);
@@ -43,7 +44,7 @@ export default function ClientOnboardingPage() {
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome, Client!</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Let's set up your client profile to start hiring freelancers
+            Let&apos;s set up your client profile to start hiring freelancers
           </p>
         </div>
 

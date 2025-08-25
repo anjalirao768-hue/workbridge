@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,11 +17,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
-  async function fetchUserInfo() {
+  const fetchUserInfo = useCallback(async () => {
     try {
       const res = await fetch('/api/user/me');
       if (res.ok) {
@@ -45,7 +41,11 @@ export default function HomePage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [router]);
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, [fetchUserInfo]);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
@@ -257,7 +257,7 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-xl text-blue-600 flex items-center space-x-2">
                   <span>🏢</span>
-                  <span>I'm a Client</span>
+                  <span>I&apos;m a Client</span>
                 </CardTitle>
                 <CardDescription>I want to hire freelancers for my projects</CardDescription>
               </CardHeader>
@@ -276,7 +276,7 @@ export default function HomePage() {
               <CardHeader>
                 <CardTitle className="text-xl text-green-600 flex items-center space-x-2">
                   <span>💻</span>
-                  <span>I'm a Freelancer</span>
+                  <span>I&apos;m a Freelancer</span>
                 </CardTitle>
                 <CardDescription>I want to find projects and work with clients</CardDescription>
               </CardHeader>

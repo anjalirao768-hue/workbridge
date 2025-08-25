@@ -34,7 +34,8 @@ export default function FreelancerOnboardingPage() {
       } else {
         setError(data.error || "Failed to update role");
       }
-    } catch (err) {
+    } catch (error) {
+      console.error('Role update error:', error);
       setError("Something went wrong");
     } finally {
       setLoading(false);
@@ -47,7 +48,7 @@ export default function FreelancerOnboardingPage() {
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome, Freelancer!</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Let's set up your profile to start finding projects
+            Let&apos;s set up your profile to start finding projects
           </p>
         </div>
 
