@@ -13,7 +13,7 @@ export async function GET() {
     // Fetch fresh user data from database to get updated role
     const { data: userData, error } = await supabase
       .from('users')
-      .select('id, email, role, skills, cover_letter, experiences, age, kyc_status')
+      .select('id, email, role, skills, cover_letter, experiences, age')
       .eq('id', user.userId)
       .single();
 
@@ -29,8 +29,7 @@ export async function GET() {
       skills: userData.skills || [],
       cover_letter: userData.cover_letter,
       experiences: userData.experiences,
-      age: userData.age,
-      kyc_status: userData.kyc_status || 'pending'
+      age: userData.age
     });
   } catch (error) {
     console.error("Get user info error:", error);
