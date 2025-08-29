@@ -334,7 +334,7 @@ export default function ClientDashboard() {
                   <div>
                     <h4 className="font-semibold">{milestone.title}</h4>
                     <p className="text-gray-600">{milestone.project}</p>
-                    <p className="text-sm text-gray-500">Amount: ${milestone.amount.toLocaleString()}</p>
+                    <p className="text-sm text-gray-500">Amount: ₹{milestone.amount.toLocaleString()}</p>
                     {milestone.submittedDate && (
                       <p className="text-xs text-gray-500">Submitted: {milestone.submittedDate}</p>
                     )}
