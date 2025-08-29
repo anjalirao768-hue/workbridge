@@ -330,6 +330,7 @@ export default function FreelancerDashboard() {
                     variant={project.isApplied ? "outline" : "default"}
                     onClick={() => {
                       if (!project.isApplied) {
+                        // Update local state
                         setAvailableProjects(projects => 
                           projects.map(p => 
                             p.id === project.id 
@@ -337,6 +338,10 @@ export default function FreelancerDashboard() {
                               : p
                           )
                         );
+                        
+                        // Increment application count in store
+                        projectsStore.incrementApplications(project.id);
+                        
                         // Add to my applications
                         setMyApplications(apps => [...apps, {
                           id: `new-${Date.now()}`,
