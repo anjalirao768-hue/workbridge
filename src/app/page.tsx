@@ -118,12 +118,9 @@ export default function Home() {
               Build seamless partnerships with transparent workflows, secure escrow payments, and AI-powered dispute resolution.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+            <div className="flex justify-center items-center mb-16">
               <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-4 rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
                 <Link href="/signup">Start Your Journey</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-2 border-white/40 text-white hover:bg-white/20 hover:border-white/60 text-lg px-8 py-4 rounded-full backdrop-blur-sm bg-white/10 transition-all duration-300">
-                <Link href="#features">Explore Features</Link>
               </Button>
             </div>
 
