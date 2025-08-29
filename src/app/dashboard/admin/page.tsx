@@ -1042,6 +1042,44 @@ export default function AdminDashboard() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Applications Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Job Applications</CardTitle>
+                <CardDescription>Monitor freelancer applications and hiring</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{allApplications.length}</div>
+                      <p className="text-xs text-gray-500">Total Applications</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">{allApplications.filter(a => a.status === 'hired').length}</div>
+                      <p className="text-xs text-gray-500">Hired</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {allApplications.slice(0, 2).map((app) => (
+                      <div key={app.id} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div>
+                          <h4 className="font-medium text-sm">{app.freelancerName}</h4>
+                          <p className="text-xs text-gray-500">{app.projectTitle}</p>
+                        </div>
+                        <Badge variant={app.status === 'hired' ? 'default' : app.status === 'pending' ? 'outline' : 'secondary'} className="text-xs">
+                          {app.status}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button variant="outline" className="w-full" onClick={() => setActiveView('applications')}>View All Applications</Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Admin Tools */}
