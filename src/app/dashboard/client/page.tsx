@@ -518,7 +518,7 @@ export default function ClientDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-orange-600">
-                  ${myTransactions.filter(t => t.status === 'Held').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+                  ₹{myTransactions.filter(t => t.status === 'Held').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Funds held in escrow</p>
               </CardContent>
