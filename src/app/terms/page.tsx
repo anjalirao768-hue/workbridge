@@ -99,7 +99,7 @@ export default function TermsAndConditions() {
                     <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-600">
                       <h4 className="font-semibold text-purple-800 mb-2">Platform Details:</h4>
                       <ul className="space-y-1 text-purple-700">
-                        <li><strong>Website:</strong> www.workbridge-demo.com</li>
+                        <li><strong>Website:</strong> www.workbridge.com</li>
                         <li><strong>Service:</strong> Freelancing marketplace platform</li>
                         <li><strong>Jurisdiction:</strong> India only</li>
                         <li><strong>Purpose:</strong> Connecting verified clients with qualified freelancers</li>
