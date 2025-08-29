@@ -134,7 +134,7 @@ export default function Home() {
               </Card>
               <Card className="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border-purple-500/20 backdrop-blur-xl">
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl font-bold text-purple-400 mb-2">$3M+</div>
+                  <div className="text-4xl font-bold text-purple-400 mb-2">₹25Cr+</div>
                   <div className="text-purple-200">Secured in Escrow</div>
                 </CardContent>
               </Card>
