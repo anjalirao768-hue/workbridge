@@ -224,7 +224,8 @@ export default function ClientDashboard() {
 
   // Function to refresh projects from store
   const refreshProjects = useCallback(() => {
-    const storeProjects = projectsStore.getAllProjects();
+    const currentClientId = 'current_client_id'; // In real app, get from auth context
+    const storeProjects = projectsStore.getProjectsByClient(currentClientId);
     
     const clientProjects = storeProjects.map(project => ({
       id: project.id,
