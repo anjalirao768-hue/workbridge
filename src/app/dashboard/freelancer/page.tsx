@@ -242,7 +242,7 @@ export default function FreelancerDashboard() {
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-orange-600">
-              ${availableProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
+              ₹{availableProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
             </div>
             <p className="text-sm text-gray-500">Total Value</p>
           </CardContent>
