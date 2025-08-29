@@ -76,12 +76,12 @@ export default function ClientDashboard() {
   useEffect(() => {
     // Mock Projects Data for current client
     setMyProjects([
-      { id: '1', title: 'E-commerce Website', freelancer: 'Alice Smith', budget: 5000, status: 'In Progress', createdDate: '2023-12-01', dueDate: '2024-01-15', progress: 65 },
-      { id: '2', title: 'Mobile App Design', freelancer: 'Sarah Wilson', budget: 2500, status: 'Review', createdDate: '2023-11-28', dueDate: '2023-12-20', progress: 90 },
-      { id: '3', title: 'API Integration', freelancer: 'Mike Johnson', budget: 1800, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15', progress: 45 },
-      { id: '4', title: 'Website Redesign', budget: 3200, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10', progress: 0 },
-      { id: '5', title: 'Dashboard Development', freelancer: 'David Lee', budget: 4500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30', progress: 100 },
-      { id: '6', title: 'SEO Optimization', freelancer: 'Emma Brown', budget: 1200, status: 'Active', createdDate: '2023-12-05', dueDate: '2024-01-05', progress: 30 },
+      { id: '1', title: 'E-commerce Website', freelancer: 'Alice Smith', budget: 415000, status: 'In Progress', createdDate: '2023-12-01', dueDate: '2024-01-15', progress: 65 },
+      { id: '2', title: 'Mobile App Design', freelancer: 'Sarah Wilson', budget: 207500, status: 'Review', createdDate: '2023-11-28', dueDate: '2023-12-20', progress: 90 },
+      { id: '3', title: 'API Integration', freelancer: 'Mike Johnson', budget: 149400, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15', progress: 45 },
+      { id: '4', title: 'Website Redesign', budget: 265600, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10', progress: 0 },
+      { id: '5', title: 'Dashboard Development', freelancer: 'David Lee', budget: 373500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30', progress: 100 },
+      { id: '6', title: 'SEO Optimization', freelancer: 'Emma Brown', budget: 99600, status: 'Active', createdDate: '2023-12-05', dueDate: '2024-01-05', progress: 30 },
     ]);
 
     // Mock Transactions Data for current client
