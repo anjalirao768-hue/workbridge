@@ -656,7 +656,7 @@ export default function TermsAndConditions() {
                         <CardContent className="mt-6 space-y-4">
                           <div>
                             <h6 className="font-medium text-gray-800">Email Support:</h6>
-                            <p className="text-blue-600 font-medium">support@workbridge-demo.com</p>
+                            <p className="text-blue-600 font-medium">support@workbridge.com</p>
                             <p className="text-sm text-gray-600">Response Time: Within 24 hours</p>
                           </div>
                           <div>
