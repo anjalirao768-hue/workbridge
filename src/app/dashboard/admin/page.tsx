@@ -13,6 +13,49 @@ interface UserInfo {
   role: string;
 }
 
+interface User {
+  id: string;
+  email: string;
+  role: string;
+  status: string;
+  joinedDate: string;
+  projects: number;
+  totalSpent?: number;
+  totalEarned?: number;
+}
+
+interface Project {
+  id: string;
+  title: string;
+  client: string;
+  freelancer?: string;
+  budget: number;
+  status: string;
+  createdDate: string;
+  dueDate: string;
+}
+
+interface Transaction {
+  id: string;
+  type: string;
+  amount: number;
+  project: string;
+  user: string;
+  date: string;
+  status: string;
+}
+
+interface Dispute {
+  id: string;
+  project: string;
+  client: string;
+  freelancer: string;
+  issue: string;
+  priority: string;
+  raisedDate: string;
+  status: string;
+}
+
 export default function AdminDashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
