@@ -93,8 +93,9 @@ export default function ClientDashboard() {
 
   // Load projects from shared store and add some mock completed projects
   useEffect(() => {
-    // Get projects from store for current client (in real app, filter by actual client ID)
-    const storeProjects = projectsStore.getAllProjects();
+    // Get projects from store for current client
+    const currentClientId = 'current_client_id'; // In real app, get from auth context
+    const storeProjects = projectsStore.getProjectsByClient(currentClientId);
     
     // Convert store projects to client project format
     const clientProjects = storeProjects.map(project => ({
