@@ -575,6 +575,150 @@ export default function FreelancerDashboard() {
     </div>
   );
 
+  const renderMyApplicationsView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">My Applications</h3>
+          <p className="text-gray-600">Track status of your project applications</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{myApplications.length}</div>
+            <p className="text-sm text-gray-500">Total Applications</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{myApplications.filter(a => a.status === 'pending').length}</div>
+            <p className="text-sm text-gray-500">Pending Review</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{myApplications.filter(a => a.status === 'shortlisted').length}</div>
+            <p className="text-sm text-gray-500">Shortlisted</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-purple-600">{myApplications.filter(a => a.status === 'hired').length}</div>
+            <p className="text-sm text-gray-500">Hired</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-indigo-600">
+              {myApplications.length > 0 ? Math.round((myApplications.filter(a => a.status === 'hired').length / myApplications.length) * 100) : 0}%
+            </div>
+            <p className="text-sm text-gray-500">Success Rate</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Application Status</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {myApplications.map((application) => (
+              <div key={application.id} className={`p-4 border rounded-lg ${
+                application.status === 'hired' ? 'border-green-200 bg-green-50' :
+                application.status === 'shortlisted' ? 'border-blue-200 bg-blue-50' :
+                application.status === 'rejected' ? 'border-red-200 bg-red-50' :
+                application.status === 'reviewed' ? 'border-yellow-200 bg-yellow-50' :
+                'hover:bg-gray-50'
+              }`}>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="font-semibold text-lg">{application.projectTitle}</h4>
+                    <p className="text-gray-600">Client: {application.clientName}</p>
+                    <p className="text-sm text-gray-500">Applied: {application.appliedDate}</p>
+                  </div>
+                  <div className="flex flex-col items-end space-y-2">
+                    <Badge variant={
+                      application.status === 'hired' ? 'default' :
+                      application.status === 'shortlisted' ? 'secondary' :
+                      application.status === 'rejected' ? 'destructive' :
+                      application.status === 'reviewed' ? 'outline' :
+                      'outline'
+                    }>
+                      {application.status.toUpperCase()}
+                    </Badge>
+                    
+                    {application.viewedByClient ? (
+                      <div className="flex items-center space-x-1 text-green-600 text-xs">
+                        <span>✓</span>
+                        <span>Viewed by client</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-1 text-orange-600 text-xs">
+                        <span>○</span>
+                        <span>Awaiting review</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                  <div>
+                    <p className="text-xs text-gray-500">Your Proposal</p>
+                    <p className="font-medium text-blue-600">₹{application.proposedBudget.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Project Budget</p>
+                    <p className="font-medium">₹{application.projectBudget.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500">Duration</p>
+                    <p className="font-medium">{application.estimatedDuration}</p>
+                  </div>
+                </div>
+
+                {application.clientFeedback && (
+                  <div className="mb-3 p-3 bg-white rounded-lg border">
+                    <p className="text-xs font-medium text-gray-700 mb-1">Client Feedback:</p>
+                    <p className="text-sm text-gray-600">{application.clientFeedback}</p>
+                  </div>
+                )}
+
+                <div className="flex justify-between items-center pt-3 border-t">
+                  <div className={`text-xs ${
+                    application.status === 'hired' ? 'text-green-600' :
+                    application.status === 'shortlisted' ? 'text-blue-600' :
+                    application.status === 'rejected' ? 'text-red-600' :
+                    'text-gray-500'
+                  }`}>
+                    {application.status === 'hired' ? '🎉 Congratulations! You got hired' :
+                     application.status === 'shortlisted' ? '👍 You\'re in the shortlist' :
+                     application.status === 'rejected' ? '❌ Application rejected' :
+                     application.status === 'reviewed' ? '👁️ Application reviewed' :
+                     '⏳ Waiting for client review'}
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    {application.status === 'hired' && (
+                      <Button size="sm">Start Project</Button>
+                    )}
+                    {application.status === 'shortlisted' && (
+                      <Button size="sm" variant="outline">Contact Client</Button>
+                    )}
+                    <Button size="sm" variant="ghost">View Details</Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   const renderSubmissionsView = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
