@@ -887,7 +887,9 @@ export default function ClientDashboard() {
                     <CardTitle>My Projects</CardTitle>
                     <CardDescription>Overview of your current projects</CardDescription>
                   </div>
-                  <Button size="sm">+ New Project</Button>
+                  <Button size="sm" asChild>
+                    <a href="/dashboard/client/post-project">+ New Project</a>
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
