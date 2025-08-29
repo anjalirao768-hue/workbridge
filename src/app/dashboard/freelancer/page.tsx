@@ -1245,6 +1245,10 @@ export default function FreelancerDashboard() {
                   <div className="text-2xl">🔍</div>
                   <span className="text-sm">Browse Projects</span>
                 </Button>
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('applications')}>
+                  <div className="text-2xl">📋</div>
+                  <span className="text-sm">My Applications</span>
+                </Button>
                 <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('earnings')}>
                   <div className="text-2xl">📊</div>
                   <span className="text-sm">View Earnings</span>
