@@ -309,7 +309,7 @@ export default function AdminDashboard() {
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-green-600">
-              ${allTransactions.reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+              ₹{allTransactions.reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
             </div>
             <p className="text-sm text-gray-500">Total Volume</p>
           </CardContent>
