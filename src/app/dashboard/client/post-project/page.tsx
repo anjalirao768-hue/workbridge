@@ -149,12 +149,12 @@ export default function PostProject() {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      setSubmitStatus(`✅ Project "${newProject.title}" posted successfully! Freelancers can now apply to your project.`);
+      setSubmitStatus(`✅ Project "${newProject.title}" posted successfully! Redirecting to your dashboard...`);
       
       // Redirect to dashboard after success
       setTimeout(() => {
-        router.push('/dashboard/client');
-      }, 3000);
+        router.push('/dashboard/client?refresh=true');
+      }, 2000);
       
     } catch {
       setSubmitStatus('❌ Failed to post project. Please try again.');
