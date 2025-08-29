@@ -408,6 +408,147 @@ export default function AdminDashboard() {
     </div>
   );
 
+  const renderApplicationsView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">All Applications</h3>
+          <p className="text-gray-600">Monitor freelancer applications and client hiring activities</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{allApplications.length}</div>
+            <p className="text-sm text-gray-500">Total Applications</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{allApplications.filter(a => a.status === 'pending').length}</div>
+            <p className="text-sm text-gray-500">Pending Review</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{allApplications.filter(a => a.status === 'hired').length}</div>
+            <p className="text-sm text-gray-500">Hired</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-purple-600">{allApplications.filter(a => a.viewedByClient).length}</div>
+            <p className="text-sm text-gray-500">Viewed by Clients</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-indigo-600">
+              {Math.round((allApplications.filter(a => a.status === 'hired').length / allApplications.length) * 100)}%
+            </div>
+            <p className="text-sm text-gray-500">Hire Rate</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Applications List */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Applications</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {allApplications.map((application) => (
+                <div key={application.id} className="p-4 border rounded-lg hover:bg-gray-50">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h4 className="font-semibold">{application.freelancerName}</h4>
+                      <p className="text-sm text-gray-600">{application.projectTitle}</p>
+                      <p className="text-xs text-gray-500">Client: {application.clientName}</p>
+                    </div>
+                    <div className="flex flex-col items-end space-y-1">
+                      <Badge variant={
+                        application.status === 'hired' ? 'default' :
+                        application.status === 'shortlisted' ? 'secondary' :
+                        application.status === 'rejected' ? 'destructive' :
+                        application.status === 'reviewed' ? 'outline' :
+                        'outline'
+                      }>
+                        {application.status}
+                      </Badge>
+                      <div className="flex items-center space-x-1">
+                        <span className="text-yellow-500">⭐</span>
+                        <span className="text-xs">{application.freelancerRating}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between text-xs text-gray-500 mb-2">
+                    <span>Proposed: ₹{application.proposedBudget.toLocaleString()}</span>
+                    <span>Applied: {application.appliedDate}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs ${application.viewedByClient ? 'text-green-600' : 'text-orange-600'}`}>
+                      {application.viewedByClient ? '✓ Viewed by client' : '○ Awaiting client review'}
+                    </span>
+                    <Button size="sm" variant="ghost">View Details</Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Job Postings Analytics */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Job Posting Analytics</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {jobPostings.map((posting) => (
+                <div key={posting.id} className="p-4 border rounded-lg">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h4 className="font-semibold">{posting.title}</h4>
+                      <p className="text-sm text-gray-600">by {posting.clientName}</p>
+                      <p className="text-sm text-gray-500">Budget: ₹{posting.budget.toLocaleString()}</p>
+                    </div>
+                    <Badge variant={
+                      posting.status === 'hired' ? 'default' :
+                      posting.status === 'in-review' ? 'secondary' :
+                      'outline'
+                    }>
+                      {posting.status}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 text-xs text-gray-500">
+                    <div className="text-center">
+                      <div className="font-bold text-blue-600">{posting.applicationsCount}</div>
+                      <div>Applications</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-green-600">{posting.viewsCount}</div>
+                      <div>Views</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="font-bold text-purple-600">
+                        {Math.round((posting.applicationsCount / posting.viewsCount) * 100)}%
+                      </div>
+                      <div>Conversion</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+
   const renderDisputesView = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
