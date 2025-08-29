@@ -451,7 +451,7 @@ export default function FreelancerDashboard() {
                     earning.status === 'Pending' ? 'text-orange-600' :
                     'text-blue-600'
                   }`}>
-                    ${earning.amount.toLocaleString()}
+                    ₹{earning.amount.toLocaleString()}
                   </p>
                   <Badge variant={
                     earning.status === 'Paid' ? 'default' :
