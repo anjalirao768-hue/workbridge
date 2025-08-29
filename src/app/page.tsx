@@ -19,7 +19,7 @@ export default function Home() {
     }, 4000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   const testimonials = [
     {
