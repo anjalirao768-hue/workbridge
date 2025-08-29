@@ -902,7 +902,7 @@ export default function ClientDashboard() {
                       </div>
                       <p className="text-sm text-gray-600 mb-2">{project.freelancer ? `Freelancer: ${project.freelancer}` : 'Looking for freelancer'}</p>
                       <div className="flex justify-between text-xs text-gray-500">
-                        <span>Budget: ${project.budget.toLocaleString()}</span>
+                        <span>Budget: ₹{project.budget.toLocaleString()}</span>
                         <span>Due: {project.dueDate}</span>
                       </div>
                     </div>
