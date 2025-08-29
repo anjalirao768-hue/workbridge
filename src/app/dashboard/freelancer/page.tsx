@@ -101,64 +101,21 @@ export default function FreelancerDashboard() {
 
   // Mock data - in real app, this would come from API
   useEffect(() => {
-    // Mock Available Projects
-    setAvailableProjects([
-      {
-        id: '1',
-        title: 'React Dashboard Development',
-        client: 'TechCorp Inc.',
-        budget: 290500,
-        status: 'Open',
-        skills: ['React', 'TypeScript', 'Dashboard'],
-        description: 'Build an admin dashboard with React and TypeScript for data visualization.',
-        postedDate: '2023-12-08',
-        isApplied: false
-      },
-      {
-        id: '2',
-        title: 'E-commerce API Integration',
-        client: 'ShopSmart Ltd.',
-        budget: 182600,
-        status: 'Open',
-        skills: ['Node.js', 'API', 'Backend'],
-        description: 'Integrate third-party APIs with existing Node.js backend system.',
-        postedDate: '2023-12-07',
-        isApplied: true
-      },
-      {
-        id: '3',
-        title: 'Mobile App UI Design',
-        client: 'StartupXYZ',
-        budget: 149400,
-        status: 'Open',
-        skills: ['UI/UX', 'Figma', 'Mobile'],
-        description: 'Design modern and intuitive UI for iOS and Android mobile application.',
-        postedDate: '2023-12-06',
-        isApplied: false
-      },
-      {
-        id: '4',
-        title: 'WordPress Website Development',
-        client: 'LocalBiz Co.',
-        budget: 124500,
-        status: 'Open',
-        skills: ['WordPress', 'PHP', 'CSS'],
-        description: 'Create a professional business website using WordPress with custom theme.',
-        postedDate: '2023-12-05',
-        isApplied: false
-      },
-      {
-        id: '5',
-        title: 'Data Analysis & Visualization',
-        client: 'Analytics Pro',
-        budget: 232400,
-        status: 'Open',
-        skills: ['Python', 'Data Science', 'Visualization'],
-        description: 'Analyze large datasets and create interactive visualizations and reports.',
-        postedDate: '2023-12-04',
-        isApplied: false
-      }
-    ]);
+    // Get available projects from shared store
+    const storeProjects = projectsStore.getAllProjects();
+    const mappedProjects = storeProjects.map(project => ({
+      id: project.id,
+      title: project.title,
+      client: project.client,
+      budget: project.budget,
+      status: 'Open' as const,
+      skills: project.skills,
+      description: project.description,
+      postedDate: project.postedDate,
+      isApplied: false // In real app, check if current user has applied
+    }));
+    
+    setAvailableProjects(mappedProjects);
 
     // Mock Active Work
     setMyActiveWork([
