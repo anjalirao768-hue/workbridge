@@ -311,7 +311,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <Card className="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border-white/10 backdrop-blur-xl">
               <CardContent className="p-12 text-center">
-                <div className="text-6xl text-blue-400 mb-6">"</div>
+                <div className="text-6xl text-blue-400 mb-6">&ldquo;</div>
                 <p className="text-2xl text-white mb-8 leading-relaxed">
                   {testimonials[currentTestimonial].quote}
                 </p>
