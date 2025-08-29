@@ -886,6 +886,29 @@ export default function FreelancerDashboard() {
     </div>
   );
 
+  if (activeView === 'applications') return (
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-4">
+              <h1 className="text-2xl font-bold text-gray-900">WorkBridge</h1>
+              <Badge variant="secondary">Freelancer Dashboard</Badge>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">{user.email}</span>
+              <Button onClick={() => router.push('/home')} variant="ghost" size="sm">Home</Button>
+              <Button onClick={handleLogout} variant="outline" size="sm">Logout</Button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {renderMyApplicationsView()}
+      </main>
+    </div>
+  );
+
   if (activeView === 'submissions') return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm border-b">
