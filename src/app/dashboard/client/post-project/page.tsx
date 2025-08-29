@@ -423,7 +423,7 @@ export default function PostProject() {
                 
                 <div className="flex justify-between items-center">
                   <div className="text-sm text-gray-600">
-                    <p>By posting this project, you agree to WorkBridge's terms of service.</p>
+                    <p>By posting this project, you agree to WorkBridge&apos;s terms of service.</p>
                     <p className="mt-1">Your project will be visible to verified freelancers immediately.</p>
                   </div>
                   
