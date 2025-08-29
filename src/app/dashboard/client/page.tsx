@@ -86,13 +86,13 @@ export default function ClientDashboard() {
 
     // Mock Transactions Data for current client
     setMyTransactions([
-      { id: '1', type: 'Project Payment', amount: 1500, project: 'E-commerce Website', date: '2023-12-08', status: 'Completed' },
-      { id: '2', type: 'Escrow Deposit', amount: 2500, project: 'Mobile App Design', date: '2023-11-28', status: 'Held' },
-      { id: '3', type: 'Milestone Payment', amount: 800, project: 'API Integration', date: '2023-12-07', status: 'Processing' },
-      { id: '4', type: 'Refund', amount: 900, project: 'API Integration', date: '2023-12-06', status: 'Approved' },
-      { id: '5', type: 'Final Payment', amount: 4500, project: 'Dashboard Development', date: '2023-11-30', status: 'Completed' },
-      { id: '6', type: 'Initial Deposit', amount: 600, project: 'SEO Optimization', date: '2023-12-05', status: 'Completed' },
-      { id: '7', type: 'Platform Fee', amount: 225, project: 'Dashboard Development', date: '2023-11-30', status: 'Completed' },
+      { id: '1', type: 'Project Payment', amount: 124500, project: 'E-commerce Website', date: '2023-12-08', status: 'Completed' },
+      { id: '2', type: 'Escrow Deposit', amount: 207500, project: 'Mobile App Design', date: '2023-11-28', status: 'Held' },
+      { id: '3', type: 'Milestone Payment', amount: 66400, project: 'API Integration', date: '2023-12-07', status: 'Processing' },
+      { id: '4', type: 'Refund', amount: 74700, project: 'API Integration', date: '2023-12-06', status: 'Approved' },
+      { id: '5', type: 'Final Payment', amount: 373500, project: 'Dashboard Development', date: '2023-11-30', status: 'Completed' },
+      { id: '6', type: 'Initial Deposit', amount: 49800, project: 'SEO Optimization', date: '2023-12-05', status: 'Completed' },
+      { id: '7', type: 'Platform Fee', amount: 18675, project: 'Dashboard Development', date: '2023-11-30', status: 'Completed' },
     ]);
 
     // Mock Milestones Data for current client
