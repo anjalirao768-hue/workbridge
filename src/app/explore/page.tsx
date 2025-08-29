@@ -330,11 +330,11 @@ export default function ExploreTalent() {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-2 pt-4">
-                  <Button className="flex-1 bg-purple-600 hover:bg-purple-700">
-                    View Profile
+                  <Button asChild className="flex-1 bg-purple-600 hover:bg-purple-700">
+                    <Link href="/signup">View Profile</Link>
                   </Button>
-                  <Button variant="outline" className="flex-1 border-purple-600 text-purple-600 hover:bg-purple-50">
-                    Contact
+                  <Button asChild variant="outline" className="flex-1 border-purple-600 text-purple-600 hover:bg-purple-50">
+                    <Link href="/signup">Contact</Link>
                   </Button>
                 </div>
               </CardContent>
