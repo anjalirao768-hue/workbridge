@@ -269,7 +269,7 @@ export default function FreelancerDashboard() {
                   <div className="flex-1">
                     <div className="flex justify-between items-start mb-2">
                       <h4 className="font-semibold text-lg">{project.title}</h4>
-                      <Badge variant="default" className="ml-2">${project.budget.toLocaleString()}</Badge>
+                      <Badge variant="default" className="ml-2">₹{project.budget.toLocaleString()}</Badge>
                     </div>
                     <p className="text-gray-600 mb-2">{project.description}</p>
                     <p className="text-sm text-gray-500 mb-2">Client: {project.client}</p>
