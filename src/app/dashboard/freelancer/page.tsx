@@ -1015,6 +1015,69 @@ export default function FreelancerDashboard() {
 
           {/* Main Sections */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* My Applications Section */}
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle>My Applications</CardTitle>
+                    <CardDescription>Track your project application status</CardDescription>
+                  </div>
+                  <Button size="sm" onClick={() => setActiveView('applications')}>View All</Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div>
+                      <div className="text-lg font-bold text-orange-600">{myApplications.filter(a => a.status === 'pending').length}</div>
+                      <div className="text-xs text-gray-500">Pending</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-blue-600">{myApplications.filter(a => a.status === 'shortlisted').length}</div>
+                      <div className="text-xs text-gray-500">Shortlisted</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-green-600">{myApplications.filter(a => a.status === 'hired').length}</div>
+                      <div className="text-xs text-gray-500">Hired</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {myApplications.slice(0, 2).map((app) => (
+                      <div key={app.id} className={`border rounded-lg p-3 ${
+                        app.status === 'hired' ? 'border-green-200 bg-green-50' :
+                        app.status === 'shortlisted' ? 'border-blue-200 bg-blue-50' :
+                        app.status === 'rejected' ? 'border-red-200 bg-red-50' :
+                        'bg-gray-50'
+                      }`}>
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-medium text-sm">{app.projectTitle}</h4>
+                          <Badge variant={
+                            app.status === 'hired' ? 'default' :
+                            app.status === 'shortlisted' ? 'secondary' :
+                            app.status === 'rejected' ? 'destructive' :
+                            'outline'
+                          } className="text-xs">
+                            {app.status}
+                          </Badge>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-1">{app.clientName}</p>
+                        <div className="flex justify-between items-center">
+                          <p className="text-xs text-green-600 font-medium">₹{app.proposedBudget.toLocaleString()}</p>
+                          <div className={`text-xs ${app.viewedByClient ? 'text-green-600' : 'text-orange-600'}`}>
+                            {app.viewedByClient ? '✓ Viewed' : '○ Pending'}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button variant="outline" className="w-full" onClick={() => setActiveView('applications')}>Track All Applications</Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Available Projects Section */}
             <Card>
               <CardHeader>
