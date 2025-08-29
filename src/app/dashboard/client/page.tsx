@@ -945,6 +945,53 @@ export default function ClientDashboard() {
 
           {/* Additional Sections */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Applications Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Project Applications</CardTitle>
+                <CardDescription>Freelancers applying to your projects</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{projectApplications.length}</div>
+                      <p className="text-xs text-gray-500">Total Applications</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-orange-600">{projectApplications.filter(a => !a.viewedByClient).length}</div>
+                      <p className="text-xs text-gray-500">New Applications</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {projectApplications.filter(a => !a.viewedByClient).slice(0, 2).map((app) => (
+                      <div key={app.id} className="flex items-center justify-between p-3 border rounded-lg bg-blue-50 border-blue-200">
+                        <div>
+                          <h4 className="font-medium text-sm">{app.freelancerName}</h4>
+                          <p className="text-xs text-gray-600">{app.projectTitle}</p>
+                          <p className="text-xs text-green-600 font-medium">₹{app.proposedBudget.toLocaleString()}</p>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-xs mb-1">
+                            New
+                          </Badge>
+                          <div className="flex items-center space-x-1">
+                            <span className="text-yellow-500 text-xs">⭐</span>
+                            <span className="text-xs">{app.freelancerRating}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button variant="outline" className="w-full" onClick={() => setActiveView('applications')}>
+                    Review All Applications
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Milestones Section */}
             <Card>
               <CardHeader>
