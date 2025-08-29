@@ -150,7 +150,7 @@ export default function FreelancerDashboard() {
         id: '1',
         title: 'E-commerce Website',
         client: 'John Doe',
-        budget: 5000,
+        budget: 415000,
         progress: 65,
         dueDate: '2024-01-15',
         status: 'In Progress'
@@ -159,7 +159,7 @@ export default function FreelancerDashboard() {
         id: '2',
         title: 'CRM System Backend',
         client: 'Business Corp',
-        budget: 3200,
+        budget: 265600,
         progress: 30,
         dueDate: '2024-02-01',
         status: 'Active'
