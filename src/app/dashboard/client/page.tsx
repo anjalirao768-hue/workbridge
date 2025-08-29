@@ -97,11 +97,11 @@ export default function ClientDashboard() {
 
     // Mock Milestones Data for current client
     setMyMilestones([
-      { id: '1', title: 'Frontend Implementation', project: 'E-commerce Website', amount: 1800, status: 'Pending Review', submittedDate: '2023-12-08' },
-      { id: '2', title: 'Database Design', project: 'API Integration', amount: 900, status: 'Revision Requested', submittedDate: '2023-12-05' },
-      { id: '3', title: 'UI/UX Mockups', project: 'Mobile App Design', amount: 1200, status: 'Approved', submittedDate: '2023-12-01' },
-      { id: '4', title: 'SEO Analysis', project: 'SEO Optimization', amount: 400, status: 'In Progress' },
-      { id: '5', title: 'Website Architecture', project: 'Website Redesign', amount: 1600, status: 'Not Started' },
+      { id: '1', title: 'Frontend Implementation', project: 'E-commerce Website', amount: 149400, status: 'Pending Review', submittedDate: '2023-12-08' },
+      { id: '2', title: 'Database Design', project: 'API Integration', amount: 74700, status: 'Revision Requested', submittedDate: '2023-12-05' },
+      { id: '3', title: 'UI/UX Mockups', project: 'Mobile App Design', amount: 99600, status: 'Approved', submittedDate: '2023-12-01' },
+      { id: '4', title: 'SEO Analysis', project: 'SEO Optimization', amount: 33200, status: 'In Progress' },
+      { id: '5', title: 'Website Architecture', project: 'Website Redesign', amount: 132800, status: 'Not Started' },
     ]);
   }, []);
 
