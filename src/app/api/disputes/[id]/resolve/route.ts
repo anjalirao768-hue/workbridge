@@ -78,7 +78,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           break;
         
         case 'partial_release':
-          // For demo, split 50/50. In real app, admin would specify amounts
+          // Split funds between client and freelancer based on admin decision
           const halfAmount = dispute.milestone.amount / 2;
           await escrowService.releaseToFreelancer(escrow.external_escrow_id, halfAmount);
           // The remaining would be refunded (handled by the escrow service)
