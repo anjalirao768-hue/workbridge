@@ -918,7 +918,7 @@ export default function AdminDashboard() {
                     <p className="text-sm text-gray-600 mb-2">Full-stack development project</p>
                     <div className="flex justify-between text-xs text-gray-500">
                       <span>Client: John Doe</span>
-                      <span>Budget: ₹5,000</span>
+                      <span>Budget: ₹4,15,000</span>
                     </div>
                   </div>
                   
