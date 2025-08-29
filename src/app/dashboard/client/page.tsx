@@ -66,6 +66,7 @@ export default function ClientDashboard() {
   const [myProjects, setMyProjects] = useState<Project[]>([]);
   const [myTransactions, setMyTransactions] = useState<Transaction[]>([]);
   const [myMilestones, setMyMilestones] = useState<Milestone[]>([]);
+  const [projectApplications, setProjectApplications] = useState<Application[]>([]);
   const router = useRouter();
 
   const fetchUserInfo = useCallback(async () => {
