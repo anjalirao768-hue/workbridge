@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projectsStore } from "@/lib/projects-store";
+import { projectsStore, type ProjectData } from "@/lib/projects-store";
 import { useRouter } from "next/navigation";
 
 export default function CheckProjects() {
-  const [allProjects, setAllProjects] = useState<any[]>([]);
-  const [clientProjects, setClientProjects] = useState<any[]>([]);
+  const [allProjects, setAllProjects] = useState<ProjectData[]>([]);
+  const [clientProjects, setClientProjects] = useState<ProjectData[]>([]);
   const router = useRouter();
 
   useEffect(() => {
