@@ -758,7 +758,7 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-500">Project: E-commerce Platform</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-green-600">+$1,500</p>
+                      <p className="font-medium text-green-600">+₹1,500</p>
                       <p className="text-xs text-gray-500">Dec 8, 2023</p>
                     </div>
                   </div>
