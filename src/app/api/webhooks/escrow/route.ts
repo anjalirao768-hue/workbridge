@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const webhookSignature = req.headers.get('x-webhook-signature');
     if (!webhookSignature || webhookSignature !== signature) {
       console.warn('Invalid webhook signature');
-      // In production, we'd reject this, but for demo we'll continue
+      // In production, proper webhook validation would be implemented
     }
 
     console.log(`📨 Webhook received: ${event}`, data);
