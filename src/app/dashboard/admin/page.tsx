@@ -828,7 +828,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <Button variant="outline" className="w-full">View All Disputes</Button>
+                  <Button variant="outline" className="w-full" onClick={() => setActiveView('disputes')}>View All Disputes</Button>
                 </div>
               </CardContent>
             </Card>
