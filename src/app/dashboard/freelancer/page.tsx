@@ -168,12 +168,12 @@ export default function FreelancerDashboard() {
 
     // Mock Earnings
     setMyEarnings([
-      { id: '1', project: 'Dashboard Development', amount: 2250, date: '2023-11-30', status: 'Paid' },
-      { id: '2', project: 'API Integration', amount: 1800, date: '2023-12-05', status: 'Pending' },
-      { id: '3', project: 'Website Redesign', amount: 1500, date: '2023-11-25', status: 'Paid' },
-      { id: '4', project: 'Mobile App Design', amount: 2100, date: '2023-12-08', status: 'In Escrow' },
-      { id: '5', project: 'E-commerce Frontend', amount: 3200, date: '2023-11-20', status: 'Paid' },
-      { id: '6', project: 'Database Optimization', amount: 950, date: '2023-11-15', status: 'Paid' }
+      { id: '1', project: 'Dashboard Development', amount: 186750, date: '2023-11-30', status: 'Paid' },
+      { id: '2', project: 'API Integration', amount: 149400, date: '2023-12-05', status: 'Pending' },
+      { id: '3', project: 'Website Redesign', amount: 124500, date: '2023-11-25', status: 'Paid' },
+      { id: '4', project: 'Mobile App Design', amount: 174300, date: '2023-12-08', status: 'In Escrow' },
+      { id: '5', project: 'E-commerce Frontend', amount: 265600, date: '2023-11-20', status: 'Paid' },
+      { id: '6', project: 'Database Optimization', amount: 78850, date: '2023-11-15', status: 'Paid' }
     ]);
 
     // Mock Submissions
