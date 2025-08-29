@@ -930,7 +930,7 @@ export default function AdminDashboard() {
                     <p className="text-sm text-gray-600 mb-2">UI/UX design for mobile application</p>
                     <div className="flex justify-between text-xs text-gray-500">
                       <span>Freelancer: Alice Smith</span>
-                      <span>Budget: ₹2,500</span>
+                      <span>Budget: ₹2,07,500</span>
                     </div>
                   </div>
 
