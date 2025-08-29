@@ -218,6 +218,73 @@ export default function FreelancerDashboard() {
         feedback: 'Excellent work! All requirements met perfectly.'
       }
     ]);
+
+    // Mock My Applications Data
+    setMyApplications([
+      {
+        id: '1',
+        projectId: '1',
+        projectTitle: 'E-commerce Platform',
+        clientName: 'John Doe',
+        appliedDate: '2023-12-08',
+        status: 'shortlisted',
+        proposedBudget: 380000,
+        estimatedDuration: '6-8 weeks',
+        viewedByClient: true,
+        projectBudget: 415000,
+        clientFeedback: 'Impressive portfolio and proposal. We are considering you for the next round.'
+      },
+      {
+        id: '2',
+        projectId: '2',
+        projectTitle: 'Mobile App Design',
+        clientName: 'Mike Brown',
+        appliedDate: '2023-12-07',
+        status: 'reviewed',
+        proposedBudget: 190000,
+        estimatedDuration: '4-5 weeks',
+        viewedByClient: true,
+        projectBudget: 207500,
+      },
+      {
+        id: '3',
+        projectId: '3',
+        projectTitle: 'API Integration',
+        clientName: 'David Jones',
+        appliedDate: '2023-12-06',
+        status: 'pending',
+        proposedBudget: 149400,
+        estimatedDuration: '3-4 weeks',
+        viewedByClient: false,
+        projectBudget: 149400,
+      },
+      {
+        id: '4',
+        projectId: '4',
+        projectTitle: 'Website Redesign',
+        clientName: 'John Doe',
+        appliedDate: '2023-12-05',
+        status: 'rejected',
+        proposedBudget: 240000,
+        estimatedDuration: '5-6 weeks',
+        viewedByClient: true,
+        projectBudget: 265600,
+        clientFeedback: 'Thank you for your application. We decided to go with a different freelancer whose expertise better matches our requirements.'
+      },
+      {
+        id: '5',
+        projectId: '5',
+        projectTitle: 'Dashboard Development',
+        clientName: 'Tech Startup Inc.',
+        appliedDate: '2023-12-04',
+        status: 'hired',
+        proposedBudget: 373500,
+        estimatedDuration: '8-10 weeks',
+        viewedByClient: true,
+        projectBudget: 373500,
+        clientFeedback: 'Congratulations! We would like to hire you for this project. Please check your email for next steps.'
+      }
+    ]);
   }, []);
 
   useEffect(() => {
