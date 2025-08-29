@@ -250,7 +250,7 @@ export default function FreelancerDashboard() {
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-purple-600">
-              ${Math.round(availableProjects.reduce((sum, p) => sum + p.budget, 0) / availableProjects.length)}
+              ₹{Math.round(availableProjects.reduce((sum, p) => sum + p.budget, 0) / availableProjects.length)}
             </div>
             <p className="text-sm text-gray-500">Avg Budget</p>
           </CardContent>
