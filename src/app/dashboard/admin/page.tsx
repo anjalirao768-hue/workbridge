@@ -732,7 +732,7 @@ export default function AdminDashboard() {
                     <p className="text-sm text-gray-600 mb-2">Third-party API integrations</p>
                     <div className="flex justify-between text-xs text-gray-500">
                       <span>Requires attention</span>
-                      <span>Budget: $1,800</span>
+                      <span>Budget: ₹1,800</span>
                     </div>
                   </div>
 
