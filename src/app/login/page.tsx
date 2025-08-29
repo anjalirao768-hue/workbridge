@@ -140,25 +140,6 @@ export default function LoginPage() {
                 </Link>
               </p>
             </div>
-
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-              <h4 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h4>
-              <div className="text-xs text-blue-700 space-y-1">
-                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
-                     onClick={() => { setEmail('admin@workbridge.com'); setPassword('password123'); }}>
-                  <strong>Admin:</strong> admin@workbridge.com / password123
-                </div>
-                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
-                     onClick={() => { setEmail('client1@test.com'); setPassword('password123'); }}>
-                  <strong>Client:</strong> client1@test.com / password123
-                </div>
-                <div className="cursor-pointer hover:bg-blue-100 p-1 rounded" 
-                     onClick={() => { setEmail('freelancer1@test.com'); setPassword('password123'); }}>
-                  <strong>Freelancer:</strong> freelancer1@test.com / password123
-                </div>
-              </div>
-              <p className="text-xs text-blue-600 mt-2">Click on any credential to auto-fill</p>
-            </div>
           </CardContent>
         </Card>
       </div>
