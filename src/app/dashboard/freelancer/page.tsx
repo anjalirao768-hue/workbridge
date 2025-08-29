@@ -709,7 +709,7 @@ export default function FreelancerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-600">
-                  ${myEarnings.filter(e => e.status === 'Paid').reduce((sum, e) => sum + e.amount, 0).toLocaleString()}
+                  ₹{myEarnings.filter(e => e.status === 'Paid').reduce((sum, e) => sum + e.amount, 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Lifetime earnings</p>
               </CardContent>
