@@ -370,6 +370,30 @@ export default function FreelancerDashboard() {
                     size="sm" 
                     disabled={project.isApplied}
                     variant={project.isApplied ? "outline" : "default"}
+                    onClick={() => {
+                      if (!project.isApplied) {
+                        setAvailableProjects(projects => 
+                          projects.map(p => 
+                            p.id === project.id 
+                              ? {...p, isApplied: true}
+                              : p
+                          )
+                        );
+                        // Add to my applications
+                        setMyApplications(apps => [...apps, {
+                          id: `new-${Date.now()}`,
+                          projectId: project.id,
+                          projectTitle: project.title,
+                          clientName: project.client,
+                          appliedDate: new Date().toISOString().split('T')[0],
+                          status: 'pending',
+                          proposedBudget: project.budget,
+                          estimatedDuration: '4-6 weeks',
+                          viewedByClient: false,
+                          projectBudget: project.budget,
+                        }]);
+                      }
+                    }}
                   >
                     {project.isApplied ? 'Applied' : 'Apply Now'}
                   </Button>
