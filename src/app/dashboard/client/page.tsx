@@ -121,6 +121,90 @@ export default function ClientDashboard() {
       { id: '4', title: 'SEO Analysis', project: 'SEO Optimization', amount: 33200, status: 'In Progress' },
       { id: '5', title: 'Website Architecture', project: 'Website Redesign', amount: 132800, status: 'Not Started' },
     ]);
+
+    // Mock Applications Data for current client's projects
+    setProjectApplications([
+      {
+        id: '1',
+        projectId: '1',
+        projectTitle: 'E-commerce Website',
+        freelancerName: 'Priya Sharma',
+        freelancerEmail: 'priya@example.com',
+        appliedDate: '2023-12-08',
+        status: 'pending',
+        coverLetter: 'I have 5+ years of experience building e-commerce platforms with React and Node.js. I can deliver a modern, scalable solution within your timeline.',
+        proposedBudget: 380000,
+        estimatedDuration: '6-8 weeks',
+        freelancerRating: 4.9,
+        freelancerExperience: ['E-commerce Development', 'React/Next.js', 'Node.js', 'Payment Integration'],
+        freelancerSkills: ['React', 'Node.js', 'MongoDB', 'Stripe', 'AWS'],
+        viewedByClient: false
+      },
+      {
+        id: '2',
+        projectId: '1',
+        projectTitle: 'E-commerce Website',
+        freelancerName: 'Rahul Kumar',
+        freelancerEmail: 'rahul@example.com',
+        appliedDate: '2023-12-07',
+        status: 'shortlisted',
+        coverLetter: 'Full-stack developer with expertise in building scalable e-commerce solutions. I can provide end-to-end development with modern tech stack.',
+        proposedBudget: 415000,
+        estimatedDuration: '7-9 weeks',
+        freelancerRating: 5.0,
+        freelancerExperience: ['E-commerce Platforms', 'Full-stack Development', 'Database Design', 'API Development'],
+        freelancerSkills: ['React', 'TypeScript', 'PostgreSQL', 'Docker', 'GraphQL'],
+        viewedByClient: true
+      },
+      {
+        id: '3',
+        projectId: '2',
+        projectTitle: 'Mobile App Design',
+        freelancerName: 'Sneha Patel',
+        freelancerEmail: 'sneha@example.com',
+        appliedDate: '2023-12-06',
+        status: 'reviewed',
+        coverLetter: 'UI/UX designer specializing in mobile app interfaces. I create user-centered designs that drive engagement and conversions.',
+        proposedBudget: 190000,
+        estimatedDuration: '4-5 weeks',
+        freelancerRating: 4.8,
+        freelancerExperience: ['Mobile UI Design', 'User Research', 'Prototyping', 'Design Systems'],
+        freelancerSkills: ['Figma', 'Adobe XD', 'Principle', 'User Research', 'Wireframing'],
+        viewedByClient: true
+      },
+      {
+        id: '4',
+        projectId: '4',
+        projectTitle: 'Website Redesign',
+        freelancerName: 'Aisha Khan',
+        freelancerEmail: 'aisha@example.com',
+        appliedDate: '2023-12-09',
+        status: 'pending',
+        coverLetter: 'Content writer and web designer with focus on user experience and SEO optimization. I can help redesign your website for better performance.',
+        proposedBudget: 240000,
+        estimatedDuration: '5-6 weeks',
+        freelancerRating: 4.9,
+        freelancerExperience: ['Web Design', 'Content Strategy', 'SEO Optimization', 'Conversion Optimization'],
+        freelancerSkills: ['WordPress', 'Content Writing', 'SEO', 'Google Analytics', 'Figma'],
+        viewedByClient: false
+      },
+      {
+        id: '5',
+        projectId: '2',
+        projectTitle: 'Mobile App Design',
+        freelancerName: 'Vikram Singh',
+        freelancerEmail: 'vikram@example.com',
+        appliedDate: '2023-12-08',
+        status: 'rejected',
+        coverLetter: 'Financial consultant with experience in fintech app design. I understand the regulatory requirements and user needs for financial applications.',
+        proposedBudget: 280000,
+        estimatedDuration: '6-7 weeks',
+        freelancerRating: 4.6,
+        freelancerExperience: ['Fintech Design', 'Financial Modeling', 'Compliance', 'Data Visualization'],
+        freelancerSkills: ['Financial Analysis', 'Excel', 'PowerBI', 'Risk Assessment', 'Compliance'],
+        viewedByClient: true
+      }
+    ]);
   }, []);
 
   useEffect(() => {
