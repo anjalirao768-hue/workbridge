@@ -273,7 +273,7 @@ export default function AdminDashboard() {
                   </Badge>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500">
-                  <div>Budget: <span className="font-medium text-gray-900">${project.budget.toLocaleString()}</span></div>
+                  <div>Budget: <span className="font-medium text-gray-900">₹{project.budget.toLocaleString()}</span></div>
                   <div>Created: <span className="font-medium text-gray-900">{project.createdDate}</span></div>
                   <div>Due: <span className="font-medium text-gray-900">{project.dueDate}</span></div>
                 </div>
