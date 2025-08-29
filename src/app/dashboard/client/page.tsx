@@ -506,7 +506,7 @@ export default function ClientDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-green-600">
-                  ${myTransactions.reduce((sum, t) => sum + (t.type !== 'Refund' ? t.amount : 0), 0).toLocaleString()}
+                  ₹{myTransactions.reduce((sum, t) => sum + (t.type !== 'Refund' ? t.amount : 0), 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Lifetime spending</p>
               </CardContent>
