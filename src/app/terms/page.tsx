@@ -676,7 +676,7 @@ export default function TermsAndConditions() {
                         <CardContent className="mt-6 space-y-4">
                           <div>
                             <h6 className="font-medium text-gray-800">Legal Department:</h6>
-                            <p className="text-green-600 font-medium">legal@workbridge-demo.com</p>
+                            <p className="text-green-600 font-medium">legal@workbridge.com</p>
                             <p className="text-sm text-gray-600">For legal notices and compliance matters</p>
                           </div>
                           <div>
