@@ -355,7 +355,7 @@ export default function FreelancerDashboard() {
                   <div>
                     <h4 className="font-semibold text-lg">{work.title}</h4>
                     <p className="text-gray-600">Client: {work.client}</p>
-                    <p className="text-gray-600">Budget: ${work.budget.toLocaleString()}</p>
+                    <p className="text-gray-600">Budget: ₹{work.budget.toLocaleString()}</p>
                   </div>
                   <Badge variant="default">{work.status}</Badge>
                 </div>
