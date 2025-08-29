@@ -347,7 +347,7 @@ export default function AdminDashboard() {
                     transaction.type === 'Platform Fee' ? 'text-blue-600' :
                     transaction.type === 'Refund' ? 'text-red-600' : 'text-orange-600'
                   }`}>
-                    {transaction.type === 'Platform Fee' ? '+' : transaction.type === 'Refund' ? '-' : ''}${transaction.amount.toLocaleString()}
+                    {transaction.type === 'Platform Fee' ? '+' : transaction.type === 'Refund' ? '-' : ''}₹{transaction.amount.toLocaleString()}
                   </p>
                   <p className="text-xs text-gray-500">{transaction.date}</p>
                   <Badge variant={transaction.status === 'Completed' ? 'default' : transaction.status === 'Processing' ? 'secondary' : 'outline'} className="text-xs">
