@@ -26,7 +26,35 @@ export default function PostProject() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  // Check authentication
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/user/me');
+        if (res.ok) {
+          const userData = await res.json();
+          if (userData.role === 'client') {
+            setIsAuthenticated(true);
+          } else {
+            router.push('/home');
+          }
+        } else {
+          router.push('/login');
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkAuth();
+  }, [router]);
 
   const skillSuggestions = [
     'React', 'Node.js', 'TypeScript', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby',
