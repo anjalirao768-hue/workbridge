@@ -227,7 +227,7 @@ export default function ClientDashboard() {
         <div className="flex space-x-2">
           <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
           <Button asChild>
-            <a href="/dashboard/client/post-project">+ New Project</a>
+            <Link href="/dashboard/client/post-project">+ New Project</Link>
           </Button>
         </div>
       </div>
