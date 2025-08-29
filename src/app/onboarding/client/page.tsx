@@ -85,11 +85,11 @@ export default function ClientOnboardingPage() {
               <Label htmlFor="budget-range">Typical Project Budget Range</Label>
               <select className="w-full p-2 border border-gray-300 rounded-md">
                 <option value="">Select budget range</option>
-                <option value="under-1k">Under $1,000</option>
-                <option value="1k-5k">$1,000 - $5,000</option>
-                <option value="5k-10k">$5,000 - $10,000</option>
-                <option value="10k-25k">$10,000 - $25,000</option>
-                <option value="25k-plus">$25,000+</option>
+                <option value="under-83k">Under ₹83,000</option>
+                <option value="83k-415k">₹83,000 - ₹4,15,000</option>
+                <option value="415k-830k">₹4,15,000 - ₹8,30,000</option>
+                <option value="830k-2075k">₹8,30,000 - ₹20,75,000</option>
+                <option value="2075k-plus">₹20,75,000+</option>
               </select>
             </div>
 
