@@ -168,7 +168,7 @@ export default function ClientDashboard() {
                   <div>
                     <h4 className="font-semibold text-lg">{project.title}</h4>
                     {project.freelancer && <p className="text-gray-600">Freelancer: {project.freelancer}</p>}
-                    <p className="text-gray-600">Budget: ${project.budget.toLocaleString()}</p>
+                    <p className="text-gray-600">Budget: ₹{project.budget.toLocaleString()}</p>
                   </div>
                   <Badge variant={
                     project.status === 'In Progress' || project.status === 'Active' ? 'default' :
