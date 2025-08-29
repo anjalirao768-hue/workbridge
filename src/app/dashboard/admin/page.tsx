@@ -634,7 +634,7 @@ export default function AdminDashboard() {
                     <CardTitle>User Management</CardTitle>
                     <CardDescription>Oversee platform users and their activities</CardDescription>
                   </div>
-                  <Button size="sm">View All</Button>
+                  <Button size="sm" onClick={() => setActiveView('users')}>View All</Button>
                 </div>
               </CardHeader>
               <CardContent>
