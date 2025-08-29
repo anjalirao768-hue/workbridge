@@ -359,7 +359,7 @@ export default function Home() {
                   <Link href="/signup">Get Started for Free</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-2 border-white/40 text-white hover:bg-white/20 hover:border-white/60 text-lg px-12 py-4 rounded-full backdrop-blur-sm bg-white/10 transition-all duration-300">
-                  <Link href="#categories">Explore Talent</Link>
+                  <Link href="/explore">Explore Talent</Link>
                 </Button>
               </div>
             </CardContent>
