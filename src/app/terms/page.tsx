@@ -694,7 +694,7 @@ export default function TermsAndConditions() {
                         <div className="space-y-2">
                           <p><strong>Company Name:</strong> WorkBridge Technologies Pvt Ltd</p>
                           <p><strong>Registration:</strong> Private Limited Company (India)</p>
-                          <p><strong>Website:</strong> <a href="https://workbridge-demo.com" className="text-blue-600 underline">www.workbridge-demo.com</a></p>
+                          <p><strong>Website:</strong> <a href="https://workbridge.com" className="text-blue-600 underline">www.workbridge.com</a></p>
                         </div>
                         <div className="space-y-2">
                           <p><strong>Business Type:</strong> Freelancing Marketplace Platform</p>
