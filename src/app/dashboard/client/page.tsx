@@ -149,7 +149,7 @@ export default function ClientDashboard() {
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-purple-600">
-              ${myProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
+              ₹{myProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
             </div>
             <p className="text-sm text-gray-500">Total Budget</p>
           </CardContent>
