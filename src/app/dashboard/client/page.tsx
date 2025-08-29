@@ -221,9 +221,42 @@ export default function ClientDashboard() {
     ]);
   }, []);
 
+  // Function to refresh projects from store
+  const refreshProjects = useCallback(() => {
+    const storeProjects = projectsStore.getAllProjects();
+    
+    const clientProjects = storeProjects.map(project => ({
+      id: project.id,
+      title: project.title,
+      freelancer: project.status === 'open' ? undefined : 'Assigned Freelancer',
+      budget: project.budget,
+      status: project.status === 'open' ? 'Open' : 'In Progress',
+      createdDate: project.postedDate,
+      dueDate: project.applicationDeadline || '2024-02-15',
+      progress: project.status === 'open' ? 0 : 25
+    }));
+
+    const historicalProjects = [
+      { id: 'hist_1', title: 'Previous E-commerce Site', freelancer: 'Alice Smith', budget: 415000, status: 'Completed', createdDate: '2023-10-01', dueDate: '2023-11-15', progress: 100 },
+      { id: 'hist_2', title: 'Mobile App Design', freelancer: 'Sarah Wilson', budget: 207500, status: 'In Progress', createdDate: '2023-11-28', dueDate: '2023-12-20', progress: 85 },
+    ];
+
+    setMyProjects([...clientProjects, ...historicalProjects]);
+  }, []);
+
   useEffect(() => {
     fetchUserInfo();
   }, [fetchUserInfo]);
+
+  // Refresh projects when component mounts and when user returns to this page
+  useEffect(() => {
+    refreshProjects();
+    
+    // Set up an interval to refresh projects periodically
+    const interval = setInterval(refreshProjects, 5000); // Refresh every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, [refreshProjects]);
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
