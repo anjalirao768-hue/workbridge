@@ -113,6 +113,29 @@ class WorkBridgeAPITester:
             print(f"❌ Client login failed for {email}")
             return False, {}
 
+    def test_update_role_to_client(self):
+        """Update user role to client"""
+        role_data = {
+            "role": "client",
+            "skills": ["Project Management", "Business Development", "Team Leadership"]
+        }
+        
+        success, response = self.run_test(
+            "Update Role to Client",
+            "POST",
+            "/api/user/update-role",
+            200,
+            data=role_data
+        )
+        
+        if success and isinstance(response, dict) and response.get('ok'):
+            user = response.get('user', {})
+            print(f"✅ Role updated successfully to: {user.get('role')}")
+            return True, user
+        else:
+            print(f"❌ Role update failed")
+            return False, {}
+
     def test_user_me_authenticated(self):
         """Test getting current user info when authenticated"""
         success, response = self.run_test(
