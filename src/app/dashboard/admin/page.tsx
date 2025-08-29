@@ -818,7 +818,7 @@ export default function AdminDashboard() {
                 <CardTitle className="text-lg">Total Volume</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-orange-600">₹245K</div>
+                <div className="text-2xl font-bold text-orange-600">₹20.3L</div>
                 <p className="text-xs text-gray-500">Platform transactions</p>
               </CardContent>
             </Card>
