@@ -128,7 +128,7 @@ export default function PostProject() {
         router.push('/dashboard/client');
       }, 3000);
       
-    } catch (error) {
+    } catch {
       setSubmitStatus('❌ Failed to post project. Please try again.');
     } finally {
       setIsSubmitting(false);
