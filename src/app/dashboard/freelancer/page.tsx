@@ -74,6 +74,7 @@ export default function FreelancerDashboard() {
   const [myActiveWork, setMyActiveWork] = useState<ActiveWork[]>([]);
   const [myEarnings, setMyEarnings] = useState<Earning[]>([]);
   const [mySubmissions, setMySubmissions] = useState<Submission[]>([]);
+  const [myApplications, setMyApplications] = useState<MyApplication[]>([]);
   const router = useRouter();
 
   const fetchUserInfo = useCallback(async () => {
