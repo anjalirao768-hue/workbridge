@@ -59,6 +59,11 @@ interface Dispute {
 export default function AdminDashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeView, setActiveView] = useState<string>('dashboard');
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [allProjects, setAllProjects] = useState<Project[]>([]);
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [allDisputes, setAllDisputes] = useState<Dispute[]>([]);
   const router = useRouter();
 
   const fetchUserInfo = useCallback(async () => {
