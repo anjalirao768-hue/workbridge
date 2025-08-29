@@ -149,6 +149,25 @@ export default function AdminDashboard() {
       { id: '2', project: 'Mobile App Design', client: 'Mike Brown', freelancer: 'Sarah Wilson', issue: 'Delayed payment release', priority: 'Medium', raisedDate: '2023-12-07', status: 'Under Review' },
       { id: '3', project: 'Website Redesign', client: 'John Doe', freelancer: 'Alice Smith', issue: 'Scope creep concerns', priority: 'Low', raisedDate: '2023-12-05', status: 'Resolved' },
     ]);
+
+    // Mock Applications Data
+    setAllApplications([
+      { id: '1', projectId: '1', projectTitle: 'E-commerce Platform', clientName: 'John Doe', freelancerName: 'Priya Sharma', freelancerEmail: 'priya@example.com', appliedDate: '2023-12-08', status: 'shortlisted', proposedBudget: 380000, viewedByClient: true, freelancerRating: 4.9 },
+      { id: '2', projectId: '1', projectTitle: 'E-commerce Platform', clientName: 'John Doe', freelancerName: 'Rahul Kumar', freelancerEmail: 'rahul@example.com', appliedDate: '2023-12-07', status: 'hired', proposedBudget: 415000, viewedByClient: true, freelancerRating: 5.0 },
+      { id: '3', projectId: '2', projectTitle: 'Mobile App Design', clientName: 'Mike Brown', freelancerName: 'Sneha Patel', freelancerEmail: 'sneha@example.com', appliedDate: '2023-12-06', status: 'reviewed', proposedBudget: 190000, viewedByClient: true, freelancerRating: 4.8 },
+      { id: '4', projectId: '3', projectTitle: 'API Integration', clientName: 'David Jones', freelancerName: 'Arjun Reddy', freelancerEmail: 'arjun@example.com', appliedDate: '2023-12-05', status: 'pending', proposedBudget: 149400, viewedByClient: false, freelancerRating: 4.7 },
+      { id: '5', projectId: '4', projectTitle: 'Website Redesign', clientName: 'John Doe', freelancerName: 'Aisha Khan', freelancerEmail: 'aisha@example.com', appliedDate: '2023-12-09', status: 'rejected', proposedBudget: 240000, viewedByClient: true, freelancerRating: 4.9 },
+      { id: '6', projectId: '2', projectTitle: 'Mobile App Design', clientName: 'Mike Brown', freelancerName: 'Vikram Singh', freelancerEmail: 'vikram@example.com', appliedDate: '2023-12-08', status: 'pending', proposedBudget: 207500, viewedByClient: false, freelancerRating: 4.6 },
+    ]);
+
+    // Mock Job Postings Data
+    setJobPostings([
+      { id: '1', title: 'E-commerce Platform', clientName: 'John Doe', budget: 415000, postedDate: '2023-12-01', applicationsCount: 8, viewsCount: 45, status: 'in-review' },
+      { id: '2', title: 'Mobile App Design', clientName: 'Mike Brown', budget: 207500, postedDate: '2023-11-28', applicationsCount: 12, viewsCount: 67, status: 'open' },
+      { id: '3', title: 'API Integration', clientName: 'David Jones', budget: 149400, postedDate: '2023-11-25', applicationsCount: 6, viewsCount: 23, status: 'open' },
+      { id: '4', title: 'Website Redesign', clientName: 'John Doe', budget: 265600, postedDate: '2023-12-08', applicationsCount: 4, viewsCount: 18, status: 'open' },
+      { id: '5', title: 'Dashboard Development', clientName: 'Mike Brown', budget: 373500, postedDate: '2023-10-15', applicationsCount: 15, viewsCount: 89, status: 'hired' },
+    ]);
   }, []);
 
   useEffect(() => {
