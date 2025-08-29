@@ -344,8 +344,8 @@ export default function ExploreTalent() {
 
         {/* Load More */}
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="border-purple-600 text-purple-600 hover:bg-purple-50">
-            Load More Freelancers
+          <Button asChild variant="outline" size="lg" className="border-purple-600 text-purple-600 hover:bg-purple-50">
+            <Link href="/signup">Load More Freelancers</Link>
           </Button>
         </div>
       </div>
