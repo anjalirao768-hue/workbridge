@@ -89,6 +89,8 @@ export default function AdminDashboard() {
   const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [allDisputes, setAllDisputes] = useState<Dispute[]>([]);
+  const [allApplications, setAllApplications] = useState<Application[]>([]);
+  const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);
   const router = useRouter();
 
   const fetchUserInfo = useCallback(async () => {
