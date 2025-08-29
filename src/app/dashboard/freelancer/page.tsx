@@ -721,7 +721,7 @@ export default function FreelancerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-orange-600">
-                  ${myEarnings.filter(e => e.status === 'Pending' || e.status === 'In Escrow').reduce((sum, e) => sum + e.amount, 0).toLocaleString()}
+                  ₹{myEarnings.filter(e => e.status === 'Pending' || e.status === 'In Escrow').reduce((sum, e) => sum + e.amount, 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Awaiting release</p>
               </CardContent>
