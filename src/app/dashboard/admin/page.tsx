@@ -56,6 +56,31 @@ interface Dispute {
   status: string;
 }
 
+interface Application {
+  id: string;
+  projectId: string;
+  projectTitle: string;
+  clientName: string;
+  freelancerName: string;
+  freelancerEmail: string;
+  appliedDate: string;
+  status: 'pending' | 'reviewed' | 'shortlisted' | 'hired' | 'rejected';
+  proposedBudget: number;
+  viewedByClient: boolean;
+  freelancerRating: number;
+}
+
+interface JobPosting {
+  id: string;
+  title: string;
+  clientName: string;
+  budget: number;
+  postedDate: string;
+  applicationsCount: number;
+  viewsCount: number;
+  status: string;
+}
+
 export default function AdminDashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
