@@ -271,7 +271,7 @@ export default function ClientDashboard() {
                     transaction.type === 'Platform Fee' ? 'text-red-600' :
                     'text-blue-600'
                   }`}>
-                    {transaction.type === 'Refund' ? '+' : '-'}${transaction.amount.toLocaleString()}
+                    {transaction.type === 'Refund' ? '+' : '-'}₹{transaction.amount.toLocaleString()}
                   </p>
                   <Badge variant={transaction.status === 'Completed' ? 'default' : transaction.status === 'Processing' ? 'secondary' : 'outline'} className="text-xs">
                     {transaction.status}
