@@ -91,17 +91,30 @@ export default function ClientDashboard() {
     }
   }, [router]);
 
-  // Mock data - in real app, this would come from API
+  // Load projects from shared store and add some mock completed projects
   useEffect(() => {
-    // Mock Projects Data for current client
-    setMyProjects([
-      { id: '1', title: 'E-commerce Website', freelancer: 'Alice Smith', budget: 415000, status: 'In Progress', createdDate: '2023-12-01', dueDate: '2024-01-15', progress: 65 },
-      { id: '2', title: 'Mobile App Design', freelancer: 'Sarah Wilson', budget: 207500, status: 'Review', createdDate: '2023-11-28', dueDate: '2023-12-20', progress: 90 },
-      { id: '3', title: 'API Integration', freelancer: 'Mike Johnson', budget: 149400, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15', progress: 45 },
-      { id: '4', title: 'Website Redesign', budget: 265600, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10', progress: 0 },
-      { id: '5', title: 'Dashboard Development', freelancer: 'David Lee', budget: 373500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30', progress: 100 },
-      { id: '6', title: 'SEO Optimization', freelancer: 'Emma Brown', budget: 99600, status: 'Active', createdDate: '2023-12-05', dueDate: '2024-01-05', progress: 30 },
-    ]);
+    // Get projects from store for current client (in real app, filter by actual client ID)
+    const storeProjects = projectsStore.getAllProjects();
+    
+    // Convert store projects to client project format
+    const clientProjects = storeProjects.map(project => ({
+      id: project.id,
+      title: project.title,
+      freelancer: project.status === 'open' ? undefined : 'Assigned Freelancer', // In real app, get from applications
+      budget: project.budget,
+      status: project.status === 'open' ? 'Open' : 'In Progress',
+      createdDate: project.postedDate,
+      dueDate: project.applicationDeadline || '2024-02-15',
+      progress: project.status === 'open' ? 0 : 25
+    }));
+
+    // Add some historical completed projects for demonstration
+    const historicalProjects = [
+      { id: 'hist_1', title: 'Previous E-commerce Site', freelancer: 'Alice Smith', budget: 415000, status: 'Completed', createdDate: '2023-10-01', dueDate: '2023-11-15', progress: 100 },
+      { id: 'hist_2', title: 'Mobile App Design', freelancer: 'Sarah Wilson', budget: 207500, status: 'In Progress', createdDate: '2023-11-28', dueDate: '2023-12-20', progress: 85 },
+    ];
+
+    setMyProjects([...clientProjects, ...historicalProjects]);
 
     // Mock Transactions Data for current client
     setMyTransactions([
