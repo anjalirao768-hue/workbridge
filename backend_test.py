@@ -336,36 +336,40 @@ def main():
     if signup_success:
         login_success, login_data = tester.test_login_client(test_email, test_password)
         
-        # Test 3: Get current user info (authenticated)
+        # Test 2.5: Update role to client
         if login_success:
-            me_success, me_data = tester.test_user_me_authenticated()
+            role_success, role_data = tester.test_update_role_to_client()
             
-            if me_success and isinstance(me_data, dict):
-                user_role = me_data.get('role', 'unknown')
+            # Test 3: Get current user info (authenticated)
+            if role_success:
+                me_success, me_data = tester.test_user_me_authenticated()
                 
-                if user_role == 'client':
-                    print(f"\n{'='*50}")
-                    print("PHASE 2: PROJECT STORE FUNCTIONALITY TESTING")
-                    print(f"{'='*50}")
+                if me_success and isinstance(me_data, dict):
+                    user_role = me_data.get('role', 'unknown')
                     
-                    # Test 4: In-memory projects store via client dashboard
-                    store_success, store_data = tester.test_projects_store_functionality()
-                    
-                    # Test 5: Post project page
-                    post_page_success, post_data = tester.test_post_project_page()
-                    
-                    print(f"\n{'='*50}")
-                    print("PHASE 3: API BACKEND TESTING")
-                    print(f"{'='*50}")
-                    
-                    # Test 6: Create project via API (Supabase backend)
-                    create_success, create_data = tester.test_create_project_via_api()
-                    
-                    # Test 7: Get projects via API
-                    get_success, get_data = tester.test_get_projects_via_api()
-                    
-                else:
-                    print(f"⚠️  User role is {user_role}, not client. Skipping client-specific tests.")
+                    if user_role == 'client':
+                        print(f"\n{'='*50}")
+                        print("PHASE 2: PROJECT STORE FUNCTIONALITY TESTING")
+                        print(f"{'='*50}")
+                        
+                        # Test 4: In-memory projects store via client dashboard
+                        store_success, store_data = tester.test_projects_store_functionality()
+                        
+                        # Test 5: Post project page
+                        post_page_success, post_data = tester.test_post_project_page()
+                        
+                        print(f"\n{'='*50}")
+                        print("PHASE 3: API BACKEND TESTING")
+                        print(f"{'='*50}")
+                        
+                        # Test 6: Create project via API (Supabase backend)
+                        create_success, create_data = tester.test_create_project_via_api()
+                        
+                        # Test 7: Get projects via API
+                        get_success, get_data = tester.test_get_projects_via_api()
+                        
+                    else:
+                        print(f"⚠️  User role is {user_role}, not client. Skipping client-specific tests.")
     
     # Test 8: Test unauthenticated access
     print(f"\n{'='*50}")
