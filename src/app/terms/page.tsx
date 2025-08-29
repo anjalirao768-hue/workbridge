@@ -523,7 +523,7 @@ export default function TermsAndConditions() {
                     <h4 className="text-lg font-semibold text-gray-800">8.2 Maximum Liability Cap</h4>
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <p className="text-blue-800 font-medium">
-                        📊 <strong>Financial Liability Limitation:</strong> WorkBridge's maximum liability for any claim 
+                        📊 <strong>Financial Liability Limitation:</strong> WorkBridge&apos;s maximum liability for any claim 
                         is limited to the amount currently held in escrow for the specific disputed project. 
                         This cap applies to all damages including direct, indirect, incidental, or consequential losses.
                       </p>
