@@ -101,15 +101,32 @@ export default function PostProject() {
     }
 
     try {
-      // Simulate API call to create project posting
+      // Create the project using the store
+      const newProject = projectsStore.addProject({
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        category: formData.category,
+        client: 'Current User', // In real app, get from auth context
+        clientId: 'current_user_id', // In real app, get from auth context
+        budget: parseFloat(formData.budget),
+        budgetType: formData.budgetType as 'fixed' | 'hourly',
+        duration: formData.duration || 'To be discussed',
+        experienceLevel: formData.experienceLevel as 'entry' | 'intermediate' | 'expert',
+        skills: selectedSkills,
+        status: 'open',
+        applicationDeadline: formData.applicationDeadline || undefined,
+        specialRequirements: formData.specialRequirements.trim() || undefined,
+      });
+
+      // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      setSubmitStatus('✅ Project posted successfully! Freelancers can now apply to your project.');
+      setSubmitStatus(`✅ Project "${newProject.title}" posted successfully! Freelancers can now apply to your project.`);
       
       // Redirect to dashboard after success
       setTimeout(() => {
         router.push('/dashboard/client');
-      }, 2000);
+      }, 3000);
       
     } catch (error) {
       setSubmitStatus('❌ Failed to post project. Please try again.');
