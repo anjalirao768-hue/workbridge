@@ -191,8 +191,8 @@ export default function AdminDashboard() {
                     <p className="text-sm text-gray-500">{user.role} • Joined {user.joinedDate}</p>
                     <p className="text-xs text-gray-400">
                       {user.role === 'client' 
-                        ? `Spent: $${user.totalSpent?.toLocaleString()}` 
-                        : `Earned: $${user.totalEarned?.toLocaleString()}`
+                        ? `Spent: ₹${user.totalSpent?.toLocaleString()}` 
+                        : `Earned: ₹${user.totalEarned?.toLocaleString()}`
                       } • {user.projects} projects
                     </p>
                   </div>
