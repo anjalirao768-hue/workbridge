@@ -133,6 +133,316 @@ export default function AdminDashboard() {
     router.push("/login");
   }
 
+  const renderUsersView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">All Users</h3>
+          <p className="text-gray-600">Manage platform users and their activities</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{allUsers.length}</div>
+            <p className="text-sm text-gray-500">Total Users</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{allUsers.filter(u => u.status === 'Active' || u.status === 'Verified').length}</div>
+            <p className="text-sm text-gray-500">Active Users</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{allUsers.filter(u => u.role === 'client').length}</div>
+            <p className="text-sm text-gray-500">Clients</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-purple-600">{allUsers.filter(u => u.role === 'freelancer').length}</div>
+            <p className="text-sm text-gray-500">Freelancers</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>User Directory</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {allUsers.map((user) => (
+              <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    user.role === 'client' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'
+                  }`}>
+                    <span className="text-sm font-medium">
+                      {user.email.substring(0, 2).toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="font-medium">{user.email}</h4>
+                    <p className="text-sm text-gray-500">{user.role} • Joined {user.joinedDate}</p>
+                    <p className="text-xs text-gray-400">
+                      {user.role === 'client' 
+                        ? `Spent: $${user.totalSpent?.toLocaleString()}` 
+                        : `Earned: $${user.totalEarned?.toLocaleString()}`
+                      } • {user.projects} projects
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Badge variant={user.status === 'Active' || user.status === 'Verified' ? 'default' : user.status === 'Pending KYC' ? 'destructive' : 'outline'}>
+                    {user.status}
+                  </Badge>
+                  <Button size="sm" variant="outline">View Profile</Button>
+                  <Button size="sm" variant="ghost">Actions</Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderProjectsView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">All Projects</h3>
+          <p className="text-gray-600">Monitor platform projects and activities</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{allProjects.length}</div>
+            <p className="text-sm text-gray-500">Total Projects</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{allProjects.filter(p => p.status === 'Active').length}</div>
+            <p className="text-sm text-gray-500">Active</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{allProjects.filter(p => p.status === 'Completed').length}</div>
+            <p className="text-sm text-gray-500">Completed</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-red-600">{allProjects.filter(p => p.status === 'Disputed').length}</div>
+            <p className="text-sm text-gray-500">Disputed</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Project Directory</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {allProjects.map((project) => (
+              <div key={project.id} className="p-4 border rounded-lg hover:bg-gray-50">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="font-semibold text-lg">{project.title}</h4>
+                    <p className="text-gray-600">Client: {project.client}</p>
+                    {project.freelancer && <p className="text-gray-600">Freelancer: {project.freelancer}</p>}
+                  </div>
+                  <Badge variant={
+                    project.status === 'Active' ? 'default' :
+                    project.status === 'Completed' ? 'secondary' :
+                    project.status === 'Disputed' ? 'destructive' :
+                    'outline'
+                  }>
+                    {project.status}
+                  </Badge>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500">
+                  <div>Budget: <span className="font-medium text-gray-900">${project.budget.toLocaleString()}</span></div>
+                  <div>Created: <span className="font-medium text-gray-900">{project.createdDate}</span></div>
+                  <div>Due: <span className="font-medium text-gray-900">{project.dueDate}</span></div>
+                </div>
+                <div className="flex space-x-2 mt-3">
+                  <Button size="sm" variant="outline">View Details</Button>
+                  <Button size="sm" variant="ghost">Manage</Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderTransactionsView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">Transaction History</h3>
+          <p className="text-gray-600">Complete platform financial activities</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{allTransactions.length}</div>
+            <p className="text-sm text-gray-500">Total Transactions</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">
+              ${allTransactions.reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+            </div>
+            <p className="text-sm text-gray-500">Total Volume</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{allTransactions.filter(t => t.status === 'Completed').length}</div>
+            <p className="text-sm text-gray-500">Completed</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-red-600">{allTransactions.filter(t => t.status === 'Processing').length}</div>
+            <p className="text-sm text-gray-500">Processing</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>All Transactions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {allTransactions.map((transaction) => (
+              <div key={transaction.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                <div>
+                  <h4 className="font-medium">{transaction.type}</h4>
+                  <p className="text-sm text-gray-600">{transaction.project}</p>
+                  <p className="text-xs text-gray-500">User: {transaction.user}</p>
+                </div>
+                <div className="text-right">
+                  <p className={`font-medium ${
+                    transaction.type === 'Escrow Release' || transaction.type === 'Payment' ? 'text-green-600' :
+                    transaction.type === 'Platform Fee' ? 'text-blue-600' :
+                    transaction.type === 'Refund' ? 'text-red-600' : 'text-orange-600'
+                  }`}>
+                    {transaction.type === 'Platform Fee' ? '+' : transaction.type === 'Refund' ? '-' : ''}${transaction.amount.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-500">{transaction.date}</p>
+                  <Badge variant={transaction.status === 'Completed' ? 'default' : transaction.status === 'Processing' ? 'secondary' : 'outline'} className="text-xs">
+                    {transaction.status}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const renderDisputesView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">All Disputes</h3>
+          <p className="text-gray-600">Platform dispute management and resolution</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-red-600">{allDisputes.filter(d => d.status === 'Open').length}</div>
+            <p className="text-sm text-gray-500">Open Disputes</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{allDisputes.filter(d => d.status === 'Under Review').length}</div>
+            <p className="text-sm text-gray-500">Under Review</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{allDisputes.filter(d => d.status === 'Resolved').length}</div>
+            <p className="text-sm text-gray-500">Resolved</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-purple-600">{allDisputes.filter(d => d.priority === 'High').length}</div>
+            <p className="text-sm text-gray-500">High Priority</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Dispute Cases</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {allDisputes.map((dispute) => (
+              <div key={dispute.id} className={`p-4 border rounded-lg ${
+                dispute.priority === 'High' ? 'border-red-200 bg-red-50' :
+                dispute.priority === 'Medium' ? 'border-yellow-200 bg-yellow-50' :
+                'border-gray-200 bg-gray-50'
+              }`}>
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h4 className="font-semibold">{dispute.project} Dispute</h4>
+                    <p className="text-sm text-gray-600 mb-1">{dispute.issue}</p>
+                    <p className="text-xs text-gray-500">Client: {dispute.client} | Freelancer: {dispute.freelancer}</p>
+                  </div>
+                  <div className="flex space-x-2">
+                    <Badge variant={dispute.priority === 'High' ? 'destructive' : dispute.priority === 'Medium' ? 'secondary' : 'outline'}>
+                      {dispute.priority} Priority
+                    </Badge>
+                    <Badge variant={dispute.status === 'Open' ? 'destructive' : dispute.status === 'Under Review' ? 'secondary' : 'default'}>
+                      {dispute.status}
+                    </Badge>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs text-gray-500">Raised: {dispute.raisedDate}</span>
+                  <div className="flex space-x-2">
+                    <Button size="sm" variant="outline">Review Details</Button>
+                    <Button size="sm" variant={dispute.status === 'Open' ? 'default' : 'ghost'}>
+                      {dispute.status === 'Open' ? 'Take Action' : 'View Resolution'}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
