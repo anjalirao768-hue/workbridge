@@ -10,17 +10,6 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  useEffect(() => {
-    setIsVisible(true);
-    
-    // Rotate testimonials
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
-    
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
   const testimonials = [
     {
       quote: "WorkBridge helped me scale my startup faster than I imagined!",
@@ -41,6 +30,17 @@ export default function Home() {
       type: "Client"
     }
   ];
+
+  useEffect(() => {
+    setIsVisible(true);
+    
+    // Rotate testimonials
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
 
   const talents = [
     {
