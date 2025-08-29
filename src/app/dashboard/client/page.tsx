@@ -1067,10 +1067,10 @@ export default function ClientDashboard() {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-                  <a href="/dashboard/client/post-project">
+                  <Link href="/dashboard/client/post-project">
                     <div className="text-2xl">📊</div>
                     <span className="text-sm">Create Project</span>
-                  </a>
+                  </Link>
                 </Button>
                 <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
                   <Link href="/explore">
