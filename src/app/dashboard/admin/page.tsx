@@ -91,11 +91,11 @@ export default function AdminDashboard() {
   useEffect(() => {
     // Mock Users Data
     setAllUsers([
-      { id: '1', email: 'john.doe@example.com', role: 'client', status: 'Active', joinedDate: '2023-12-01', projects: 3, totalSpent: 12450 },
-      { id: '2', email: 'alice.smith@example.com', role: 'freelancer', status: 'Verified', joinedDate: '2023-11-28', projects: 5, totalEarned: 8750 },
-      { id: '3', email: 'mike.brown@example.com', role: 'client', status: 'Pending KYC', joinedDate: '2023-12-05', projects: 1, totalSpent: 2500 },
-      { id: '4', email: 'sarah.wilson@example.com', role: 'freelancer', status: 'Active', joinedDate: '2023-11-15', projects: 8, totalEarned: 15200 },
-      { id: '5', email: 'david.jones@example.com', role: 'client', status: 'Active', joinedDate: '2023-10-20', projects: 6, totalSpent: 18900 },
+      { id: '1', email: 'john.doe@example.com', role: 'client', status: 'Active', joinedDate: '2023-12-01', projects: 3, totalSpent: 1033350 },
+      { id: '2', email: 'alice.smith@example.com', role: 'freelancer', status: 'Verified', joinedDate: '2023-11-28', projects: 5, totalEarned: 726250 },
+      { id: '3', email: 'mike.brown@example.com', role: 'client', status: 'Pending KYC', joinedDate: '2023-12-05', projects: 1, totalSpent: 207500 },
+      { id: '4', email: 'sarah.wilson@example.com', role: 'freelancer', status: 'Active', joinedDate: '2023-11-15', projects: 8, totalEarned: 1261600 },
+      { id: '5', email: 'david.jones@example.com', role: 'client', status: 'Active', joinedDate: '2023-10-20', projects: 6, totalSpent: 1568700 },
     ]);
 
     // Mock Projects Data
