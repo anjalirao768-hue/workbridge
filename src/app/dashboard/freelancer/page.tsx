@@ -52,6 +52,20 @@ interface Submission {
   feedback?: string;
 }
 
+interface MyApplication {
+  id: string;
+  projectId: string;
+  projectTitle: string;
+  clientName: string;
+  appliedDate: string;
+  status: 'pending' | 'reviewed' | 'shortlisted' | 'hired' | 'rejected';
+  proposedBudget: number;
+  estimatedDuration: string;
+  viewedByClient: boolean;
+  clientFeedback?: string;
+  projectBudget: number;
+}
+
 export default function FreelancerDashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
