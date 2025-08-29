@@ -387,6 +387,223 @@ export default function ClientDashboard() {
     </div>
   );
 
+  const renderApplicationsView = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">Project Applications</h3>
+          <p className="text-gray-600">Review and manage freelancer applications for your projects</p>
+        </div>
+        <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-600">{projectApplications.length}</div>
+            <p className="text-sm text-gray-500">Total Applications</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-orange-600">{projectApplications.filter(a => !a.viewedByClient).length}</div>
+            <p className="text-sm text-gray-500">New Applications</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-600">{projectApplications.filter(a => a.status === 'shortlisted').length}</div>
+            <p className="text-sm text-gray-500">Shortlisted</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-purple-600">
+              ₹{Math.round(projectApplications.reduce((sum, a) => sum + a.proposedBudget, 0) / projectApplications.length).toLocaleString()}
+            </div>
+            <p className="text-sm text-gray-500">Avg Proposal</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Applications for Your Projects</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {projectApplications.map((application) => (
+              <div key={application.id} className={`p-6 border rounded-lg ${!application.viewedByClient ? 'border-blue-200 bg-blue-50' : 'hover:bg-gray-50'}`}>
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                        {application.freelancerName.substring(0, 2).toUpperCase()}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg">{application.freelancerName}</h4>
+                        <p className="text-gray-600">{application.freelancerEmail}</p>
+                        <div className="flex items-center space-x-1 mt-1">
+                          <span className="text-yellow-500">⭐</span>
+                          <span className="font-medium">{application.freelancerRating}</span>
+                          <span className="text-gray-500 text-sm">rating</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mb-3">
+                      <h5 className="font-medium text-gray-900 mb-1">Project: {application.projectTitle}</h5>
+                      <p className="text-gray-600 text-sm leading-relaxed">{application.coverLetter}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                      <div className="bg-white p-3 rounded-lg border">
+                        <p className="text-sm text-gray-500">Proposed Budget</p>
+                        <p className="font-semibold text-green-600">₹{application.proposedBudget.toLocaleString()}</p>
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border">
+                        <p className="text-sm text-gray-500">Estimated Duration</p>
+                        <p className="font-semibold">{application.estimatedDuration}</p>
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border">
+                        <p className="text-sm text-gray-500">Applied Date</p>
+                        <p className="font-semibold">{application.appliedDate}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-sm font-medium text-gray-900 mb-2">Skills & Experience:</p>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {application.freelancerSkills.map((skill, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {application.freelancerExperience.map((exp, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {exp}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-end space-y-2 ml-4">
+                    <Badge variant={
+                      application.status === 'shortlisted' ? 'default' :
+                      application.status === 'hired' ? 'secondary' :
+                      application.status === 'rejected' ? 'destructive' :
+                      application.status === 'reviewed' ? 'outline' :
+                      'outline'
+                    }>
+                      {application.status}
+                    </Badge>
+                    
+                    {!application.viewedByClient && (
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                        New
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex space-x-2 pt-4 border-t">
+                  {application.status === 'pending' && (
+                    <>
+                      <Button size="sm" onClick={() => {
+                        setProjectApplications(apps => 
+                          apps.map(app => 
+                            app.id === application.id 
+                              ? {...app, status: 'shortlisted', viewedByClient: true}
+                              : app
+                          )
+                        );
+                      }}>
+                        Shortlist
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => {
+                        setProjectApplications(apps => 
+                          apps.map(app => 
+                            app.id === application.id 
+                              ? {...app, status: 'reviewed', viewedByClient: true}
+                              : app
+                          )
+                        );
+                      }}>
+                        Mark as Reviewed
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => {
+                        setProjectApplications(apps => 
+                          apps.map(app => 
+                            app.id === application.id 
+                              ? {...app, status: 'rejected', viewedByClient: true}
+                              : app
+                          )
+                        );
+                      }}>
+                        Reject
+                      </Button>
+                    </>
+                  )}
+                  
+                  {application.status === 'shortlisted' && (
+                    <>
+                      <Button size="sm" onClick={() => {
+                        setProjectApplications(apps => 
+                          apps.map(app => 
+                            app.id === application.id 
+                              ? {...app, status: 'hired'}
+                              : app
+                          )
+                        );
+                      }}>
+                        Hire Freelancer
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        Contact
+                      </Button>
+                    </>
+                  )}
+
+                  {application.status === 'reviewed' && (
+                    <>
+                      <Button size="sm" onClick={() => {
+                        setProjectApplications(apps => 
+                          apps.map(app => 
+                            app.id === application.id 
+                              ? {...app, status: 'shortlisted'}
+                              : app
+                          )
+                        );
+                      }}>
+                        Move to Shortlist
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        View Profile
+                      </Button>
+                    </>
+                  )}
+
+                  {(application.status === 'hired' || application.status === 'rejected') && (
+                    <Button size="sm" variant="ghost" disabled>
+                      {application.status === 'hired' ? 'Hired' : 'Rejected'}
+                    </Button>
+                  )}
+
+                  <Button size="sm" variant="ghost">
+                    View Full Profile
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   const renderMilestonesView = () => (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
