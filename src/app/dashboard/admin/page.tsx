@@ -117,47 +117,20 @@ export default function AdminDashboard() {
 
   // Mock data - in real app, this would come from API
   useEffect(() => {
-    // Mock Users Data
-    setAllUsers([
-      { id: '1', email: 'john.doe@example.com', role: 'client', status: 'Active', joinedDate: '2023-12-01', projects: 3, totalSpent: 1033350 },
-      { id: '2', email: 'alice.smith@example.com', role: 'freelancer', status: 'Verified', joinedDate: '2023-11-28', projects: 5, totalEarned: 726250 },
-      { id: '3', email: 'mike.brown@example.com', role: 'client', status: 'Pending KYC', joinedDate: '2023-12-05', projects: 1, totalSpent: 207500 },
-      { id: '4', email: 'sarah.wilson@example.com', role: 'freelancer', status: 'Active', joinedDate: '2023-11-15', projects: 8, totalEarned: 1261600 },
-      { id: '5', email: 'david.jones@example.com', role: 'client', status: 'Active', joinedDate: '2023-10-20', projects: 6, totalSpent: 1568700 },
-    ]);
+    // Initialize with empty data - will be populated when integrated with real backend
+    setAllUsers([]);
 
-    // Mock Projects Data
-    setAllProjects([
-      { id: '1', title: 'E-commerce Platform', client: 'John Doe', freelancer: 'Alice Smith', budget: 415000, status: 'Active', createdDate: '2023-12-01', dueDate: '2024-01-15' },
-      { id: '2', title: 'Mobile App Design', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 207500, status: 'In Review', createdDate: '2023-11-28', dueDate: '2023-12-20' },
-      { id: '3', title: 'API Integration', client: 'David Jones', freelancer: 'Alice Smith', budget: 149400, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15' },
-      { id: '4', title: 'Website Redesign', client: 'John Doe', budget: 265600, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10' },
-      { id: '5', title: 'Dashboard Development', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 373500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30' },
-    ]);
+    // Initialize with empty data
+    setAllProjects([]);
 
-    // Mock Transactions Data
-    setAllTransactions([
-      { id: '1', type: 'Escrow Release', amount: 124500, project: 'E-commerce Platform', user: 'Alice Smith', date: '2023-12-08', status: 'Completed' },
-      { id: '2', type: 'Platform Fee', amount: 6225, project: 'E-commerce Platform', user: 'WorkBridge', date: '2023-12-08', status: 'Completed' },
-      { id: '3', type: 'Escrow Fund', amount: 66400, project: 'Mobile App Design', user: 'Mike Brown', date: '2023-12-07', status: 'Held' },
-      { id: '4', type: 'Refund', amount: 74700, project: 'API Integration', user: 'David Jones', date: '2023-12-06', status: 'Processing' },
-      { id: '5', type: 'Payment', amount: 186750, project: 'Dashboard Development', user: 'Sarah Wilson', date: '2023-11-30', status: 'Completed' },
-    ]);
+    // Initialize with empty data
+    setAllTransactions([]);
 
-    // Mock Disputes Data
-    setAllDisputes([
-      { id: '1', project: 'API Integration', client: 'David Jones', freelancer: 'Alice Smith', issue: 'Work doesn\'t meet requirements', priority: 'High', raisedDate: '2023-12-06', status: 'Open' },
-      { id: '2', project: 'Mobile App Design', client: 'Mike Brown', freelancer: 'Sarah Wilson', issue: 'Delayed payment release', priority: 'Medium', raisedDate: '2023-12-07', status: 'Under Review' },
-      { id: '3', project: 'Website Redesign', client: 'John Doe', freelancer: 'Alice Smith', issue: 'Scope creep concerns', priority: 'Low', raisedDate: '2023-12-05', status: 'Resolved' },
-    ]);
+    // Initialize with empty data
+    setAllDisputes([]);
 
-    // Mock Applications Data
-    setAllApplications([
-      { id: '1', projectId: '1', projectTitle: 'E-commerce Platform', clientName: 'John Doe', freelancerName: 'Priya Sharma', freelancerEmail: 'priya@example.com', appliedDate: '2023-12-08', status: 'shortlisted', proposedBudget: 380000, viewedByClient: true, freelancerRating: 4.9 },
-      { id: '2', projectId: '1', projectTitle: 'E-commerce Platform', clientName: 'John Doe', freelancerName: 'Rahul Kumar', freelancerEmail: 'rahul@example.com', appliedDate: '2023-12-07', status: 'hired', proposedBudget: 415000, viewedByClient: true, freelancerRating: 5.0 },
-      { id: '3', projectId: '2', projectTitle: 'Mobile App Design', clientName: 'Mike Brown', freelancerName: 'Sneha Patel', freelancerEmail: 'sneha@example.com', appliedDate: '2023-12-06', status: 'reviewed', proposedBudget: 190000, viewedByClient: true, freelancerRating: 4.8 },
-      { id: '4', projectId: '3', projectTitle: 'API Integration', clientName: 'David Jones', freelancerName: 'Arjun Reddy', freelancerEmail: 'arjun@example.com', appliedDate: '2023-12-05', status: 'pending', proposedBudget: 149400, viewedByClient: false, freelancerRating: 4.7 },
-      { id: '5', projectId: '4', projectTitle: 'Website Redesign', clientName: 'John Doe', freelancerName: 'Aisha Khan', freelancerEmail: 'aisha@example.com', appliedDate: '2023-12-09', status: 'rejected', proposedBudget: 240000, viewedByClient: true, freelancerRating: 4.9 },
+    // Initialize with empty data
+    setAllApplications([]);
       { id: '6', projectId: '2', projectTitle: 'Mobile App Design', clientName: 'Mike Brown', freelancerName: 'Vikram Singh', freelancerEmail: 'vikram@example.com', appliedDate: '2023-12-08', status: 'pending', proposedBudget: 207500, viewedByClient: false, freelancerRating: 4.6 },
     ]);
 
