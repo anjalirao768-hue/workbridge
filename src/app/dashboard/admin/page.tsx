@@ -109,11 +109,11 @@ export default function AdminDashboard() {
 
     // Mock Transactions Data
     setAllTransactions([
-      { id: '1', type: 'Escrow Release', amount: 1500, project: 'E-commerce Platform', user: 'Alice Smith', date: '2023-12-08', status: 'Completed' },
-      { id: '2', type: 'Platform Fee', amount: 75, project: 'E-commerce Platform', user: 'WorkBridge', date: '2023-12-08', status: 'Completed' },
-      { id: '3', type: 'Escrow Fund', amount: 800, project: 'Mobile App Design', user: 'Mike Brown', date: '2023-12-07', status: 'Held' },
-      { id: '4', type: 'Refund', amount: 900, project: 'API Integration', user: 'David Jones', date: '2023-12-06', status: 'Processing' },
-      { id: '5', type: 'Payment', amount: 2250, project: 'Dashboard Development', user: 'Sarah Wilson', date: '2023-11-30', status: 'Completed' },
+      { id: '1', type: 'Escrow Release', amount: 124500, project: 'E-commerce Platform', user: 'Alice Smith', date: '2023-12-08', status: 'Completed' },
+      { id: '2', type: 'Platform Fee', amount: 6225, project: 'E-commerce Platform', user: 'WorkBridge', date: '2023-12-08', status: 'Completed' },
+      { id: '3', type: 'Escrow Fund', amount: 66400, project: 'Mobile App Design', user: 'Mike Brown', date: '2023-12-07', status: 'Held' },
+      { id: '4', type: 'Refund', amount: 74700, project: 'API Integration', user: 'David Jones', date: '2023-12-06', status: 'Processing' },
+      { id: '5', type: 'Payment', amount: 186750, project: 'Dashboard Development', user: 'Sarah Wilson', date: '2023-11-30', status: 'Completed' },
     ]);
 
     // Mock Disputes Data
