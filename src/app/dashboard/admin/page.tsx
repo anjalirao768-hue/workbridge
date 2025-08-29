@@ -100,11 +100,11 @@ export default function AdminDashboard() {
 
     // Mock Projects Data
     setAllProjects([
-      { id: '1', title: 'E-commerce Platform', client: 'John Doe', freelancer: 'Alice Smith', budget: 5000, status: 'Active', createdDate: '2023-12-01', dueDate: '2024-01-15' },
-      { id: '2', title: 'Mobile App Design', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 2500, status: 'In Review', createdDate: '2023-11-28', dueDate: '2023-12-20' },
-      { id: '3', title: 'API Integration', client: 'David Jones', freelancer: 'Alice Smith', budget: 1800, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15' },
-      { id: '4', title: 'Website Redesign', client: 'John Doe', budget: 3200, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10' },
-      { id: '5', title: 'Dashboard Development', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 4500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30' },
+      { id: '1', title: 'E-commerce Platform', client: 'John Doe', freelancer: 'Alice Smith', budget: 415000, status: 'Active', createdDate: '2023-12-01', dueDate: '2024-01-15' },
+      { id: '2', title: 'Mobile App Design', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 207500, status: 'In Review', createdDate: '2023-11-28', dueDate: '2023-12-20' },
+      { id: '3', title: 'API Integration', client: 'David Jones', freelancer: 'Alice Smith', budget: 149400, status: 'Disputed', createdDate: '2023-11-25', dueDate: '2023-12-15' },
+      { id: '4', title: 'Website Redesign', client: 'John Doe', budget: 265600, status: 'Open', createdDate: '2023-12-08', dueDate: '2024-01-10' },
+      { id: '5', title: 'Dashboard Development', client: 'Mike Brown', freelancer: 'Sarah Wilson', budget: 373500, status: 'Completed', createdDate: '2023-10-15', dueDate: '2023-11-30' },
     ]);
 
     // Mock Transactions Data
