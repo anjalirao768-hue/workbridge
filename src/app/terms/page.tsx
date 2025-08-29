@@ -681,7 +681,7 @@ export default function TermsAndConditions() {
                           </div>
                           <div>
                             <h6 className="font-medium text-gray-800">Grievance Officer:</h6>
-                            <p className="text-green-600 font-medium">grievance@workbridge-demo.com</p>
+                            <p className="text-green-600 font-medium">grievance@workbridge.com</p>
                             <p className="text-sm text-gray-600">For formal complaints and dispute escalation</p>
                           </div>
                         </CardContent>
