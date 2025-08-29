@@ -785,7 +785,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <Button variant="outline" className="w-full">View Transaction History</Button>
+                  <Button variant="outline" className="w-full" onClick={() => setActiveView('transactions')}>View Transaction History</Button>
                 </div>
               </CardContent>
             </Card>
