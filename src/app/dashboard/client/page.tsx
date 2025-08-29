@@ -931,7 +931,7 @@ export default function ClientDashboard() {
                       </div>
                       <p className="text-sm text-gray-600 mb-2">{transaction.project}</p>
                       <div className="flex justify-between text-xs text-gray-500">
-                        <span>Amount: ${transaction.amount.toLocaleString()}</span>
+                        <span>Amount: ₹{transaction.amount.toLocaleString()}</span>
                         <span>{transaction.date}</span>
                       </div>
                     </div>
