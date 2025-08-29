@@ -335,7 +335,7 @@ export default function TermsAndConditions() {
                     <h4 className="text-lg font-semibold text-gray-800">5.3 Final Decision Authority</h4>
                     <div className="bg-purple-50 p-4 rounded-lg">
                       <p className="text-purple-800">
-                        <strong>WorkBridge Technologies Pvt Ltd's decision after dispute review is final and binding.</strong> 
+                        <strong>WorkBridge Technologies Pvt Ltd&apos;s decision after dispute review is final and binding.</strong> 
                         All parties agree to accept our mediation outcome and waive rights to external legal proceedings 
                         related to platform disputes, except in cases involving fraud or criminal activity.
                       </p>
