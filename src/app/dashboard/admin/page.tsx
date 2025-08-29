@@ -979,7 +979,7 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-500">5% commission</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-blue-600">+₹75</p>
+                      <p className="font-medium text-blue-600">+₹6,225</p>
                       <p className="text-xs text-gray-500">Dec 8, 2023</p>
                     </div>
                   </div>
