@@ -842,19 +842,19 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('users')}>
                   <div className="text-2xl">👥</div>
                   <span className="text-sm">User Management</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('transactions')}>
                   <div className="text-2xl">📊</div>
                   <span className="text-sm">Analytics</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('transactions')}>
                   <div className="text-2xl">🔍</div>
                   <span className="text-sm">Audit Trail</span>
                 </Button>
-                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
+                <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" onClick={() => setActiveView('dashboard')}>
                   <div className="text-2xl">⚙️</div>
                   <span className="text-sm">System Settings</span>
                 </Button>
