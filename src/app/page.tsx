@@ -200,14 +200,13 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
               { name: "Design & Creative", icon: "🎨", color: "from-pink-500 to-rose-500" },
               { name: "Tech & Development", icon: "💻", color: "from-blue-500 to-cyan-500" },
               { name: "Marketing & Growth", icon: "📈", color: "from-green-500 to-emerald-500" },
               { name: "Writing & Translation", icon: "✍️", color: "from-purple-500 to-violet-500" },
-              { name: "Finance & Consulting", icon: "📊", color: "from-orange-500 to-amber-500" },
-              { name: "And more", icon: "→", color: "from-gray-500 to-slate-500" }
+              { name: "Finance & Consulting", icon: "📊", color: "from-orange-500 to-amber-500" }
             ].map((category, index) => (
               <Card key={index} className="bg-gradient-to-br from-slate-800/50 to-slate-700/30 border-white/10 backdrop-blur-xl hover:border-white/30 transition-all duration-300 hover:scale-105 group cursor-pointer">
                 <CardContent className="p-6 text-center">
