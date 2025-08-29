@@ -42,6 +42,23 @@ interface Milestone {
   submittedDate?: string;
 }
 
+interface Application {
+  id: string;
+  projectId: string;
+  projectTitle: string;
+  freelancerName: string;
+  freelancerEmail: string;
+  appliedDate: string;
+  status: 'pending' | 'reviewed' | 'shortlisted' | 'hired' | 'rejected';
+  coverLetter: string;
+  proposedBudget: number;
+  estimatedDuration: string;
+  freelancerRating: number;
+  freelancerExperience: string[];
+  freelancerSkills: string[];
+  viewedByClient: boolean;
+}
+
 export default function ClientDashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
   const [loading, setLoading] = useState(true);
