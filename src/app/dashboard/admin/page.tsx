@@ -780,7 +780,7 @@ export default function AdminDashboard() {
                       <p className="text-sm text-gray-500">Project: Mobile App Design</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-orange-600">$800</p>
+                      <p className="font-medium text-orange-600">₹800</p>
                       <p className="text-xs text-gray-500">Dec 7, 2023</p>
                     </div>
                   </div>
