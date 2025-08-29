@@ -134,8 +134,8 @@ export default function PostProject() {
         title: formData.title.trim(),
         description: formData.description.trim(),
         category: formData.category,
-        client: 'Current User', // In real app, get from auth context
-        clientId: 'current_user_id', // In real app, get from auth context
+        client: 'Current Client', // In real app, get from auth context
+        clientId: 'current_client_id', // In real app, get from auth context
         budget: parseFloat(formData.budget),
         budgetType: formData.budgetType as 'fixed' | 'hourly',
         duration: formData.duration || 'To be discussed',
