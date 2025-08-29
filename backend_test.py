@@ -6,7 +6,7 @@ import sys
 from datetime import datetime
 
 class WorkBridgeAPITester:
-    def __init__(self, base_url="http://localhost:3001"):
+    def __init__(self, base_url="http://localhost:3000"):
         self.base_url = base_url
         self.session = requests.Session()
         self.tests_run = 0
