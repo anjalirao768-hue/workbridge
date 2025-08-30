@@ -286,7 +286,7 @@ export default function Home() {
             <Button asChild size="lg" className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-10 py-4 rounded-full shadow-lg">
               <Link href="/signup">Join WorkBridge</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-purple-600 text-lg px-10 py-4 rounded-full">
+            <Button asChild size="lg" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-purple-600 text-lg px-10 py-4 rounded-full transition-all duration-300">
               <Link href="/freelancers">Explore Talent</Link>
             </Button>
           </div>
