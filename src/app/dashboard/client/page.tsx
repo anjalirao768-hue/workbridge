@@ -966,19 +966,19 @@ export default function ClientDashboard() {
               </CardContent>
             </Card>
 
-            {/* Escrows Section */}
+            {/* Payment Management Section */}
             <Card>
               <CardHeader>
-                <CardTitle>Escrow Management</CardTitle>
-                <CardDescription>Track your secured payments</CardDescription>
+                <CardTitle>Payment Management</CardTitle>
+                <CardDescription>Track your project payments</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {myTransactions.filter(t => t.status === 'Held' || t.status === 'Processing').slice(0, 3).map((transaction) => (
+                  {myTransactions.filter(t => t.status === 'Processing' || t.status === 'Completed').slice(0, 3).map((transaction) => (
                     <div key={transaction.id} className="border rounded-lg p-4">
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-semibold">{transaction.type}</h4>
-                        <Badge variant={transaction.status === 'Held' ? 'outline' : 'default'}>
+                        <Badge variant={transaction.status === 'Completed' ? 'default' : 'secondary'}>
                           {transaction.status}
                         </Badge>
                       </div>
