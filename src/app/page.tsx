@@ -122,7 +122,7 @@ export default function Home() {
 
       {/* Hero Section with Background Image */}
       <section 
-        className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+        className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-20"
         style={{
           backgroundImage: `url('/hero-background.jpg')`
         }}
@@ -131,7 +131,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-blue-900/70 to-purple-900/80"></div>
         
         {/* Hero Content */}
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 py-20">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
             Work Without Limits
           </h1>
