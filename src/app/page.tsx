@@ -124,7 +124,7 @@ export default function Home() {
       <section 
         className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://customer-assets.emergentagent.com/job_talent-escrow-1/artifacts/ohfk7u7w_ChatGPT%20Image%20Aug%2030%2C%202025%2C%2011_10_37%20AM.png')`
+          backgroundImage: `url('/hero-background.jpg')`
         }}
       >
         {/* Gradient Overlay */}
