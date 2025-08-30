@@ -326,7 +326,7 @@ export default function ClientDashboard() {
                   <Badge variant={
                     project.status === 'In Progress' || project.status === 'Active' ? 'default' :
                     project.status === 'Completed' ? 'secondary' :
-                    project.status === 'Disputed' ? 'destructive' :
+                    project.status === 'Review' ? 'outline' :
                     'outline'
                   }>
                     {project.status}
