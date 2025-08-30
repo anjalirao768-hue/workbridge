@@ -264,7 +264,7 @@ export default function Home() {
                     </div>
                   </div>
                   <blockquote className="text-gray-700 italic leading-relaxed">
-                    "{testimonial.quote}"
+                    &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
                 </CardHeader>
               </Card>
