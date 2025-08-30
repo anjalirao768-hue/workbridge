@@ -907,13 +907,13 @@ export default function ClientDashboard() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">In Escrow</CardTitle>
+                <CardTitle className="text-lg">Processing</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-orange-600">
-                  ₹{myTransactions.filter(t => t.status === 'Held').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+                  ₹{myTransactions.filter(t => t.status === 'Processing').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
                 </div>
-                <p className="text-xs text-gray-500">Funds held in escrow</p>
+                <p className="text-xs text-gray-500">Payments being processed</p>
               </CardContent>
             </Card>
 
