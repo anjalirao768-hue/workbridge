@@ -86,18 +86,18 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
               <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-lg">W</span>
               </div>
               <span className="text-white font-bold text-xl">WorkBridge</span>
             </Link>
 
-            {/* Navigation Items */}
+            {/* Navigation Items - Desktop */}
             <div className="hidden md:flex items-center space-x-8">
               <Button asChild variant="ghost" className="text-white hover:text-purple-200 font-medium">
                 <Link href="/freelancers">Find Talent</Link>
@@ -110,9 +110,9 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Mobile menu */}
-            <div className="md:hidden">
-              <Button asChild size="sm" className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white rounded-full">
+            {/* Mobile menu - Single Button */}
+            <div className="md:hidden flex-shrink-0">
+              <Button asChild size="sm" className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white rounded-full px-4 py-2 text-sm">
                 <Link href="/signup">Get Started</Link>
               </Button>
             </div>
