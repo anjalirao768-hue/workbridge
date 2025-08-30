@@ -390,9 +390,9 @@ export default function ClientDashboard() {
         <Card>
           <CardContent className="p-4">
             <div className="text-2xl font-bold text-orange-600">
-              ₹{myTransactions.filter(t => t.status === 'Held').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
+              ₹{myTransactions.filter(t => t.status === 'Processing').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
             </div>
-            <p className="text-sm text-gray-500">In Escrow</p>
+            <p className="text-sm text-gray-500">Processing</p>
           </CardContent>
         </Card>
         <Card>
