@@ -1071,36 +1071,23 @@ export default function ClientDashboard() {
               </CardContent>
             </Card>
 
-            {/* Disputes Section */}
+            {/* Project Status Section */}
             <Card>
               <CardHeader>
-                <CardTitle>Active Disputes</CardTitle>
-                <CardDescription>Issues requiring attention</CardDescription>
+                <CardTitle>Project Status</CardTitle>
+                <CardDescription>Overview of your projects</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {myProjects.filter(p => p.status === 'Disputed').length > 0 ? (
-                    myProjects.filter(p => p.status === 'Disputed').map((project) => (
-                      <div key={project.id} className="p-3 border rounded-lg border-red-200 bg-red-50">
-                        <h4 className="font-medium text-red-900">{project.title}</h4>
-                        <p className="text-sm text-red-700">Dispute in progress</p>
-                        <div className="flex space-x-2 mt-2">
-                          <Button size="sm" variant="outline">View Details</Button>
-                          <Button size="sm">Resolve</Button>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="text-center py-8">
-                      <div className="text-gray-400 mb-2">
-                        <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <p className="text-gray-500">No active disputes</p>
-                      <p className="text-xs text-gray-400 mt-1">Great! All your projects are running smoothly</p>
+                  <div className="text-center py-8">
+                    <div className="text-green-400 mb-2">
+                      <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                     </div>
-                  )}
+                    <p className="text-gray-500">All projects running smoothly</p>
+                    <p className="text-xs text-gray-400 mt-1">No issues with your active projects</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
