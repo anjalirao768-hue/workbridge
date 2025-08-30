@@ -314,7 +314,6 @@ export default function Home() {
               <ul className="space-y-2 text-gray-300">
                 <li><Link href="/jobs" className="hover:text-white transition-colors">Find Work</Link></li>
                 <li><Link href="/signup" className="hover:text-white transition-colors">Create Profile</Link></li>
-                <li><span className="text-gray-500">Success Stories</span></li>
               </ul>
             </div>
             
@@ -323,16 +322,14 @@ export default function Home() {
               <ul className="space-y-2 text-gray-300">
                 <li><Link href="/freelancers" className="hover:text-white transition-colors">Find Talent</Link></li>
                 <li><Link href="/signup" className="hover:text-white transition-colors">Post Project</Link></li>
-                <li><span className="text-gray-500">How It Works</span></li>
               </ul>
             </div>
             
             <div>
               <h3 className="font-semibold text-lg mb-4">Company</h3>
               <ul className="space-y-2 text-gray-300">
-                <li><span className="text-gray-500">About Us</span></li>
                 <li><Link href="/terms" className="hover:text-white transition-colors">Terms & Conditions</Link></li>
-                <li><span className="text-gray-500">Contact</span></li>
+                <li className="text-gray-300">help@workbridge.live</li>
               </ul>
             </div>
           </div>
