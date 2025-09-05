@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
         .insert([
           {
             email,
+            password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
             email_verified: false,
             created_at: new Date().toISOString(),
           },
