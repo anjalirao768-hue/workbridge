@@ -1,190 +1,287 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function SignupPage() {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-    cover_letter: "",
-    experiences: "",
-    age: "",
-    skills: "",
-  });
-  const [status, setStatus] = useState("");
+export default function Signup() {
+  const [step, setStep] = useState<'email' | 'otp' | 'role'>('email');
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [role, setRole] = useState<'client' | 'freelancer' | ''>('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [remainingAttempts, setRemainingAttempts] = useState(3);
+
   const router = useRouter();
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     setLoading(true);
-    setStatus("");
 
     try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          age: form.age ? parseInt(form.age, 10) : undefined,
-          skills: form.skills ? form.skills.split(",").map((s) => s.trim()).filter(s => s.length > 0) : [],
-        }),
+      const response = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
 
-      const data = await res.json();
-      
-      if (res.ok) {
-        setStatus("✅ Signup successful! Redirecting...");
-        setTimeout(() => {
-          router.push("/home");
-        }, 1000);
+      const data = await response.json();
+
+      if (data.success) {
+        setStep('otp');
       } else {
-        setStatus(`❌ ${data.error || "Something went wrong."}`);
+        setError(data.error || 'Failed to send OTP');
       }
     } catch (error) {
-      console.error('Signup error:', error);
-      setStatus("❌ Network error. Please try again.");
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const handleVerifyOTP = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp, role }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Redirect based on role
+        if (role === 'client') {
+          router.push('/dashboard/client');
+        } else if (role === 'freelancer') {
+          router.push('/dashboard/freelancer');
+        }
+      } else {
+        setError(data.error || 'Invalid OTP');
+        setRemainingAttempts(data.remainingAttempts || 0);
+        
+        if (data.remainingAttempts === 0) {
+          setStep('email'); // Reset to email step
+        }
+      }
+    } catch (error) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRoleSelection = (selectedRole: 'client' | 'freelancer') => {
+    setRole(selectedRole);
+    setError('');
+  };
+
+  const handleResendOTP = async () => {
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setError('');
+        setRemainingAttempts(3);
+      } else {
+        setError(data.error || 'Failed to resend OTP');
+      }
+    } catch (error) {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
+        {/* Header */}
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Create your account</h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Join WorkBridge and start collaborating
-          </p>
+          <Link href="/" className="flex items-center justify-center space-x-2 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-lg">W</span>
+            </div>
+            <span className="text-gray-900 font-bold text-xl">WorkBridge</span>
+          </Link>
+          <h2 className="text-3xl font-bold text-gray-900">Join WorkBridge</h2>
+          <p className="mt-2 text-gray-600">Create your account to get started</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Sign Up</CardTitle>
-            <CardDescription>
-              Create your WorkBridge account to get started
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter a strong password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="cover_letter">Cover Letter (Optional)</Label>
-                <Textarea
-                  id="cover_letter"
-                  name="cover_letter"
-                  placeholder="Tell us about yourself and what you're looking for..."
-                  value={form.cover_letter}
-                  onChange={handleChange}
-                  rows={3}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="experiences">Experience (Optional)</Label>
-                <Textarea
-                  id="experiences"
-                  name="experiences"
-                  placeholder="Describe your past work experience..."
-                  value={form.experiences}
-                  onChange={handleChange}
-                  rows={3}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="age">Age (Optional)</Label>
-                <Input
-                  id="age"
-                  name="age"
-                  type="number"
-                  placeholder="25"
-                  value={form.age}
-                  onChange={handleChange}
-                  min="16"
-                  max="100"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="skills">Skills (Optional)</Label>
-                <Input
-                  id="skills"
-                  name="skills"
-                  type="text"
-                  placeholder="React, Node.js, Python, Design..."
-                  value={form.skills}
-                  onChange={handleChange}
-                />
-                <p className="text-xs text-gray-500">Separate skills with commas</p>
-              </div>
-
-              {status && (
-                <div className={`p-3 rounded-md text-sm ${
-                  status.includes('✅') 
-                    ? 'bg-green-50 text-green-700 border border-green-200' 
-                    : 'bg-red-50 text-red-700 border border-red-200'
-                }`}>
-                  {status}
+        {/* Email Step */}
+        {step === 'email' && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Enter Your Email</CardTitle>
+              <CardDescription>We'll send you a verification code</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                  {error}
                 </div>
               )}
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={loading}
-              >
-                {loading ? "Creating Account..." : "Create Account"}
-              </Button>
-            </form>
+              <form onSubmit={handleSendOTP} className="space-y-4">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{" "}
-                <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
-                  Sign in here
-                </Link>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+                <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700">
+                  {loading ? 'Sending...' : 'Send Verification Code'}
+                </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-600">
+                  Already have an account?{' '}
+                  <Link href="/login" className="text-purple-600 hover:text-purple-700 font-medium">
+                    Sign in
+                  </Link>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* OTP Verification Step */}
+        {step === 'otp' && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Verify Your Email</CardTitle>
+              <CardDescription>
+                Enter the 6-digit code sent to <strong>{email}</strong>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                  {error}
+                  {remainingAttempts > 0 && (
+                    <p className="text-sm mt-1">Remaining attempts: {remainingAttempts}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Role Selection */}
+              {!role && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    I want to join as:
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleRoleSelection('client')}
+                      className="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all"
+                    >
+                      <div className="text-2xl mb-2">🏢</div>
+                      <div className="font-medium">Client</div>
+                      <div className="text-xs text-gray-500">Hire freelancers</div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRoleSelection('freelancer')}
+                      className="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all"
+                    >
+                      <div className="text-2xl mb-2">💼</div>
+                      <div className="font-medium">Freelancer</div>
+                      <div className="text-xs text-gray-500">Find work</div>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {role && (
+                <form onSubmit={handleVerifyOTP} className="space-y-4">
+                  <div className="text-center mb-4">
+                    <p className="text-sm text-green-600">
+                      ✓ Joining as: <strong>{role === 'client' ? 'Client' : 'Freelancer'}</strong>
+                      <button
+                        type="button"
+                        onClick={() => setRole('')}
+                        className="ml-2 text-purple-600 hover:text-purple-700 underline text-xs"
+                      >
+                        Change
+                      </button>
+                    </p>
+                  </div>
+
+                  <div>
+                    <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
+                      Verification Code
+                    </label>
+                    <input
+                      type="text"
+                      id="otp"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-center text-2xl tracking-widest"
+                      placeholder="000000"
+                      maxLength={6}
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={loading || otp.length !== 6}
+                    className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
+                  >
+                    {loading ? 'Verifying...' : 'Verify & Join WorkBridge'}
+                  </Button>
+                </form>
+              )}
+
+              <div className="mt-6 text-center">
+                <button
+                  type="button"
+                  onClick={handleResendOTP}
+                  disabled={loading}
+                  className="text-purple-600 hover:text-purple-700 underline text-sm"
+                >
+                  Resend Code
+                </button>
+                <span className="mx-2 text-gray-400">•</span>
+                <button
+                  type="button"
+                  onClick={() => setStep('email')}
+                  className="text-gray-600 hover:text-gray-700 underline text-sm"
+                >
+                  Change Email
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
