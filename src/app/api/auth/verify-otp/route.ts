@@ -60,7 +60,6 @@ export async function POST(request: NextRequest) {
         .update({
           role,
           email_verified: true,
-          updated_at: new Date().toISOString(),
         })
         .eq('id', user.id)
         .select()
