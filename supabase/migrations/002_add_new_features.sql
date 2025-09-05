@@ -2,9 +2,7 @@
 
 -- Update users table with new columns
 ALTER TABLE users 
-ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT FALSE,
-ADD COLUMN IF NOT EXISTS kyc_status TEXT DEFAULT 'not_submitted' CHECK (kyc_status IN ('not_submitted', 'pending', 'approved', 'rejected')),
-ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT FALSE;
 
 -- Create refund_requests table
 CREATE TABLE IF NOT EXISTS refund_requests (
