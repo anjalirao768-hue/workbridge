@@ -288,6 +288,47 @@ export default function Signup() {
             </CardContent>
           </Card>
         )}
+
+        {/* Existing User Step */}
+        {step === 'existing-user' && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span className="text-blue-600 text-2xl">ℹ️</span>
+                <span>Account Already Exists</span>
+              </CardTitle>
+              <CardDescription>
+                The email <strong>{email}</strong> is already registered with WorkBridge
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h4 className="text-blue-800 font-medium mb-2">Account Found</h4>
+                <p className="text-blue-700 text-sm">
+                  This email address is already associated with a WorkBridge account. 
+                  Please use the login page to access your existing account.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep('email')}
+                  className="flex-1"
+                >
+                  Try Different Email
+                </Button>
+                <Button
+                  asChild
+                  className="flex-1 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white"
+                >
+                  <Link href="/login">Go to Login</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
