@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
           {
             email,
             password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
-            created_at: new Date().toISOString(),
           },
         ])
         .select()
