@@ -25,17 +25,22 @@ export async function POST(request: NextRequest) {
 
     if (!existingUser) {
       // Create new user record
+      const userInsertData: any = {
+        email,
+        password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
+        created_at: new Date().toISOString(),
+      };
+
+      // Add email_verified if column exists (for new schema)
+      try {
+        userInsertData.email_verified = false;
+      } catch (e) {
+        // Column might not exist in older schema
+      }
+
       const { data: newUser, error: createError } = await supabase
         .from('users')
-        .insert([
-          {
-            email,
-            password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
-            // email_verified: false, // Comment out to test if column exists
-            // kyc_status: 'pending', // Comment out to test if column exists
-            created_at: new Date().toISOString(),
-          },
-        ])
+        .insert([userInsertData])
         .select()
         .single();
 
