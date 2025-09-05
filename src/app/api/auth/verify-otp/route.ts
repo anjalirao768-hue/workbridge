@@ -7,18 +7,11 @@ const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET || 'your-secre
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, otp, role } = await request.json();
+    const { email, otp, role, isLogin } = await request.json();
 
-    if (!email || !otp || !role) {
+    if (!email || !otp) {
       return NextResponse.json(
-        { success: false, error: 'Email, OTP, and role are required' },
-        { status: 400 }
-      );
-    }
-
-    if (!['client', 'freelancer'].includes(role)) {
-      return NextResponse.json(
-        { success: false, error: 'Role must be either client or freelancer' },
+        { success: false, error: 'Email and OTP are required' },
         { status: 400 }
       );
     }
@@ -38,23 +31,70 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Update user record with role and verify email
-    const { data: user, error: updateError } = await supabase
+    // Get user from database
+    const { data: user, error: userError } = await supabase
       .from('users')
-      .update({
-        role,
-        email_verified: true,
-        updated_at: new Date().toISOString(),
-      })
+      .select('*')
       .eq('email', email)
-      .select()
       .single();
 
-    if (updateError) {
-      console.error('Error updating user:', updateError);
+    if (userError) {
+      console.error('Error fetching user:', userError);
       return NextResponse.json(
-        { success: false, error: 'Failed to update user record' },
-        { status: 500 }
+        { success: false, error: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    // For signup (new users), update role and verify email
+    if (!isLogin && role) {
+      if (!['client', 'freelancer'].includes(role)) {
+        return NextResponse.json(
+          { success: false, error: 'Role must be either client or freelancer' },
+          { status: 400 }
+        );
+      }
+
+      const { data: updatedUser, error: updateError } = await supabase
+        .from('users')
+        .update({
+          role,
+          email_verified: true,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user.id)
+        .select()
+        .single();
+
+      if (updateError) {
+        console.error('Error updating user:', updateError);
+        return NextResponse.json(
+          { success: false, error: 'Failed to update user record' },
+          { status: 500 }
+        );
+      }
+
+      user.role = updatedUser.role;
+      user.email_verified = updatedUser.email_verified;
+    } else if (isLogin) {
+      // For login, just verify email if not already verified
+      if (!user.email_verified) {
+        const { error: verifyError } = await supabase
+          .from('users')
+          .update({
+            email_verified: true,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', user.id);
+
+        if (verifyError) {
+          console.error('Error verifying email:', verifyError);
+        }
+      }
+    } else {
+      return NextResponse.json(
+        { success: false, error: 'Role is required for signup' },
+        { status: 400 }
       );
     }
 
@@ -72,7 +112,7 @@ export async function POST(request: NextRequest) {
     // Create response with httpOnly cookie
     const response = NextResponse.json({
       success: true,
-      message: 'Email verified successfully',
+      message: isLogin ? 'Login successful' : 'Email verified successfully',
       data: {
         user: {
           id: user.id,
