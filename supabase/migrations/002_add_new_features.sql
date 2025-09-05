@@ -4,6 +4,17 @@
 ALTER TABLE users 
 ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT FALSE;
 
+-- Create OTP codes table for persistent storage
+CREATE TABLE IF NOT EXISTS otp_codes (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    otp TEXT NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    attempts INTEGER DEFAULT 0,
+    max_attempts INTEGER DEFAULT 3,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create refund_requests table
 CREATE TABLE IF NOT EXISTS refund_requests (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
