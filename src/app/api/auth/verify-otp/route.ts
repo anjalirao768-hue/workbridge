@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify OTP
-    const isValidOTP = otpManager.verifyOTP(email, otp);
+    const isValidOTP = await otpManager.verifyOTP(email, otp);
 
     if (!isValidOTP) {
-      const remainingAttempts = otpManager.getRemainingAttempts(email);
+      const remainingAttempts = await otpManager.getRemainingAttempts(email);
       return NextResponse.json(
         { 
           success: false, 
