@@ -34,7 +34,13 @@ export default function Signup() {
       if (data.success) {
         setStep('otp');
       } else {
-        setError(data.error || 'Failed to send OTP');
+        if (data.isExistingUser) {
+          // Show existing user message with login redirect
+          setError('');
+          setStep('existing-user');
+        } else {
+          setError(data.error || 'Failed to send OTP');
+        }
       }
     } catch (error) {
       setError('Network error. Please try again.');
