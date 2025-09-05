@@ -1,13 +1,6 @@
 // OTP management utility with database-backed storage
 import { supabase } from '@/app/lib/supabase';
 
-interface OTPData {
-  otp: string;
-  expiresAt: number;
-  attempts: number;
-  maxAttempts: number;
-}
-
 class OTPManager {
   private readonly EXPIRATION_TIME = 10 * 60 * 1000; // 10 minutes in milliseconds
   private readonly MAX_ATTEMPTS = 3;
