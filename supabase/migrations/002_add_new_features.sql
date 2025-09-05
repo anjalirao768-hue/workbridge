@@ -66,6 +66,9 @@ CREATE POLICY IF NOT EXISTS "Users can view their own KYC documents" ON storage.
     );
 
 -- Create indexes for better performance
+CREATE INDEX IF NOT EXISTS idx_otp_codes_email ON otp_codes(email);
+CREATE INDEX IF NOT EXISTS idx_otp_codes_expires_at ON otp_codes(expires_at);
+
 CREATE INDEX IF NOT EXISTS idx_refund_requests_user_id ON refund_requests(user_id);
 CREATE INDEX IF NOT EXISTS idx_refund_requests_status ON refund_requests(status);
 CREATE INDEX IF NOT EXISTS idx_refund_requests_created_at ON refund_requests(created_at);
