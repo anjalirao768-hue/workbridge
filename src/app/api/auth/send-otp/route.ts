@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendOTPEmail } from '@/lib/resend-client';
 import { otpManager } from '@/lib/otp-manager';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/app/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
