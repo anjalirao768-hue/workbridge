@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
             email,
             password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
             email_verified: false,
+            kyc_status: 'pending', // Use existing valid value
             created_at: new Date().toISOString(),
           },
         ])
