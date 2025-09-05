@@ -82,7 +82,6 @@ export async function POST(request: NextRequest) {
           .from('users')
           .update({
             email_verified: true,
-            updated_at: new Date().toISOString(),
           })
           .eq('id', user.id);
 
