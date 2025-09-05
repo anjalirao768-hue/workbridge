@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate and store OTP
-    const otp = otpManager.storeOTP(email);
+    const otp = await otpManager.storeOTP(email);
 
     // Send OTP email
     const emailResult = await sendOTPEmail(email, otp);
