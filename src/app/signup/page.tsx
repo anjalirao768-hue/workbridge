@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function Signup() {
-  const [step, setStep] = useState<'email' | 'otp' | 'role'>('email');
+  const [step, setStep] = useState<'email' | 'otp' | 'role' | 'existing-user'>('email');
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [role, setRole] = useState<'client' | 'freelancer' | ''>('');
