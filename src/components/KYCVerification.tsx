@@ -176,7 +176,7 @@ export default function KYCVerification({ onClose }: KYCVerificationProps) {
                   <h4 className="text-yellow-800 font-medium">Review in Progress</h4>
                   <p className="text-yellow-600 text-sm">
                     Submitted on {new Date(kycStatus.submitted_at!).toLocaleDateString()}. 
-                    We'll review your documents within 24-48 hours.
+                    We&apos;ll review your documents within 24-48 hours.
                   </p>
                 </div>
               </div>
