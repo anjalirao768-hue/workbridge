@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
 
       if (createError) {
         console.error('Error creating user:', createError);
+        console.error('Error details:', JSON.stringify(createError, null, 2));
         return NextResponse.json(
           { success: false, error: 'Failed to create user record' },
           { status: 500 }
