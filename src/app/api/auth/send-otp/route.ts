@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
           {
             email,
             password_hash: 'OTP_AUTH', // Placeholder for OTP-based authentication
+            email_verified: false,
           },
         ])
         .select()
