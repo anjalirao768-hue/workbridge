@@ -130,7 +130,7 @@ export default function Signup() {
           <Card>
             <CardHeader>
               <CardTitle>Enter Your Email</CardTitle>
-              <CardDescription>We'll send you a verification code</CardDescription>
+              <CardDescription>We&apos;ll send you a verification code</CardDescription>
             </CardHeader>
             <CardContent>
               {error && (
