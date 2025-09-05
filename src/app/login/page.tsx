@@ -131,7 +131,7 @@ export default function Login() {
           <Card>
             <CardHeader>
               <CardTitle>Enter Your Email</CardTitle>
-              <CardDescription>We'll send you a verification code to sign in</CardDescription>
+              <CardDescription>We&apos;ll send you a verification code to sign in</CardDescription>
             </CardHeader>
             <CardContent>
               {error && (
