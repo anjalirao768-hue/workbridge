@@ -248,7 +248,7 @@ export default function SupportDashboard() {
                 Welcome, {currentUser?.email}
               </span>
               <Badge className="bg-purple-100 text-purple-800">
-                {getUserRole(currentUser?.role)}
+                {currentUser && getUserRole(currentUser.role)}
               </Badge>
             </div>
           </div>
