@@ -4,7 +4,7 @@ import { verifyToken } from '@/lib/auth';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('auth-token')?.value;
@@ -25,7 +25,7 @@ export async function PATCH(
     }
 
     const { status, adminNotes } = await request.json();
-    const refundId = params.id;
+    const { id: refundId } = await params;
 
     if (!['approved', 'rejected'].includes(status)) {
       return NextResponse.json(
