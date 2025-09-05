@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already has an active conversation
-    const { data: existingConversation, error: existingError } = await supabase
+    const { data: existingConversation } = await supabase
       .from('chat_conversations')
       .select('*')
       .eq('user_id', user.userId)
