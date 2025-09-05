@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user already exists or create new user record
+    // Check if user already exists
     const { data: existingUser } = await supabase
       .from('users')
       .select('*')
@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     let userId = existingUser?.id;
+    let isNewUser = false;
 
     if (!existingUser) {
       // Create new user record
@@ -47,6 +48,17 @@ export async function POST(request: NextRequest) {
       }
 
       userId = newUser.id;
+      isNewUser = true;
+    } else {
+      // User exists - check if they have a role assigned
+      if (existingUser.role && existingUser.email_verified) {
+        return NextResponse.json({
+          success: false,
+          error: 'User already registered',
+          isExistingUser: true,
+          message: 'This email is already registered. Please use the login page to sign in.',
+        }, { status: 409 });
+      }
     }
 
     // Generate and store OTP
@@ -65,7 +77,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'OTP sent successfully',
-      data: { email, userId },
+      data: { email, userId, isNewUser },
     });
   } catch (error) {
     console.error('Error in send-otp API:', error);
