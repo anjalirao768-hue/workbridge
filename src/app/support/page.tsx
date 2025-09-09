@@ -321,10 +321,10 @@ export default function SupportDashboard() {
                   <div className="flex justify-between items-center">
                     <div>
                       <CardTitle className="text-lg">
-                        Chat with {selectedConversation.users.email}
+                        Chat with {selectedConversation.users?.email || 'Unknown User'}
                       </CardTitle>
                       <p className="text-sm text-purple-100">
-                        {getUserRole(selectedConversation.users.role)} • {getStatusBadge(selectedConversation.status)}
+                        {selectedConversation.users?.role ? getUserRole(selectedConversation.users.role) : 'Unknown Role'} • {getStatusBadge(selectedConversation.status)}
                       </p>
                     </div>
                     <div className="flex space-x-2">
