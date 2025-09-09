@@ -244,7 +244,7 @@ def main():
     otp_success, otp_data = tester.test_send_otp(target_email)
     
     # Step 2: Test OTP verification structure
-    verify_success, verify_data = tester.test_verify_otp_with_real_response(target_email)
+    verify_success, verify_data = tester.simulate_verify_otp_with_real_response(target_email)
     
     # Step 3: Try to determine user role
     role_success, role_data = tester.check_user_role_via_database_query(target_email)
