@@ -385,7 +385,7 @@ def main():
         print("   ❌ Login vs Signup differentiation has issues")
     
     print(f"\n🎯 OVERALL ASSESSMENT:")
-    if main_fix_success and login_verify_success:
+    if main_fix_success and login_verify_actual:
         print("   🎉 LOGIN OTP FLOW FIX IS WORKING CORRECTLY!")
         print("   ✅ Existing users can now get OTP for login purposes")
         print("   ✅ No more blocking 'User already registered' errors")
