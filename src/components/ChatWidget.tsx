@@ -67,9 +67,11 @@ export default function ChatWidget() {
       const response = await fetch('/api/user/me');
       if (response.ok) {
         const userData = await response.json();
-        // The API returns user data directly, not wrapped in a 'user' property
         setCurrentUser(userData);
         console.log('User authenticated:', userData.email);
+        
+        // Also check if we have an existing conversation
+        await checkExistingConversation();
       } else {
         console.log('User not authenticated');
         setCurrentUser(null);
@@ -77,6 +79,23 @@ export default function ChatWidget() {
     } catch (error) {
       console.error('Error checking auth status:', error);
       setCurrentUser(null);
+    }
+  };
+
+  const checkExistingConversation = async () => {
+    try {
+      const response = await fetch('/api/chat/conversations');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.data.length > 0) {
+          // Get the most recent conversation
+          const mostRecent = data.data[0];
+          setConversation(mostRecent);
+          await fetchMessages(mostRecent.id);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking existing conversations:', error);
     }
   };
 
