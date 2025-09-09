@@ -78,7 +78,7 @@ export default function Login() {
           setStep('email');
         }
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
