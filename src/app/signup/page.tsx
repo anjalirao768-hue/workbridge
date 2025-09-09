@@ -233,75 +233,31 @@ export default function Signup() {
                 </div>
               )}
 
-              {/* Role Selection */}
-              {!role && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    I want to join as:
+              <form onSubmit={handleVerifyOTP}>
+                <div>
+                  <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
+                    Verification Code
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => handleRoleSelection('client')}
-                      className="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all"
-                    >
-                      <div className="text-2xl mb-2">🏢</div>
-                      <div className="font-medium">Client</div>
-                      <div className="text-xs text-gray-500">Hire freelancers</div>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleRoleSelection('freelancer')}
-                      className="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all"
-                    >
-                      <div className="text-2xl mb-2">💼</div>
-                      <div className="font-medium">Freelancer</div>
-                      <div className="text-xs text-gray-500">Find work</div>
-                    </button>
-                  </div>
+                  <input
+                    type="text"
+                    id="otp"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-center text-2xl tracking-widest"
+                    placeholder="000000"
+                    maxLength={6}
+                    required
+                  />
                 </div>
-              )}
 
-              {role && (
-                <form onSubmit={handleVerifyOTP} className="space-y-4">
-                  <div className="text-center mb-4">
-                    <p className="text-sm text-green-600">
-                      ✓ Joining as: <strong>{role === 'client' ? 'Client' : 'Freelancer'}</strong>
-                      <button
-                        type="button"
-                        onClick={() => setRole('')}
-                        className="ml-2 text-purple-600 hover:text-purple-700 underline text-xs"
-                      >
-                        Change
-                      </button>
-                    </p>
-                  </div>
-
-                  <div>
-                    <label htmlFor="otp" className="block text-sm font-medium text-gray-700 mb-2">
-                      Verification Code
-                    </label>
-                    <input
-                      type="text"
-                      id="otp"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-center text-2xl tracking-widest"
-                      placeholder="000000"
-                      maxLength={6}
-                      required
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    disabled={loading || otp.length !== 6}
-                    className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
-                  >
-                    {loading ? 'Verifying...' : 'Verify & Join WorkBridge'}
-                  </Button>
-                </form>
-              )}
+                <Button
+                  type="submit"
+                  disabled={loading || otp.length !== 6}
+                  className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
+                >
+                  {loading ? 'Verifying...' : 'Verify Email'}
+                </Button>
+              </form>
 
               <div className="mt-6 text-center">
                 <button
