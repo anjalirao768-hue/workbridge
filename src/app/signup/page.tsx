@@ -365,6 +365,113 @@ export default function Signup() {
             </CardContent>
           </Card>
         )}
+
+        {/* Role Selection Step */}
+        {step === 'role' && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Choose Your Role</CardTitle>
+              <CardDescription>
+                Select how you want to use WorkBridge
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {error && (
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                  {error}
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Client Option */}
+                <div 
+                  className={`border-2 rounded-lg p-6 cursor-pointer transition-all hover:shadow-md ${
+                    role === 'client' ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-purple-300'
+                  }`}
+                  onClick={() => setRole('client')}
+                >
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-2xl">🏢</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      I&apos;m a Client
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      I want to hire freelancers and manage projects
+                    </p>
+                  </div>
+                  <ul className="space-y-2">
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Post projects and job listings
+                    </li>
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Manage payments and milestones
+                    </li>
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Chat with freelancers
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Freelancer Option */}
+                <div 
+                  className={`border-2 rounded-lg p-6 cursor-pointer transition-all hover:shadow-md ${
+                    role === 'freelancer' ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'
+                  }`}
+                  onClick={() => setRole('freelancer')}
+                >
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-2xl">💼</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      I&apos;m a Freelancer
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      I want to find work and showcase my skills
+                    </p>
+                  </div>
+                  <ul className="space-y-2">
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Browse and apply to projects
+                    </li>
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Manage your portfolio
+                    </li>
+                    <li className="flex items-center text-sm text-gray-600">
+                      <span className="text-green-500 mr-2">✓</span>
+                      Track earnings and KYC
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {role && (
+                <div className="mt-6">
+                  <Button
+                    onClick={() => handleRoleSelection(role)}
+                    disabled={loading}
+                    className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
+                  >
+                    {loading ? 'Setting up your account...' : `Continue as ${role === 'client' ? 'Client' : 'Freelancer'}`}
+                  </Button>
+                </div>
+              )}
+
+              <div className="text-center mt-4">
+                <p className="text-sm text-gray-500">
+                  Don&apos;t worry, you can change your role later in settings
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
