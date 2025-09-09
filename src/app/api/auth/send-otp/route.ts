@@ -50,15 +50,9 @@ export async function POST(request: NextRequest) {
       userId = newUser.id;
       isNewUser = true;
     } else {
-      // User exists - check if they have a role assigned
-      if (existingUser.role && existingUser.email_verified) {
-        return NextResponse.json({
-          success: false,
-          error: 'User already registered',
-          isExistingUser: true,
-          message: 'This email is already registered. Please use the login page to sign in.',
-        }, { status: 409 });
-      }
+      // User exists - for login flow, always send OTP regardless of role/verification status
+      isNewUser = false;
+      console.log('Existing user login - sending OTP for:', email);
     }
 
     // Generate and store OTP
