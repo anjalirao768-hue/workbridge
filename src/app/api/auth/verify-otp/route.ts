@@ -140,6 +140,7 @@ export async function POST(request: NextRequest) {
           role: user.role,
           email_verified: user.email_verified,
         },
+        isNewUser: isNewUser,
         token,
       },
     });
