@@ -288,13 +288,13 @@ export default function SupportDashboard() {
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div className="font-medium text-sm text-gray-900 truncate">
-                            {conversation.users.email}
+                            {conversation.users?.email || 'Unknown User'}
                           </div>
                           {getStatusBadge(conversation.status)}
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-gray-600">
-                            {getUserRole(conversation.users.role)}
+                            {conversation.users?.role ? getUserRole(conversation.users.role) : 'Unknown Role'}
                           </span>
                           <span className="text-xs text-gray-500">
                             {formatDate(conversation.updated_at)}
