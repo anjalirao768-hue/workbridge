@@ -57,7 +57,7 @@ export default function RefundRequest({
       } else {
         setError(data.error || 'Failed to submit refund request');
       }
-    } catch (error) {
+    } catch (err) {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
