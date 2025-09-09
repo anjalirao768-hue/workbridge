@@ -199,11 +199,21 @@ export default function ChatWidget() {
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'active': return 'Agent Online';
       case 'waiting': return 'Waiting for Agent';
+      case 'assigned': return 'Agent Assigned';
+      case 'active': return 'Agent Online';
       case 'closed': return 'Chat Closed';
       default: return status;
     }
+  };
+
+  const startNewChat = async () => {
+    setConversation(null);
+    setMessages([]);
+    setIsOpen(false);
+    
+    // Start a fresh chat
+    await startChat();
   };
 
   // Don't show chat widget on auth pages
