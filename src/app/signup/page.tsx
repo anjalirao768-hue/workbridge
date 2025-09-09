@@ -58,17 +58,27 @@ export default function Signup() {
       const response = await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp, role }),
+        body: JSON.stringify({ email, otp }),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // Redirect based on role
-        if (role === 'client') {
-          router.push('/dashboard/client');
-        } else if (role === 'freelancer') {
-          router.push('/dashboard/freelancer');
+        // Check if this is a new user who needs role selection
+        if (data.data?.isNewUser || !data.data?.user?.role) {
+          setStep('role');
+        } else {
+          // Existing user with role - redirect to appropriate dashboard
+          const userRole = data.data.user.role;
+          if (userRole === 'client') {
+            router.push('/dashboard/client');
+          } else if (userRole === 'freelancer') {
+            router.push('/dashboard/freelancer');
+          } else if (userRole === 'admin') {
+            router.push('/dashboard/admin');
+          } else {
+            router.push('/dashboard');
+          }
         }
       } else {
         setError(data.error || 'Invalid OTP');
