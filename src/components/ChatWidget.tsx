@@ -112,13 +112,25 @@ export default function ChatWidget() {
 
     try {
       const response = await fetch(`/api/chat/conversations/${convId}/messages`);
+      if (!response.ok) {
+        console.error('Failed to fetch messages:', response.status);
+        return;
+      }
+      
       const data = await response.json();
 
       if (data.success) {
-        setMessages(data.data.messages);
+        setMessages(data.data.messages || []);
+        
+        // Update conversation data if provided
         if (data.data.conversation) {
-          setConversation(data.data.conversation);
+          setConversation(prev => ({
+            ...prev,
+            ...data.data.conversation
+          }));
         }
+      } else {
+        console.error('Error in messages response:', data.error);
       }
     } catch (error) {
       console.error('Error fetching messages:', error);
