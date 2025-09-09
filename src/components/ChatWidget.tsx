@@ -313,8 +313,15 @@ export default function ChatWidget() {
 
       {/* Chat Window */}
       {isOpen && (
-        <Card className={`w-80 h-96 shadow-2xl transition-all duration-300 ${isMinimized ? 'h-14' : ''}`}>
-          <CardHeader className="bg-gradient-to-r from-purple-500 to-blue-600 text-white p-4 rounded-t-lg">
+        <Card className={`
+          shadow-2xl transition-all duration-300 
+          ${isMinimized ? 'h-14' : 'h-[500px] max-h-[80vh]'}
+          w-80 max-w-[calc(100vw-2rem)] 
+          md:w-96 
+          flex flex-col
+          ${typeof window !== 'undefined' && window.innerHeight < 600 ? 'h-[70vh]' : ''}
+        `}>
+          <CardHeader className="bg-gradient-to-r from-purple-500 to-blue-600 text-white p-4 rounded-t-lg flex-shrink-0">
             <div className="flex justify-between items-center">
               <div>
                 <CardTitle className="text-lg">Support Chat</CardTitle>
@@ -346,9 +353,9 @@ export default function ChatWidget() {
           </CardHeader>
 
           {!isMinimized && (
-            <CardContent className="p-0 flex flex-col h-80">
+            <CardContent className="p-0 flex flex-col flex-1 min-h-0">
               {/* Messages Area */}
-              <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3">
+              <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3 min-h-0">
                 {messages.length === 0 && (
                   <div className="text-center text-gray-500 text-sm py-8">
                     <p>👋 Welcome to WorkBridge Support</p>
