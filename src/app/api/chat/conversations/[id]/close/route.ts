@@ -145,7 +145,7 @@ export async function PATCH(
 // Reopen a closed conversation (admin only)
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('auth-token')?.value;
@@ -165,7 +165,7 @@ export async function POST(
       );
     }
 
-    const conversationId = params.id;
+    const { id: conversationId } = await context.params;
 
     // Reopen the conversation
     const { data: updatedConversation, error: updateError } = await supabase
