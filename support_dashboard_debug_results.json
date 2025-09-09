@@ -1,0 +1,44 @@
+[
+  {
+    "test": "Unauthenticated /api/user/me",
+    "status": "FAIL",
+    "details": "Expected 401, got 404: The deployment could not be found on Vercel.\n\nDEPLOYMENT_NOT_FOUND\n\nsfo1::td6s7-1757414840029-0cdb8a4e9153\n",
+    "timestamp": "2025-09-09T10:47:20.055392"
+  },
+  {
+    "test": "Send OTP for Existing User",
+    "status": "FAIL",
+    "details": "Status 404: The deployment could not be found on Vercel.\n\nDEPLOYMENT_NOT_FOUND\n\nsfo1::vq8dw-1757414840073-22913b3f3d27\n",
+    "timestamp": "2025-09-09T10:47:20.099008"
+  },
+  {
+    "test": "OTP Verification Structure",
+    "status": "FAIL",
+    "details": "Unexpected status 404: The deployment could not be found on Vercel.\n\nDEPLOYMENT_NOT_FOUND\n\nsfo1::td6s7-1757414840119-4b3c963b705f\n",
+    "timestamp": "2025-09-09T10:47:20.139016"
+  },
+  {
+    "test": "JWT Token Simulation",
+    "status": "PASS",
+    "details": "Mock JWT token created for testing authenticated endpoints",
+    "timestamp": "2025-09-09T10:47:20.139099"
+  },
+  {
+    "test": "Authenticated /api/user/me Flow",
+    "status": "FAIL",
+    "details": "Unexpected status 404: The deployment could not be found on Vercel.\n\nDEPLOYMENT_NOT_FOUND\n\nsfo1::2jzz9-1757414840157-9dc1d1dd8f48\n",
+    "timestamp": "2025-09-09T10:47:20.181669"
+  },
+  {
+    "test": "Support Dashboard Page Access",
+    "status": "FAIL",
+    "details": "Page access failed with status 404",
+    "timestamp": "2025-09-09T10:47:20.223110"
+  },
+  {
+    "test": "Chat API Security",
+    "status": "FAIL",
+    "details": "Expected 401, got 404: The deployment could not be found on Vercel.\n\nDEPLOYMENT_NOT_FOUND\n\nsfo1::6pgvb-1757414840241-060f466d06af\n",
+    "timestamp": "2025-09-09T10:47:20.261431"
+  }
+]
