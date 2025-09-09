@@ -18,8 +18,39 @@ export default function GeneralDashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    checkAuthAndRole();
-  }, [router]); // Added router as dependency
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/user/me');
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          
+          // Auto-redirect users with specific roles to their proper dashboards
+          if (userData.role === 'client') {
+            router.push('/dashboard/client');
+            return;
+          } else if (userData.role === 'freelancer') {
+            router.push('/dashboard/freelancer');
+            return;
+          } else if (userData.role === 'admin') {
+            router.push('/dashboard/admin');
+            return;
+          }
+        } else {
+          router.push('/login');
+          return;
+        }
+      } catch (error) {
+        console.error('Error checking auth:', error);
+        router.push('/login');
+        return;
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkAuth();
+  }, [router]);
 
   const checkAuthAndRole = async () => {
     try {
