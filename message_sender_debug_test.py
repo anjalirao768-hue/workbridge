@@ -17,7 +17,7 @@ import sys
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://workbridge-app-1036125395836.us-central1.run.app"
+BASE_URL = "http://localhost:3000"
 API_BASE = f"{BASE_URL}/api"
 
 def print_section(title):
