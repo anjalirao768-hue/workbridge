@@ -48,20 +48,19 @@ export default function ChatWidget() {
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
-    const pollMessages = () => {
-      if (conversation?.id) {
-        fetchMessages();
-      }
-    };
-    
-    if (isOpen && conversation && !isMinimized) {
+    if (isOpen && conversation?.id && !isMinimized) {
+      // Create a stable reference to the fetchMessages function
+      const pollMessages = () => {
+        fetchMessages(conversation.id);
+      };
+      
       interval = setInterval(pollMessages, 3000); // Poll every 3 seconds
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isOpen, conversation?.id, isMinimized]); // Remove fetchMessages dependency
+  }, [isOpen, conversation?.id, isMinimized]); // Only depend on stable values
 
   const checkAuthStatus = async () => {
     try {
