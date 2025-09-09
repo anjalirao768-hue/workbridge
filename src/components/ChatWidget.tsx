@@ -396,7 +396,7 @@ export default function ChatWidget() {
               </div>
 
               {/* Message Input */}
-              <div className="p-4 border-t border-gray-200 bg-white">
+              <div className="p-4 border-t border-gray-200 bg-white flex-shrink-0">
                 {conversation?.status === 'closed' ? (
                   <div className="text-center space-y-3">
                     <div className="flex items-center justify-center space-x-2 text-gray-500">
@@ -426,13 +426,13 @@ export default function ChatWidget() {
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Type your message..."
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm min-w-0"
                     />
                     <Button
                       type="submit"
                       size="sm"
                       disabled={!newMessage.trim()}
-                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-4"
+                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-4 flex-shrink-0"
                     >
                       Send
                     </Button>
