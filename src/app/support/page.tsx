@@ -518,7 +518,7 @@ export default function SupportDashboard() {
               Close Conversation
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              Are you sure you want to close this conversation? The user will be notified and won't be able to send more messages.
+              Are you sure you want to close this conversation? The user will be notified and won&apos;t be able to send more messages.
             </p>
             
             <div className="mb-4">
