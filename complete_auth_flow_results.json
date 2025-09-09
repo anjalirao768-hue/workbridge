@@ -1,38 +1,38 @@
 [
   {
     "test": "Send OTP for Login",
-    "status": "FAIL",
-    "details": "Status 500: Internal Server Error",
-    "timestamp": "2025-09-09T10:49:59.104638"
+    "status": "PASS",
+    "details": "OTP sent successfully for existing user: anjalirao768@gmail.com",
+    "timestamp": "2025-09-09T10:50:43.788576"
   },
   {
     "test": "JWT Token Creation",
     "status": "PASS",
     "details": "Valid JWT token created with support role",
-    "timestamp": "2025-09-09T10:49:59.104890"
+    "timestamp": "2025-09-09T10:50:43.788807"
   },
   {
     "test": "Authenticated /api/user/me",
     "status": "FAIL",
-    "details": "Status 500: Internal Server Error",
-    "timestamp": "2025-09-09T10:49:59.325790"
+    "details": "Status 401: {\"error\":\"Not authenticated\"}",
+    "timestamp": "2025-09-09T10:50:43.829961"
   },
   {
     "test": "Support Dashboard Access",
-    "status": "FAIL",
-    "details": "Page access failed with status 500",
-    "timestamp": "2025-09-09T10:49:59.539262"
+    "status": "PARTIAL",
+    "details": "Page loads but may not show dashboard content (could be client-side auth check)",
+    "timestamp": "2025-09-09T10:50:47.632769"
   },
   {
     "test": "Chat Conversations API",
     "status": "FAIL",
-    "details": "Status 500: Internal Server Error",
-    "timestamp": "2025-09-09T10:49:59.793108"
+    "details": "Status 401: {\"success\":false,\"error\":\"Authentication required\"}",
+    "timestamp": "2025-09-09T10:50:47.991878"
   },
   {
     "test": "Unauthenticated Access Block",
-    "status": "FAIL",
-    "details": "Expected 401, got 500: Internal Server Error",
-    "timestamp": "2025-09-09T10:50:00.021734"
+    "status": "PASS",
+    "details": "Unauthenticated requests properly blocked with 401",
+    "timestamp": "2025-09-09T10:50:48.030109"
   }
 ]
