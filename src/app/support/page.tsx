@@ -369,10 +369,23 @@ export default function SupportDashboard() {
                         <Button
                           size="sm"
                           variant="secondary"
-                          onClick={closeConversation}
+                          onClick={handleCloseButtonClick}
                           className="text-purple-600"
                         >
-                          Close Chat
+                          Mark as Closed
+                        </Button>
+                      )}
+                      {selectedConversation.status === 'closed' && currentUser?.role === 'admin' && (
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          onClick={() => {
+                            // TODO: Implement reopen functionality
+                            alert('Reopen functionality can be implemented here');
+                          }}
+                          className="text-green-600"
+                        >
+                          Reopen Chat
                         </Button>
                       )}
                     </div>
