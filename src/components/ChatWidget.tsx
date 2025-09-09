@@ -426,23 +426,26 @@ export default function ChatWidget() {
                     </Button>
                   </div>
                 ) : (
-                  <form onSubmit={sendMessage} className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      placeholder="Type your message..."
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm min-w-0"
-                    />
-                    <Button
-                      type="submit"
-                      size="sm"
-                      disabled={!newMessage.trim()}
-                      className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-4 flex-shrink-0"
-                    >
-                      Send
-                    </Button>
-                  </form>
+                  <div className="space-y-2">
+                    <div className="text-xs text-gray-500 font-medium">Your message:</div>
+                    <form onSubmit={sendMessage} className="flex space-x-2">
+                      <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Type your message..."
+                        className="flex-1 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm min-w-0 placeholder-blue-400"
+                      />
+                      <Button
+                        type="submit"
+                        size="sm"
+                        disabled={!newMessage.trim()}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 flex-shrink-0"
+                      >
+                        Send
+                      </Button>
+                    </form>
+                  </div>
                 )}
               </div>
             </CardContent>
