@@ -488,6 +488,55 @@ export default function SupportDashboard() {
           </Card>
         </div>
       </div>
+
+      {/* Closure Dialog Modal */}
+      {showClosureDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Close Conversation
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Are you sure you want to close this conversation? The user will be notified and won't be able to send more messages.
+            </p>
+            
+            <div className="mb-4">
+              <label htmlFor="closure-note" className="block text-sm font-medium text-gray-700 mb-2">
+                Closure Note (Optional)
+              </label>
+              <textarea
+                id="closure-note"
+                value={closureNote}
+                onChange={(e) => setClosureNote(e.target.value)}
+                placeholder="Brief reason for closing the chat..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                rows={3}
+                maxLength={500}
+              />
+              <div className="text-xs text-gray-400 mt-1">
+                {closureNote.length}/500 characters
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={handleClosureCancel}
+                disabled={isClosing}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={closeConversation}
+                disabled={isClosing}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                {isClosing ? 'Closing...' : 'Close Conversation'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
