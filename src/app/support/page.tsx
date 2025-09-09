@@ -19,10 +19,13 @@ interface Message {
 
 interface Conversation {
   id: string;
-  status: 'active' | 'waiting' | 'closed';
+  status: 'waiting' | 'assigned' | 'active' | 'closed';
   title: string;
   created_at: string;
   updated_at: string;
+  closed_at?: string;
+  closure_note?: string;
+  resolution_time_minutes?: number;
   users?: {
     id: string;
     email: string;
