@@ -19,7 +19,7 @@ export default function GeneralDashboard() {
 
   useEffect(() => {
     checkAuthAndRole();
-  }, []);
+  }, [router]); // Added router as dependency
 
   const checkAuthAndRole = async () => {
     try {
