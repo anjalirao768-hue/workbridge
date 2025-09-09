@@ -467,7 +467,7 @@ export default function SupportDashboard() {
                         </div>
                         {selectedConversation.closure_note && (
                           <div className="text-xs text-gray-400 italic bg-gray-50 p-2 rounded">
-                            Closure Note: "{selectedConversation.closure_note}"
+                            Closure Note: &quot;{selectedConversation.closure_note}&quot;
                           </div>
                         )}
                         {selectedConversation.resolution_time_minutes && (
