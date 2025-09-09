@@ -378,14 +378,20 @@ export default function ChatWidget() {
                   }
 
                   return (
-                    <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                    <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'} mb-3`}>
                       <div className={`max-w-xs p-3 rounded-lg ${
                         isOwn 
-                          ? 'bg-gradient-to-r from-purple-500 to-blue-600 text-white' 
-                          : 'bg-white border border-gray-200'
+                          ? 'bg-blue-500 text-white rounded-br-sm' 
+                          : 'bg-gray-100 text-gray-800 border border-gray-200 rounded-bl-sm'
                       }`}>
+                        {/* Sender Label */}
+                        <div className={`text-xs font-medium mb-1 ${
+                          isOwn ? 'text-blue-100' : 'text-gray-500'
+                        }`}>
+                          {isOwn ? 'You' : 'Support Agent'}
+                        </div>
                         <p className="text-sm">{message.message_text}</p>
-                        <p className={`text-xs mt-1 ${isOwn ? 'text-purple-100' : 'text-gray-500'}`}>
+                        <p className={`text-xs mt-1 ${isOwn ? 'text-blue-100' : 'text-gray-500'}`}>
                           {formatTime(message.created_at)}
                         </p>
                       </div>
