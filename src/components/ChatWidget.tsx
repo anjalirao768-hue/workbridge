@@ -31,7 +31,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState<{ id: string; email: string; role: string } | null>(null);
+  const [currentUser, setCurrentUser] = useState<{ userId: string; email: string; role: string } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Scroll to bottom when messages change
