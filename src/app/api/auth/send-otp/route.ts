@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'OTP sent successfully',
-      data: { email, userId, isNewUser },
+      data: { email, userId, isNewUser, isExistingUser: !isNewUser },
     });
   } catch (error) {
     console.error('Error in send-otp API:', error);
