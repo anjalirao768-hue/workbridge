@@ -31,7 +31,7 @@ def fix_schema():
     supabase_url = os.getenv('NEXT_PUBLIC_SUPABASE_URL')
     supabase_key = os.getenv('SUPABASE_SERVICE_ROLE_KEY')
     
-    if not supabase_url or supabase_key:
+    if not supabase_url or not supabase_key:
         print("❌ Missing Supabase credentials")
         return False
     
