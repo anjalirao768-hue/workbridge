@@ -22,7 +22,7 @@ import sys
 from datetime import datetime
 
 # Configuration
-FRONTEND_URL = "https://workbridge-frontend-git-main-anjaliraos-projects.vercel.app"
+FRONTEND_URL = "http://localhost:3000"
 API_BASE_URL = f"{FRONTEND_URL}/api"
 
 class SupportDashboardDebugger:
