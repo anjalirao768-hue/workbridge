@@ -9,7 +9,7 @@ interface Message {
   message_text: string;
   message_type: 'text' | 'system';
   created_at: string;
-  sender: {
+  sender?: {
     id: string;
     email: string;
     role: string;
