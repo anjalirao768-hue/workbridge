@@ -346,7 +346,7 @@ export default function SupportDashboard() {
                   {/* Messages */}
                   <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3">
                     {messages.map((message) => {
-                      const isOwn = message.sender.id === currentUser?.id;
+                      const isOwn = message.sender?.id === currentUser?.id;
                       const isSystem = message.message_type === 'system';
 
                       if (isSystem) {
@@ -368,7 +368,7 @@ export default function SupportDashboard() {
                           }`}>
                             <div className="flex items-center space-x-2 mb-1">
                               <span className={`text-xs font-medium ${isOwn ? 'text-purple-100' : 'text-gray-600'}`}>
-                                {isOwn ? 'You' : getUserRole(message.sender.role)}
+                                {isOwn ? 'You' : (message.sender?.role ? getUserRole(message.sender.role) : 'User')}
                               </span>
                             </div>
                             <p className="text-sm">{message.message_text}</p>
