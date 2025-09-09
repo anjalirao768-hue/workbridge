@@ -207,7 +207,7 @@ export default function GeneralDashboard() {
 
             <div className="text-center pt-4">
               <p className="text-sm text-gray-500">
-                Don't worry, you can always change your role later in settings
+                Don&apos;t worry, you can always change your role later in settings
               </p>
             </div>
           </CardContent>
