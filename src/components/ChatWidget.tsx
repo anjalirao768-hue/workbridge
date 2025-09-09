@@ -261,20 +261,13 @@ export default function ChatWidget() {
     }
   };
 
-  const handleChatClick = async () => {
-    if (!currentUser) {
-      alert('Please login to start a chat with support');
-      return;
-    }
-
-    if (conversation) {
-      // If we already have a conversation, just open the widget
-      setIsOpen(true);
-      await fetchMessages(conversation.id);
-    } else {
-      // If no conversation, create one
-      await startChat();
-    }
+  const startNewChat = async () => {
+    setConversation(null);
+    setMessages([]);
+    setIsOpen(false);
+    
+    // Start a fresh chat
+    await startChat();
   };
 
   // Don't show chat widget on auth pages
