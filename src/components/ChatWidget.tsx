@@ -109,6 +109,22 @@ export default function ChatWidget() {
     }
   };
 
+  const handleChatClick = async () => {
+    if (!currentUser) {
+      alert('Please login to start a chat with support');
+      return;
+    }
+
+    if (conversation && conversation.status !== 'closed') {
+      // If we have an active conversation, just open the chat window
+      setIsOpen(true);
+      await fetchMessages(conversation.id);
+    } else {
+      // Otherwise, start a new chat
+      await startChat();
+    }
+  };
+
   const startChat = async () => {
     if (!currentUser) {
       alert('Please login to start a chat with support');
