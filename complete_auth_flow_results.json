@@ -1,0 +1,38 @@
+[
+  {
+    "test": "Send OTP for Login",
+    "status": "FAIL",
+    "details": "Status 500: Internal Server Error",
+    "timestamp": "2025-09-09T10:49:59.104638"
+  },
+  {
+    "test": "JWT Token Creation",
+    "status": "PASS",
+    "details": "Valid JWT token created with support role",
+    "timestamp": "2025-09-09T10:49:59.104890"
+  },
+  {
+    "test": "Authenticated /api/user/me",
+    "status": "FAIL",
+    "details": "Status 500: Internal Server Error",
+    "timestamp": "2025-09-09T10:49:59.325790"
+  },
+  {
+    "test": "Support Dashboard Access",
+    "status": "FAIL",
+    "details": "Page access failed with status 500",
+    "timestamp": "2025-09-09T10:49:59.539262"
+  },
+  {
+    "test": "Chat Conversations API",
+    "status": "FAIL",
+    "details": "Status 500: Internal Server Error",
+    "timestamp": "2025-09-09T10:49:59.793108"
+  },
+  {
+    "test": "Unauthenticated Access Block",
+    "status": "FAIL",
+    "details": "Expected 401, got 500: Internal Server Error",
+    "timestamp": "2025-09-09T10:50:00.021734"
+  }
+]
