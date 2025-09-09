@@ -46,7 +46,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For signup (new users), update role and verify email
+    // Determine if this is a new user (no role assigned yet)
+    const isNewUser = !user.role || user.role === 'user';
+
+    // For signup (new users), handle role assignment
     if (!isLogin && role) {
       if (!['client', 'freelancer'].includes(role)) {
         return NextResponse.json(
@@ -75,6 +78,24 @@ export async function POST(request: NextRequest) {
 
       user.role = updatedUser.role;
       user.email_verified = updatedUser.email_verified;
+    } else if (!isLogin && !role && isNewUser) {
+      // New user without role - just verify email, role will be set later
+      const { error: verifyError } = await supabase
+        .from('users')
+        .update({
+          email_verified: true,
+        })
+        .eq('id', user.id);
+
+      if (verifyError) {
+        console.error('Error verifying email:', verifyError);
+        return NextResponse.json(
+          { success: false, error: 'Failed to verify email' },
+          { status: 500 }
+        );
+      }
+
+      user.email_verified = true;
     } else if (isLogin) {
       // For login, just verify email if not already verified
       if (!user.email_verified) {
@@ -89,10 +110,11 @@ export async function POST(request: NextRequest) {
           console.error('Error verifying email:', verifyError);
         }
       }
-    } else {
+    } else if (!isLogin && !role && !isNewUser) {
+      // Existing user trying to signup - this shouldn't happen but handle gracefully
       return NextResponse.json(
-        { success: false, error: 'Role is required for signup' },
-        { status: 400 }
+        { success: false, error: 'User already exists. Please use login instead.' },
+        { status: 409 }
       );
     }
 
