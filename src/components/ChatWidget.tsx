@@ -61,11 +61,17 @@ export default function ChatWidget() {
     try {
       const response = await fetch('/api/user/me');
       if (response.ok) {
-        const data = await response.json();
-        setCurrentUser(data.user);
+        const userData = await response.json();
+        // The API returns user data directly, not wrapped in a 'user' property
+        setCurrentUser(userData);
+        console.log('User authenticated:', userData.email);
+      } else {
+        console.log('User not authenticated');
+        setCurrentUser(null);
       }
     } catch (error) {
       console.error('Error checking auth status:', error);
+      setCurrentUser(null);
     }
   };
 
