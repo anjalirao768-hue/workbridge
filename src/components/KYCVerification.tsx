@@ -103,7 +103,7 @@ export default function KYCVerification({ onClose }: KYCVerificationProps) {
       } else {
         setError(data.error || 'Failed to submit KYC documents');
       }
-    } catch (error) {
+    } catch (err) {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
