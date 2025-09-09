@@ -141,7 +141,7 @@ export default function GeneralDashboard() {
                     <span className="text-white text-2xl">🏢</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    I'm a Client
+                    I&apos;m a Client
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
                     I want to hire freelancers and manage projects
