@@ -295,18 +295,18 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
       {/* Chat Button */}
       {!isOpen && (
         <Button
           onClick={handleChatClick}
           disabled={loading}
-          className="rounded-full w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+          className="rounded-full w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
           {loading ? (
-            <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
+            <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-2 border-white border-t-transparent"></div>
           ) : (
-            <span className="text-2xl">💬</span>
+            <span className="text-xl sm:text-2xl">💬</span>
           )}
         </Button>
       )}
@@ -317,7 +317,7 @@ export default function ChatWidget() {
           shadow-2xl transition-all duration-300 
           ${isMinimized ? 'h-14' : 'h-[500px] max-h-[80vh]'}
           w-80 max-w-[calc(100vw-2rem)] 
-          md:w-96 
+          sm:w-96 sm:max-w-[400px]
           flex flex-col
           ${typeof window !== 'undefined' && window.innerHeight < 600 ? 'h-[70vh]' : ''}
         `}>
