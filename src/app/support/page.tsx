@@ -173,24 +173,56 @@ export default function SupportDashboard() {
   };
 
   const closeConversation = async () => {
-    if (!selectedConversation) return;
+    if (!selectedConversation || isClosing) return;
 
+    setIsClosing(true);
+    
     try {
       const response = await fetch(`/api/chat/conversations/${selectedConversation.id}/close`, {
         method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          closure_note: closureNote.trim() || undefined 
+        }),
       });
 
       const data = await response.json();
       
       if (data.success) {
+        // Update the conversation status locally
+        setSelectedConversation(prev => prev ? {
+          ...prev,
+          status: 'closed',
+          closed_at: data.data.closed_at,
+          closure_note: data.data.closure_note
+        } : prev);
+        
+        // Refresh conversations list
         fetchConversations();
-        if (selectedConversation) {
-          fetchMessages(selectedConversation.id);
-        }
+        
+        // Reset closure dialog
+        setShowClosureDialog(false);
+        setClosureNote('');
+        
+        alert('Conversation closed successfully');
+      } else {
+        alert('Failed to close conversation: ' + data.error);
       }
     } catch (error) {
       console.error('Error closing conversation:', error);
+      alert('Network error. Please try again.');
+    } finally {
+      setIsClosing(false);
     }
+  };
+
+  const handleCloseButtonClick = () => {
+    setShowClosureDialog(true);
+  };
+
+  const handleClosureCancel = () => {
+    setShowClosureDialog(false);
+    setClosureNote('');
   };
 
   const formatTime = (timestamp: string) => {
