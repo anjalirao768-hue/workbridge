@@ -283,7 +283,7 @@ export default function ChatWidget() {
       {/* Chat Button */}
       {!isOpen && (
         <Button
-          onClick={startChat}
+          onClick={handleChatClick}
           disabled={loading}
           className="rounded-full w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
