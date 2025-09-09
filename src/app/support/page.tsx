@@ -67,18 +67,21 @@ export default function SupportDashboard() {
   const checkAuthAndRole = async () => {
     try {
       const response = await fetch('/api/user/me');
-      const data = await response.json();
       
-      if (data.success) {
-        setCurrentUser(data.user);
+      if (response.ok) {
+        const userData = await response.json();
+        setCurrentUser(userData);
         
         // Check if user has support or admin role
-        if (!['support', 'admin'].includes(data.user.role)) {
+        if (!['support', 'admin'].includes(userData.role)) {
           alert('Access denied. This page is for support agents only.');
           window.location.href = '/';
           return;
         }
+        
+        console.log('Support dashboard access granted for:', userData.email, 'Role:', userData.role);
       } else {
+        console.log('Authentication failed, status:', response.status);
         alert('Please login to access support dashboard');
         window.location.href = '/login';
         return;
