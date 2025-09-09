@@ -23,7 +23,7 @@ interface Conversation {
   title: string;
   created_at: string;
   updated_at: string;
-  users: {
+  users?: {
     id: string;
     email: string;
     role: string;
