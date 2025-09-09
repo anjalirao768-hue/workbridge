@@ -44,6 +44,7 @@ export default function SupportDashboard() {
   const [closureNote, setClosureNote] = useState('');
   const [showClosureDialog, setShowClosureDialog] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     checkAuthAndRole();
