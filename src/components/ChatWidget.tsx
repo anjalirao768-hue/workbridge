@@ -369,9 +369,9 @@ export default function ChatWidget() {
 
                   if (isSystem) {
                     return (
-                      <div key={message.id} className="text-center">
-                        <p className="text-xs text-gray-500 bg-gray-200 inline-block px-3 py-1 rounded-full">
-                          {message.message_text}
+                      <div key={message.id} className="text-center mb-3">
+                        <p className="text-xs text-gray-600 bg-yellow-100 border border-yellow-200 inline-block px-3 py-2 rounded-full">
+                          <span className="font-medium">System:</span> {message.message_text}
                         </p>
                       </div>
                     );
