@@ -355,11 +355,13 @@ export default function ChatWidget() {
           {!isMinimized && (
             <CardContent className="p-0 flex flex-col flex-1 min-h-0">
               {/* Messages Area */}
-              <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3 min-h-0">
+              <div className="flex-1 p-4 overflow-y-auto bg-gray-50 min-h-0">
                 {messages.length === 0 && (
                   <div className="text-center text-gray-500 text-sm py-8">
-                    <p>👋 Welcome to WorkBridge Support</p>
-                    <p className="mt-1">How can we help you today?</p>
+                    <div className="bg-white rounded-lg p-4 border border-gray-200 mx-2">
+                      <p className="font-medium">👋 Welcome to WorkBridge Support</p>
+                      <p className="mt-1 text-xs">How can we help you today?</p>
+                    </div>
                   </div>
                 )}
 
