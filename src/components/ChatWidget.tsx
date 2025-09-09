@@ -113,6 +113,27 @@ export default function ChatWidget() {
         headers: { 'Content-Type': 'application/json' },
       });
 
+      if (!response.ok) {
+        if (response.status === 401) {
+          alert('Please login again to start a chat');
+          // Clear current user and redirect to login
+          setCurrentUser(null);
+          window.location.href = '/login';
+          return;
+        }
+        
+        if (response.status === 500) {
+          const errorData = await response.json().catch(() => ({}));
+          if (errorData.error && errorData.error.includes('foreign key')) {
+            alert('Please complete your account setup before starting a chat. Redirecting to login...');
+            window.location.href = '/login';
+            return;
+          }
+        }
+        
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -120,11 +141,16 @@ export default function ChatWidget() {
         setIsOpen(true);
         await fetchMessages(data.data.id);
       } else {
-        alert('Failed to start chat: ' + data.error);
+        console.error('Chat creation failed:', data.error);
+        alert('Failed to start chat. Please try logging in again.');
+        setCurrentUser(null);
+        window.location.href = '/login';
       }
     } catch (error) {
       console.error('Error starting chat:', error);
-      alert('Network error. Please try again.');
+      alert('Failed to start chat. Please ensure you are logged in properly.');
+      setCurrentUser(null);
+      window.location.href = '/login';
     } finally {
       setLoading(false);
     }
