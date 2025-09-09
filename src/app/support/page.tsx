@@ -157,8 +157,25 @@ export default function SupportDashboard() {
       const data = await response.json();
 
       if (data.success) {
+        // Add message immediately for better UX
         setMessages(prev => [...prev, data.data]);
-        // Update conversation status if needed
+        
+        // Update conversation status and agent assignment if needed
+        setSelectedConversation(prev => {
+          if (!prev) return prev;
+          
+          const updates: Partial<Conversation> = {};
+          
+          // If this is the first response from support agent, update status and assign agent
+          if (prev.status === 'waiting' || !prev.support_agent) {
+            updates.status = 'assigned';
+            updates.support_agent = { id: currentUser!.id, email: currentUser!.email };
+          }
+          
+          return { ...prev, ...updates };
+        });
+        
+        // Update conversation status if it was waiting
         fetchConversations();
       } else {
         alert('Failed to send message: ' + data.error);
@@ -166,6 +183,7 @@ export default function SupportDashboard() {
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      alert('Network error. Please try again.');
       setNewMessage(messageText);
     }
   };
