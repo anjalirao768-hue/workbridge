@@ -203,6 +203,12 @@ export default function ChatWidget() {
       });
 
       if (!response.ok) {
+        if (response.status === 401) {
+          alert('Session expired. Please login again.');
+          setCurrentUser(null);
+          window.location.href = '/login';
+          return;
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
