@@ -78,7 +78,7 @@ export default function Signup() {
           setStep('email'); // Reset to email step
         }
       }
-    } catch (err) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
