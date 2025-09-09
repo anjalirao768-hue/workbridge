@@ -41,7 +41,9 @@ export default function SupportDashboard() {
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<{ id: string; email: string; role: string } | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [closureNote, setClosureNote] = useState('');
+  const [showClosureDialog, setShowClosureDialog] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     checkAuthAndRole();
