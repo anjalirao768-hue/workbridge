@@ -434,23 +434,45 @@ export default function SupportDashboard() {
 
                   {/* Message Input */}
                   <div className="p-4 border-t border-gray-200 bg-white">
-                    <form onSubmit={sendMessage} className="flex space-x-2">
-                      <input
-                        type="text"
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder="Type your message..."
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        disabled={selectedConversation.status === 'closed'}
-                      />
-                      <Button
-                        type="submit"
-                        disabled={!newMessage.trim() || selectedConversation.status === 'closed'}
-                        className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-6"
-                      >
-                        Send
-                      </Button>
-                    </form>
+                    {selectedConversation.status === 'closed' ? (
+                      <div className="text-center space-y-2">
+                        <div className="flex items-center justify-center space-x-2 text-gray-500">
+                          <span className="text-sm font-medium">Chat Closed</span>
+                          {selectedConversation.closed_at && (
+                            <span className="text-xs">
+                              on {new Date(selectedConversation.closed_at).toLocaleDateString()}
+                            </span>
+                          )}
+                        </div>
+                        {selectedConversation.closure_note && (
+                          <div className="text-xs text-gray-400 italic bg-gray-50 p-2 rounded">
+                            Closure Note: "{selectedConversation.closure_note}"
+                          </div>
+                        )}
+                        {selectedConversation.resolution_time_minutes && (
+                          <div className="text-xs text-gray-400">
+                            Resolution Time: {Math.round(selectedConversation.resolution_time_minutes)} minutes
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <form onSubmit={sendMessage} className="flex space-x-2">
+                        <input
+                          type="text"
+                          value={newMessage}
+                          onChange={(e) => setNewMessage(e.target.value)}
+                          placeholder="Type your message..."
+                          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        />
+                        <Button
+                          type="submit"
+                          disabled={!newMessage.trim()}
+                          className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white px-6"
+                        >
+                          Send
+                        </Button>
+                      </form>
+                    )}
                   </div>
                 </CardContent>
               </>
