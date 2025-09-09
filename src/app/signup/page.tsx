@@ -95,9 +95,35 @@ export default function Signup() {
     }
   };
 
-  const handleRoleSelection = (selectedRole: 'client' | 'freelancer') => {
+  const handleRoleSelection = async (selectedRole: 'client' | 'freelancer') => {
     setRole(selectedRole);
     setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/user/update-role', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: selectedRole }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Redirect to appropriate dashboard after role update
+        if (selectedRole === 'client') {
+          router.push('/dashboard/client');
+        } else if (selectedRole === 'freelancer') {
+          router.push('/dashboard/freelancer');
+        }
+      } else {
+        setError(data.error || 'Failed to update role');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleResendOTP = async () => {
