@@ -18,8 +18,10 @@ interface Message {
 
 interface Conversation {
   id: string;
-  status: 'active' | 'waiting' | 'closed';
+  status: 'waiting' | 'assigned' | 'active' | 'closed';
   support_agent_id?: string;
+  closed_at?: string;
+  closure_note?: string;
 }
 
 export default function ChatWidget() {
