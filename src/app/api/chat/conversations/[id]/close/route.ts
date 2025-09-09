@@ -5,7 +5,7 @@ import { verifyToken } from '@/lib/auth';
 // Close a chat conversation
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('auth-token')?.value;
@@ -25,7 +25,7 @@ export async function PATCH(
       );
     }
 
-    const conversationId = params.id;
+    const { id: conversationId } = await context.params;
     const body = await request.json().catch(() => ({}));
     const { closure_note } = body;
 
