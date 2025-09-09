@@ -366,7 +366,7 @@ export default function ChatWidget() {
                 )}
 
                 {messages.map((message) => {
-                  const isOwn = message.sender?.userId === currentUser?.userId;
+                  const isOwn = message.sender?.id === currentUser?.userId;
                   const isSystem = message.message_type === 'system';
 
                   if (isSystem) {
