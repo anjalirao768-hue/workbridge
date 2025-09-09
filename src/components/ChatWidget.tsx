@@ -55,7 +55,7 @@ export default function ChatWidget() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isOpen, conversation, isMinimized]);
+  }, [isOpen, conversation, isMinimized]); // Removed fetchMessages dependency to avoid recreating interval
 
   const checkAuthStatus = async () => {
     try {
