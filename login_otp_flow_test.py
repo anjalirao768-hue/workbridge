@@ -351,6 +351,9 @@ def main():
     # Test 4: Input validation
     validation_success = tester.test_input_validation()
     
+    # Check if login verification test actually passed (it should return True for correct error handling)
+    login_verify_actual = any(result['success'] and result['name'] == 'Verify OTP Login' for result in tester.test_results)
+    
     # Print comprehensive summary
     print(f"\n{'='*80}")
     print("📊 LOGIN OTP FLOW FIX TESTING SUMMARY")
