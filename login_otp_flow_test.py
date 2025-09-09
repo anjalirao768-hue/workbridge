@@ -374,7 +374,7 @@ def main():
     else:
         print("   ❌ MAIN BUG NOT FIXED: Still blocking existing users from login OTP")
     
-    if login_verify_success:
+    if login_verify_actual:
         print("   ✅ Login OTP verification flow structure correct")
     else:
         print("   ❌ Login OTP verification flow has issues")
