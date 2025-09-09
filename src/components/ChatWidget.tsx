@@ -152,18 +152,29 @@ export default function ChatWidget() {
         body: JSON.stringify({ message: messageText }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
         // Add message immediately for better UX
         setMessages(prev => [...prev, data.data]);
+        
+        // Update conversation status if it was waiting
+        if (conversation.status === 'waiting') {
+          setConversation(prev => prev ? { ...prev, status: 'active' } : prev);
+        }
+        
+        // Fetch latest messages to ensure sync
+        setTimeout(() => fetchMessages(), 500);
       } else {
-        alert('Failed to send message: ' + data.error);
-        setNewMessage(messageText); // Restore message
+        throw new Error(data.error || 'Failed to send message');
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Network error. Please try again.');
+      alert('Failed to send message. Please try again.');
       setNewMessage(messageText); // Restore message
     }
   };
