@@ -109,7 +109,7 @@ export default function Signup() {
       } else {
         setError(data.error || 'Failed to resend OTP');
       }
-    } catch (error) {
+    } catch (err) {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
