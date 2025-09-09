@@ -332,7 +332,7 @@ export default function ChatWidget() {
                     </div>
                     {conversation.closure_note && (
                       <div className="text-xs text-gray-400 italic">
-                        "                      &quot;{conversation.closure_note}&quot;"
+                        &quot;{conversation.closure_note}&quot;
                       </div>
                     )}
                     <Button
