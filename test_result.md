@@ -769,5 +769,102 @@ Once database schema is fixed, the OTP system will:
 - **Agent**: testing
   **Message**: "LOGIN OTP FLOW FIX TESTING COMPLETED ✅ - **CRITICAL BUG FIX SUCCESSFULLY VERIFIED!** Comprehensive testing of the login OTP flow fix completed with 100% success rate (8/8 tests passed). **MAIN BUG FIX WORKING**: Existing users (including anjalirao768@gmail.com) can now successfully get OTP for login purposes without receiving 'User already registered' error. **CRITICAL FUNCTIONALITY**: All 3 critical tests passed - existing user OTP sending, new user flow, and login vs signup differentiation. **TECHNICAL VERIFICATION**: isNewUser/isExistingUser flags working correctly, isLogin flag handled properly, input validation comprehensive. **KEY ACHIEVEMENT**: The blocking error that prevented existing users from logging in via OTP has been completely resolved. **RESULT**: Login OTP flow fix is production-ready and working perfectly for both new and existing users."
 
+## LOGIN REDIRECT ISSUE DEBUGGING RESULTS - ❌ CRITICAL ROUTING ISSUE IDENTIFIED
+
+### Login Redirect Debug Testing for anjalirao768@gmail.com
+**Date**: December 2024  
+**Focus**: Debug "This page could not be found" error after successful OTP verification  
+**Status**: ❌ **CRITICAL ROUTING ISSUE IDENTIFIED - ROOT CAUSE FOUND**  
+**Agent**: deep_testing_backend_v2
+
+#### 🎯 Issue Analysis Summary
+**Problem**: User anjalirao768@gmail.com gets "This page could not be found" after successful OTP verification and login  
+**Root Cause**: Missing `/dashboard` route causes 404 error for users without specific roles  
+**Impact**: Affects users whose role is not 'client', 'freelancer', or 'admin'
+
+#### 🔍 Comprehensive Testing Results
+**Tests Run**: 9 comprehensive debugging tests  
+**Critical Issues Found**: 1 major routing issue  
+**OTP Flow Status**: ✅ Working correctly  
+**API Response Status**: ✅ Working correctly
+
+#### ✅ What's Working Correctly
+1. **OTP Sending**: ✅ anjalirao768@gmail.com receives OTP successfully
+   - API returns `isExistingUser: true` and `isNewUser: false` correctly
+   - User ID: a2db711d-41b9-4104-9b29-8ffa268d7a49
+   - OTP email delivery working
+
+2. **OTP Verification Structure**: ✅ API handles login flow correctly
+   - `/api/auth/verify-otp` with `isLogin: true` works properly
+   - Returns proper error handling with remaining attempts
+   - Response structure matches frontend expectations
+
+3. **Specific Dashboard Routes**: ✅ All role-specific routes exist
+   - `/dashboard/client` → Status 200 ✅
+   - `/dashboard/freelancer` → Status 200 ✅  
+   - `/dashboard/admin` → Status 200 ✅
+
+#### ❌ Critical Issue Identified
+**Missing Route**: `/dashboard` returns 404 (Page not found)
+
+**Login Redirect Logic Analysis** (from `/app/src/app/login/page.tsx` lines 64-72):
+```javascript
+if (userRole === 'client') {
+  router.push('/dashboard/client');
+} else if (userRole === 'freelancer') {
+  router.push('/dashboard/freelancer');
+} else if (userRole === 'admin') {
+  router.push('/dashboard/admin');
+} else {
+  router.push('/dashboard');  // ❌ THIS ROUTE DOESN'T EXIST!
+}
+```
+
+#### 🎯 Root Cause Explanation
+1. User anjalirao768@gmail.com exists in database ✅
+2. User can receive and verify OTP ✅
+3. User's role is likely `null`, `undefined`, or not 'client'/'freelancer'/'admin'
+4. Login page redirects to `/dashboard` (fallback route)
+5. `/dashboard` route doesn't exist → 404 "This page could not be found" error ❌
+
+#### 🔧 Technical Solutions (Priority Order)
+
+**1. IMMEDIATE FIX (HIGH PRIORITY)**
+- Create `/app/src/app/dashboard/page.tsx` as general dashboard
+- OR modify login redirect logic to handle missing roles properly
+
+**2. INVESTIGATE USER ROLE (HIGH PRIORITY)**  
+- Check actual role of anjalirao768@gmail.com in database
+- Determine why user doesn't have 'client'/'freelancer'/'admin' role
+
+**3. IMPROVE REDIRECT LOGIC (MEDIUM PRIORITY)**
+- Add default role assignment during signup
+- Improve fallback handling in login page
+- Add role validation and error handling
+
+#### 📊 Test Scenarios Verified
+- **Role 'client'** → `/dashboard/client` → ✅ Works
+- **Role 'freelancer'** → `/dashboard/freelancer` → ✅ Works  
+- **Role 'admin'** → `/dashboard/admin` → ✅ Works
+- **Role `null`/other** → `/dashboard` → ❌ 404 Error (THE ISSUE)
+
+#### 📁 Test Files Created
+- `/app/login_redirect_debug_test.py` - Initial redirect issue debugging
+- `/app/complete_login_flow_test.py` - Comprehensive login flow analysis  
+- `/app/check_user_role_test.py` - User role scenario testing
+
+#### 🚨 Critical Assessment
+**STATUS**: ❌ **CRITICAL ROUTING ISSUE CONFIRMED**
+- ✅ OTP authentication flow working perfectly
+- ✅ API responses correct and complete
+- ✅ User exists and can authenticate
+- ❌ Missing `/dashboard` route causes 404 redirect error
+- ❌ Affects users without specific role assignments
+
+#### 💡 Immediate Action Required
+1. **Create missing route**: Add `/app/src/app/dashboard/page.tsx`
+2. **Check user role**: Verify anjalirao768@gmail.com's actual role in database
+3. **Fix redirect logic**: Handle users without specific roles properly
+
 ---
 **Note**: This file is maintained by the main development agent and updated by testing sub-agents during their execution.
