@@ -67,6 +67,8 @@ export default function Login() {
           router.push('/dashboard/freelancer');
         } else if (userRole === 'admin') {
           router.push('/dashboard/admin');
+        } else if (userRole === 'support') {
+          router.push('/support');
         } else {
           router.push('/dashboard');
         }
