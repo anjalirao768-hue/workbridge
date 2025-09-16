@@ -889,20 +889,20 @@ export default function ClientDashboard() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Active Projects</CardTitle>
+                <CardTitle className="text-sm sm:text-lg">Active Projects</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-blue-600">{myProjects.filter(p => p.status === 'In Progress' || p.status === 'Active').length}</div>
+              <CardContent className="p-3 sm:p-6">
+                <div className="text-xl sm:text-2xl font-bold text-blue-600">{myProjects.filter(p => p.status === 'In Progress' || p.status === 'Active').length}</div>
                 <p className="text-xs text-gray-500">Projects in progress</p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Total Spent</CardTitle>
+                <CardTitle className="text-sm sm:text-lg">Total Spent</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">
+              <CardContent className="p-3 sm:p-6">
+                <div className="text-lg sm:text-2xl font-bold text-green-600">
                   ₹{myTransactions.reduce((sum, t) => sum + (t.type !== 'Refund' ? t.amount : 0), 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Lifetime spending</p>
@@ -911,10 +911,10 @@ export default function ClientDashboard() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Processing</CardTitle>
+                <CardTitle className="text-sm sm:text-lg">Processing</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-orange-600">
+              <CardContent className="p-3 sm:p-6">
+                <div className="text-lg sm:text-2xl font-bold text-orange-600">
                   ₹{myTransactions.filter(t => t.status === 'Processing').reduce((sum, t) => sum + t.amount, 0).toLocaleString()}
                 </div>
                 <p className="text-xs text-gray-500">Payments being processed</p>
@@ -923,10 +923,10 @@ export default function ClientDashboard() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Completed</CardTitle>
+                <CardTitle className="text-sm sm:text-lg">Completed</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-purple-600">{myProjects.filter(p => p.status === 'Completed').length}</div>
+              <CardContent className="p-3 sm:p-6">
+                <div className="text-xl sm:text-2xl font-bold text-purple-600">{myProjects.filter(p => p.status === 'Completed').length}</div>
                 <p className="text-xs text-gray-500">Finished projects</p>
               </CardContent>
             </Card>
