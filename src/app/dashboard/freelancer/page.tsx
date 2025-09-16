@@ -340,46 +340,6 @@ export default function FreelancerDashboard() {
           </div>
         </CardContent>
       </Card>
-                    onClick={() => {
-                      if (!project.isApplied) {
-                        // Update local state
-                        setAvailableProjects(projects => 
-                          projects.map(p => 
-                            p.id === project.id 
-                              ? {...p, isApplied: true}
-                              : p
-                          )
-                        );
-                        
-                        // Increment application count in store
-                        projectsStore.incrementApplications(project.id);
-                        
-                        // Add to my applications
-                        setMyApplications(apps => [...apps, {
-                          id: `new-${Date.now()}`,
-                          projectId: project.id,
-                          projectTitle: project.title,
-                          clientName: project.client,
-                          appliedDate: new Date().toISOString().split('T')[0],
-                          status: 'pending',
-                          proposedBudget: project.budget,
-                          estimatedDuration: '4-6 weeks',
-                          viewedByClient: false,
-                          projectBudget: project.budget,
-                        }]);
-                      }
-                    }}
-                  >
-                    {project.isApplied ? 'Applied' : 'Apply Now'}
-                  </Button>
-                  <Button size="sm" variant="outline">View Details</Button>
-                  <Button size="sm" variant="ghost">Save</Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 
