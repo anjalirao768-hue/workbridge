@@ -256,43 +256,43 @@ export default function FreelancerDashboard() {
 
   const renderProjectsView = () => (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
         <div>
-          <h3 className="text-2xl font-bold text-gray-900">Available Projects</h3>
-          <p className="text-gray-600">Discover new opportunities matching your skills</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Available Projects</h3>
+          <p className="text-gray-600 text-sm sm:text-base">Discover new opportunities matching your skills</p>
         </div>
         <div className="flex space-x-2">
-          <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
+          <Button onClick={() => setActiveView('dashboard')} className="text-xs sm:text-sm">← Back to Dashboard</Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{availableProjects.length}</div>
-            <p className="text-sm text-gray-500">Available Projects</p>
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-xl sm:text-2xl font-bold text-blue-600">{availableProjects.length}</div>
+            <p className="text-xs sm:text-sm text-gray-500">Available Projects</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-green-600">{availableProjects.filter(p => p.isApplied).length}</div>
-            <p className="text-sm text-gray-500">Applications Sent</p>
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">{availableProjects.filter(p => p.isApplied).length}</div>
+            <p className="text-xs sm:text-sm text-gray-500">Applications Sent</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-orange-600">
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-lg sm:text-2xl font-bold text-orange-600">
               ₹{availableProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
             </div>
-            <p className="text-sm text-gray-500">Total Value</p>
+            <p className="text-xs sm:text-sm text-gray-500">Total Value</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-purple-600">
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-lg sm:text-2xl font-bold text-purple-600">
               ₹{Math.round(availableProjects.reduce((sum, p) => sum + p.budget, 0) / availableProjects.length)}
             </div>
-            <p className="text-sm text-gray-500">Avg Budget</p>
+            <p className="text-xs sm:text-sm text-gray-500">Avg Budget</p>
           </CardContent>
         </Card>
       </div>
