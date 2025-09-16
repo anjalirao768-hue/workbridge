@@ -856,35 +856,37 @@ export default function ClientDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4 sm:gap-0">
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-gray-900">WorkBridge</h1>
-              <Badge variant="secondary">Client Dashboard</Badge>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">WorkBridge</h1>
+              <Badge variant="secondary" className="text-xs sm:text-sm">Client Dashboard</Badge>
             </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{user.email}</span>
-              <Button onClick={() => router.push('/home')} variant="ghost" size="sm">
-                Home
-              </Button>
-              <Button onClick={handleLogout} variant="outline" size="sm">
-                Logout
-              </Button>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <span className="text-sm text-gray-600 order-last sm:order-first">{user.email}</span>
+              <div className="flex space-x-2">
+                <Button onClick={() => router.push('/home')} variant="ghost" size="sm" className="text-xs sm:text-sm">
+                  Home
+                </Button>
+                <Button onClick={handleLogout} variant="outline" size="sm" className="text-xs sm:text-sm">
+                  Logout
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="space-y-8">
+      <main className="max-w-7xl mx-auto py-4 sm:py-8 px-4 sm:px-6 lg:px-8">
+        <div className="space-y-6 sm:space-y-8">
           {/* Welcome Section */}
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Client Dashboard</h2>
-            <p className="mt-2 text-gray-600">Manage your projects and collaborate with freelancers</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Client Dashboard</h2>
+            <p className="mt-2 text-gray-600 text-sm sm:text-base">Manage your projects and collaborate with freelancers</p>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Active Projects</CardTitle>
