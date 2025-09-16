@@ -299,19 +299,19 @@ export default function FreelancerDashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Project Opportunities</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Project Opportunities</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {availableProjects.map((project) => (
-              <div key={project.id} className="p-4 border rounded-lg hover:bg-gray-50">
-                <div className="flex justify-between items-start mb-3">
+              <div key={project.id} className="p-3 sm:p-4 border rounded-lg hover:bg-gray-50">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-3 sm:gap-0">
                   <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-semibold text-lg">{project.title}</h4>
-                      <Badge variant="default" className="ml-2">₹{project.budget.toLocaleString()}</Badge>
+                    <div className="flex flex-col sm:flex-row justify-between items-start mb-2 gap-2 sm:gap-0">
+                      <h4 className="font-semibold text-base sm:text-lg">{project.title}</h4>
+                      <Badge variant="default" className="text-xs sm:text-sm">₹{project.budget.toLocaleString()}</Badge>
                     </div>
-                    <p className="text-gray-600 mb-2">{project.description}</p>
+                    <p className="text-gray-600 mb-2 text-sm sm:text-base">{project.description}</p>
                     <p className="text-sm text-gray-500 mb-2">Client: {project.client}</p>
                     <div className="flex flex-wrap gap-1 mb-2">
                       {project.skills.map((skill, index) => (
@@ -323,11 +323,23 @@ export default function FreelancerDashboard() {
                     <p className="text-xs text-gray-500">Posted: {project.postedDate}</p>
                   </div>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
                   <Button 
                     size="sm" 
                     disabled={project.isApplied}
                     variant={project.isApplied ? "outline" : "default"}
+                    className="text-xs sm:text-sm"
+                  >
+                    {project.isApplied ? 'Applied' : 'Apply Now'}
+                  </Button>
+                  <Button size="sm" variant="ghost" className="text-xs sm:text-sm">View Details</Button>
+                  <Button size="sm" variant="outline" className="text-xs sm:text-sm">Save for Later</Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
                     onClick={() => {
                       if (!project.isApplied) {
                         // Update local state
