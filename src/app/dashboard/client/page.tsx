@@ -267,44 +267,44 @@ export default function ClientDashboard() {
 
   const renderProjectsView = () => (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
         <div>
-          <h3 className="text-2xl font-bold text-gray-900">My Projects</h3>
-          <p className="text-gray-600">Manage all your freelance projects</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900">My Projects</h3>
+          <p className="text-gray-600 text-sm sm:text-base">Manage all your freelance projects</p>
         </div>
-        <div className="flex space-x-2">
-          <Button onClick={() => setActiveView('dashboard')}>← Back to Dashboard</Button>
-          <Button asChild>
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
+          <Button onClick={() => setActiveView('dashboard')} variant="outline" className="text-xs sm:text-sm">← Back to Dashboard</Button>
+          <Button asChild className="text-xs sm:text-sm">
             <Link href="/dashboard/client/post-project">+ New Project</Link>
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{myProjects.length}</div>
-            <p className="text-sm text-gray-500">Total Projects</p>
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-xl sm:text-2xl font-bold text-blue-600">{myProjects.length}</div>
+            <p className="text-xs sm:text-sm text-gray-500">Total Projects</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-green-600">{myProjects.filter(p => p.status === 'In Progress' || p.status === 'Active').length}</div>
-            <p className="text-sm text-gray-500">Active</p>
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-xl sm:text-2xl font-bold text-green-600">{myProjects.filter(p => p.status === 'In Progress' || p.status === 'Active').length}</div>
+            <p className="text-xs sm:text-sm text-gray-500">Active</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-orange-600">{myProjects.filter(p => p.status === 'Completed').length}</div>
-            <p className="text-sm text-gray-500">Completed</p>
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-xl sm:text-2xl font-bold text-orange-600">{myProjects.filter(p => p.status === 'Completed').length}</div>
+            <p className="text-xs sm:text-sm text-gray-500">Completed</p>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-purple-600">
+          <CardContent className="p-3 sm:p-4">
+            <div className="text-lg sm:text-2xl font-bold text-purple-600">
               ₹{myProjects.reduce((sum, p) => sum + p.budget, 0).toLocaleString()}
             </div>
-            <p className="text-sm text-gray-500">Total Budget</p>
+            <p className="text-xs sm:text-sm text-gray-500">Total Budget</p>
           </CardContent>
         </Card>
       </div>
