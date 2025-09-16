@@ -933,16 +933,16 @@ export default function ClientDashboard() {
           </div>
 
           {/* Main Sections */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
             {/* Projects Section */}
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
                   <div>
-                    <CardTitle>My Projects</CardTitle>
-                    <CardDescription>Overview of your current projects</CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">My Projects</CardTitle>
+                    <CardDescription className="text-sm sm:text-base">Overview of your current projects</CardDescription>
                   </div>
-                  <Button size="sm" asChild>
+                  <Button size="sm" asChild className="text-xs sm:text-sm">
                     <Link href="/dashboard/client/post-project">+ New Project</Link>
                   </Button>
                 </div>
