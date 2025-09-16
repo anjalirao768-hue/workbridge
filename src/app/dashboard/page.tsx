@@ -35,6 +35,9 @@ export default function GeneralDashboard() {
           } else if (userData.role === 'admin') {
             router.push('/dashboard/admin');
             return;
+          } else if (userData.role === 'support') {
+            router.push('/support');
+            return;
           }
         } else {
           router.push('/login');
