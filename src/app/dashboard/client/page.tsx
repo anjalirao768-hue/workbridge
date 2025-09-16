@@ -311,31 +311,31 @@ export default function ClientDashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Project Directory</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Project Directory</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {myProjects.map((project) => (
-              <div key={project.id} className="p-4 border rounded-lg hover:bg-gray-50">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h4 className="font-semibold text-lg">{project.title}</h4>
-                    {project.freelancer && <p className="text-gray-600">Freelancer: {project.freelancer}</p>}
-                    <p className="text-gray-600">Budget: ₹{project.budget.toLocaleString()}</p>
+              <div key={project.id} className="p-3 sm:p-4 border rounded-lg hover:bg-gray-50">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2 sm:gap-0">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-base sm:text-lg">{project.title}</h4>
+                    {project.freelancer && <p className="text-gray-600 text-sm sm:text-base">Freelancer: {project.freelancer}</p>}
+                    <p className="text-gray-600 text-sm sm:text-base">Budget: ₹{project.budget.toLocaleString()}</p>
                   </div>
                   <Badge variant={
                     project.status === 'In Progress' || project.status === 'Active' ? 'default' :
                     project.status === 'Completed' ? 'secondary' :
                     project.status === 'Review' ? 'outline' :
                     'outline'
-                  }>
+                  } className="text-xs sm:text-sm">
                     {project.status}
                   </Badge>
                 </div>
                 
                 {project.progress > 0 && (
                   <div className="mb-3">
-                    <div className="flex justify-between text-sm text-gray-600 mb-1">
+                    <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-1">
                       <span>Progress</span>
                       <span>{project.progress}%</span>
                     </div>
@@ -345,14 +345,14 @@ export default function ClientDashboard() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-500 mb-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-3">
                   <div>Created: <span className="font-medium text-gray-900">{project.createdDate}</span></div>
                   <div>Due: <span className="font-medium text-gray-900">{project.dueDate}</span></div>
                 </div>
-                <div className="flex space-x-2">
-                  <Button size="sm" variant="outline">View Details</Button>
-                  <Button size="sm" variant="ghost">Manage</Button>
-                  {project.status === 'Review' && <Button size="sm">Approve Work</Button>}
+                <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
+                  <Button size="sm" variant="outline" className="text-xs sm:text-sm">View Details</Button>
+                  <Button size="sm" variant="ghost" className="text-xs sm:text-sm">Manage</Button>
+                  {project.status === 'Review' && <Button size="sm" className="text-xs sm:text-sm">Approve Work</Button>}
                 </div>
               </div>
             ))}
